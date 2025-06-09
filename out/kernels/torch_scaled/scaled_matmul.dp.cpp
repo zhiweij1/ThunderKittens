@@ -48,6 +48,8 @@ struct matmul_layout {
         accum_tile<c_dtype> accum;      // Changed to single tall accumulator
     };
 };
+template <>
+struct sycl::is_device_copyable<matmul_layout::globals> : std::true_type {};
 
 template<int _SUPER_M=12>
 struct matmul_template {

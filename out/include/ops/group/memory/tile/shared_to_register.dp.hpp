@@ -156,7 +156,7 @@ inline static void store(ST &dst, const RT &src) {
     int warp_laneid = ::kittens::laneid();
 
     // convert to shared state space
-    uint32_t shared_addr = static_cast<uint32_t>(__cvta_generic_to_shared(&dst.data[0]));
+    uint32_t shared_addr /* = static_cast<uint32_t>(__cvta_generic_to_shared(&dst.data[0]))*/; //NYI
 
     #pragma unroll
     for(int i = 0; i < warp_height; i++) {

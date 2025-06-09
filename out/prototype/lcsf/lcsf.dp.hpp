@@ -266,7 +266,7 @@ void kernel(const typename lcsft::layout::globals globals,
                 is a hardware-specific feature. Consult with your hardware
                 vendor to find a replacement.
                 */
-                __nanosleep(10); // relinquish for a little while
+                //__nanosleep(10); // relinquish for a little while//NYI
             } // load and store loop
             producers::sync(13); // producer warps must finish before consumer warps can proceed
         } // task iter loop

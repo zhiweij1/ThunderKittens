@@ -39,23 +39,23 @@ static inline void mma_fence(D &dst) {
                     DPCT1053:287: Migration of device assembly code is not
                     supported.
                     */
-                    asm volatile(""
-                                 : "+f"(dst.tiles[i][j].data[k].x())::"memory");
-                    /*
-                    DPCT1053:288: Migration of device assembly code is not
-                    supported.
-                    */
-                    asm volatile(""
-                                 : "+f"(dst.tiles[i][j].data[k].y())::"memory");
+                    //asm volatile(""
+                    //             : "+f"(dst.tiles[i][j].data[k].x())::"memory");
+                    ///*
+                    //DPCT1053:288: Migration of device assembly code is not
+                    //supported.
+                    //*/
+                    //asm volatile(""
+                    //             : "+f"(dst.tiles[i][j].data[k].y())::"memory");//NYI
                 } else {
                     /*
                     DPCT1053:289: Migration of device assembly code is not
                     supported.
                     */
-                    asm volatile(
-                        ""
-                        : "+r"(
-                            *(uint32_t *)&dst.tiles[i][j].data[k])::"memory");
+                    //asm volatile(
+                    //    ""
+                    //    : "+r"(
+                    //        *(uint32_t *)&dst.tiles[i][j].data[k])::"memory");//NYI
                 }
             }
         }

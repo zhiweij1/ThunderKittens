@@ -60,8 +60,8 @@ struct everyone {
         if (item_ct1.get_local_id(2) == 0 && item_ct1.get_local_id(1) == 0 &&
             item_ct1.get_local_id(0) == 0) {
             sync_point sp = sm.get_all_sync_point(dev_idx);
-            cuda::atomic_ref<typename SyncManager::SYNC_SPACE_DTYPE, cuda::thread_scope_system> sys_uc(*sp.sys_uc);
-            cuda::atomic_ref<typename SyncManager::SYNC_SPACE_DTYPE, cuda::thread_scope_device> dev_uc(*sp.dev_uc);
+            sycl::atomic_ref<typename SyncManager::SYNC_SPACE_DTYPE, sycl::memory_order::seq_cst, sycl::memory_scope::system> sys_uc(*sp.sys_uc);
+            sycl::atomic_ref<typename SyncManager::SYNC_SPACE_DTYPE, sycl::memory_order::seq_cst, sycl::memory_scope::device> dev_uc(*sp.dev_uc);
 
             if (item_ct1.get_group(2) +
                     item_ct1.get_group(1) * item_ct1.get_group_range(2) +
@@ -71,7 +71,7 @@ struct everyone {
                 size_t nblocks = item_ct1.get_group_range(2) *
                                  item_ct1.get_group_range(1) *
                                  item_ct1.get_group_range(0);
-                while (dev_uc.load(cuda::memory_order_acquire) < nblocks - 1); // Wait for all non-leader blocks to check in
+                while (dev_uc.load(sycl::memory_order::acquire) < nblocks - 1); // Wait for all non-leader blocks to check in
     
                 // At this point, all threads across all blocks on the current device have now reached 
                 // gang::grid_sync() and are waiting.
@@ -92,17 +92,17 @@ struct everyone {
                 */
                 asm volatile("{fence.proxy.alias;}" ::
                                  : "memory"); // nvidia says this is needed
-                while (sys_uc.load(cuda::memory_order_acquire) < NUM_DEVICES);
+                while (sys_uc.load(sycl::memory_order::acquire) < NUM_DEVICES);
     
                 // At this point, all threads across all blocks on all devices have now reached
                 // gang::grid_sync() and are waiting.
     
                 // Release all blocks
-                sys_uc.store(0, cuda::memory_order_release); // Do this before releasing non-leader blocks
-                dev_uc.store(0, cuda::memory_order_release); // Release non-leader blocks
+                sys_uc.store(0, sycl::memory_order::release); // Do this before releasing non-leader blocks
+                dev_uc.store(0, sycl::memory_order::release); // Release non-leader blocks
             } else {
                 dev_uc++; // "check-in"
-                while (dev_uc.load(cuda::memory_order_acquire) > 0);
+                while (dev_uc.load(sycl::memory_order::acquire) > 0);
             }
         }
 
@@ -163,7 +163,7 @@ struct blockwise {
         if (item_ct1.get_local_id(2) == 0 && item_ct1.get_local_id(1) == 0 &&
             item_ct1.get_local_id(0) == 0) {
             sync_point sp = sm.get_blockwise_sync_point(dev_idx, block_idx);
-            cuda::atomic_ref<typename SyncManager::SYNC_SPACE_DTYPE, cuda::thread_scope_system> sys_uc(*sp.sys_uc);
+            sycl::atomic_ref<typename SyncManager::SYNC_SPACE_DTYPE, sycl::memory_order::seq_cst, sycl::memory_scope::system> sys_uc(*sp.sys_uc);
 
             // Block-level gang sync
             /*
@@ -179,10 +179,10 @@ struct blockwise {
             */
             asm volatile("{fence.proxy.alias;}" ::
                              : "memory"); // nvidia says this is needed
-            while (sys_uc.load(cuda::memory_order_acquire) < NUM_DEVICES);
+            while (sys_uc.load(sycl::memory_order::acquire) < NUM_DEVICES);
     
             // All devices synced. Now clean up and proceed
-            sys_uc.store(0, cuda::memory_order_release);
+            sys_uc.store(0, sycl::memory_order::release);
         }
 
         /*
@@ -235,10 +235,10 @@ struct blockgroup {
         if (item_ct1.get_local_id(2) == 0 && item_ct1.get_local_id(1) == 0 &&
             item_ct1.get_local_id(0) == 0) {
             sync_point sp = sm.get_blockgroup_sync_point(dev_idx, sync_id);
-            cuda::atomic_ref<typename SyncManager::SYNC_SPACE_DTYPE, cuda::thread_scope_system> sys_uc(*sp.sys_uc);
+            sycl::atomic_ref<typename SyncManager::SYNC_SPACE_DTYPE, sycl::memory_order::seq_cst, sycl::memory_scope::system> sys_uc(*sp.sys_uc);
 
             typename SyncManager::SYNC_SPACE_DTYPE expected = 0; // atomic api requires pass by reference
-            if (sys_uc.compare_exchange_strong(expected, 1, cuda::memory_order_acquire)) {
+            if (sys_uc.compare_exchange_strong(expected, 1, sycl::memory_order::acquire)) {
                 // Wait for the number of block arrivals across all devices to reach the expected number
                 uint32_t num_arrivals = 0;
                 do {
@@ -254,10 +254,10 @@ struct blockgroup {
                 } while (num_arrivals < expected_arrivals);
 
                 // Clean up & release all blocks
-                sys_uc.store(0, cuda::memory_order_release); 
+                sys_uc.store(0, sycl::memory_order::release); 
             } else { // other block took the leadership and initiated the sync
                 ++sys_uc; // check-in
-                while (sys_uc.load(cuda::memory_order_acquire) != 0); // Wait for the leader to finish the sync
+                while (sys_uc.load(sycl::memory_order::acquire) != 0); // Wait for the leader to finish the sync
             }
         }
 

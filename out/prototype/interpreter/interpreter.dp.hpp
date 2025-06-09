@@ -113,7 +113,7 @@ template<typename Op> inline void run_op_producer(const typename Op::config::glo
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
-            __nanosleep(10); // relinquish for a little while
+            //__nanosleep(10); // relinquish for a little while//NYI
         } // load and store loop
         producers::sync(14); // producer warps must finish before proceeding
     }
@@ -328,7 +328,7 @@ template<typename config> void inline load_instructions(int *instructions, int t
 
 template<typename config, typename... ops>
 
-__cluster_dims__(detail::CLUSTER_BLOCKS_v<config>)
+//__cluster_dims__(detail::CLUSTER_BLOCKS_v<config>)
 void kernel(const typename config::globals globals,
             uint8_t *dpct_local) {
 #ifdef KITTENS_TIMINGS
@@ -448,7 +448,7 @@ void kernel(const typename config::globals globals,
 }
 template<typename config, typename... ops>
 void run(typename config::globals &globals) {
-    cudaFuncSetAttribute(kernel<config, ops...>, cudaFuncAttributeMaxDynamicSharedMemorySize, globals.dynamic_shared_memory());
+    //cudaFuncSetAttribute(kernel<config, ops...>, cudaFuncAttributeMaxDynamicSharedMemorySize, globals.dynamic_shared_memory());//NYI
     /*
     DPCT1049:316: The work-group size passed to the SYCL kernel may exceed the
     limit. To get the device limit, query info::device::max_work_group_size.

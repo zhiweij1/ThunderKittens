@@ -62,7 +62,7 @@ template <> struct sycl::is_device_copyable<based_globals> : std::true_type {};
 template<kittens::ducks::st::all ST>
 void accumulate_a0(sv_fl<64> &a0_float, const ST &v) {
     int col = laneid()*2;
-    uint32_t handle = static_cast<uint32_t>(__cvta_generic_to_shared(&v.data[0]));
+    uint32_t handle = 0; // static_cast<uint32_t>(__cvta_generic_to_shared(&v.data[0])); // NYI
     sycl::float2 acc = sycl::float2{0.f, 0.f};
     // Unroll the entire loop to maximize ILP
     #pragma unroll
@@ -178,7 +178,7 @@ void based_linear_attention(const based_globals g,
 
     sv_fl<64> &a0_float = al.allocate<sv_fl<64>>();
     sv_bf<64> &a0_total = al.allocate<sv_bf<64>>();
-    uint32_t a0_float_handle = static_cast<uint32_t>(__cvta_generic_to_shared(&a0_float[0]));
+    uint32_t a0_float_handle = 0; // = static_cast<uint32_t>(__cvta_generic_to_shared(&a0_float[0])); // NTY
 
     warpgroup::zero(a1_trans_s);
     warpgroup::zero(a0_float);
@@ -388,13 +388,13 @@ based_globals based_init(
     using kv_a1_gl = globals::kv_a1_gl;
     using kv_a2_gl = globals::kv_a2_gl;
 
-    q_gl     q_arg{d_q, ATTN_B, ATTN_H, ATTN_N, nullptr};
-    k_gl     k_arg{d_k, ATTN_B, ATTN_H, ATTN_N, nullptr};
-    v_gl     v_arg{d_v, ATTN_B, ATTN_H, ATTN_N, nullptr};
-    o_gl     o_arg{d_o, ATTN_B, ATTN_H, ATTN_N, nullptr};
-    kv_a0_gl kv_a0{d_kv_a0, ATTN_B, ATTN_H, nullptr, nullptr};
-    kv_a1_gl kv_a1{d_kv_a1, ATTN_B, ATTN_H, nullptr, nullptr};
-    kv_a2_gl kv_a2{d_kv_a2, ATTN_B, ATTN_H, nullptr, nullptr};
+    q_gl     q_arg{d_q, (unsigned long)ATTN_B, (unsigned long)ATTN_H, (unsigned long)ATTN_N, nullptr};  // NYI
+    k_gl     k_arg{d_k, (unsigned long)ATTN_B, (unsigned long)ATTN_H, (unsigned long)ATTN_N, nullptr};// NYI
+    v_gl     v_arg{d_v, (unsigned long)ATTN_B, (unsigned long)ATTN_H, (unsigned long)ATTN_N, nullptr};// NYI
+    o_gl     o_arg{d_o, (unsigned long)ATTN_B, (unsigned long)ATTN_H, (unsigned long)ATTN_N, nullptr};// NYI
+    kv_a0_gl kv_a0{d_kv_a0, (unsigned long)ATTN_B, (unsigned long)ATTN_H, nullptr, nullptr};// NYI
+    kv_a1_gl kv_a1{d_kv_a1, (unsigned long)ATTN_B, (unsigned long)ATTN_H, nullptr, nullptr};// NYI
+    kv_a2_gl kv_a2{d_kv_a2, (unsigned long)ATTN_B, (unsigned long)ATTN_H, nullptr, nullptr};// NYI
 
     globals g{
         q_arg, k_arg, v_arg, o_arg, 

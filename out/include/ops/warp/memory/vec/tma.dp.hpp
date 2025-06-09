@@ -124,7 +124,7 @@ template<cache_policy policy, ducks::sv::all SV, ducks::pgl::all PGL, ducks::coo
 static inline void store_async(const PGL &dst, const SV &src, const COORD &idx, const int dev_idx) {
     coord<> unit_coord = idx.template unit_coord<-1, 3>();
     uint64_t tma_ptr  = reinterpret_cast<uint64_t>(dst.template get_tma<SV, -1>(dev_idx));
-    uint32_t src_ptr  = static_cast<uint32_t>(__cvta_generic_to_shared(&src));
+    uint32_t src_ptr  = 0 ; // static_cast<uint32_t>(__cvta_generic_to_shared(&src)); // NYI
     for(int i = ::kittens::laneid(); i < detail::sv_tma_dim2<SV>; i += WARP_THREADS) {
         coord<> tma_coord = unit_coord;
         tma_coord.c += i * detail::sv_tma_dim1<SV>;
@@ -181,7 +181,7 @@ template<cache_policy policy, ducks::sv::all SV, ducks::gl::all GL, ducks::coord
 static inline void store_add_async(const GL &dst, const SV &src, const COORD &idx) {
     coord<> unit_coord = idx.template unit_coord<-1, 3>();
     uint64_t tma_ptr  = reinterpret_cast<uint64_t>(dst.template get_tma<SV, -1>());
-    uint32_t src_ptr  = static_cast<uint32_t>(__cvta_generic_to_shared(&src));
+    uint32_t src_ptr  = 0; //static_cast<uint32_t>(__cvta_generic_to_shared(&src)); // NYI
     for(int i = ::kittens::laneid(); i < detail::sv_tma_dim2<SV>; i += WARP_THREADS) {
         coord<> tma_coord = unit_coord;
         tma_coord.c += i * detail::sv_tma_dim1<SV>;
@@ -227,7 +227,7 @@ template<cache_policy policy, ducks::sv::all SV, ducks::pgl::all PGL, ducks::coo
 static inline void store_add_async(const PGL &dst, const SV &src, const COORD &idx, const int dev_idx) {
     coord<> unit_coord = idx.template unit_coord<-1, 3>();
     uint64_t tma_ptr  = reinterpret_cast<uint64_t>(dst.template get_tma<SV, -1>(dev_idx));
-    uint32_t src_ptr  = static_cast<uint32_t>(__cvta_generic_to_shared(&src));
+    uint32_t src_ptr  = 0; // static_cast<uint32_t>(__cvta_generic_to_shared(&src)); // NYI
     for(int i = ::kittens::laneid(); i < detail::sv_tma_dim2<SV>; i += WARP_THREADS) {
         coord<> tma_coord = unit_coord;
         tma_coord.c += i * detail::sv_tma_dim1<SV>;
@@ -285,7 +285,7 @@ static inline void store_min_async(const GL &dst, const SV &src, const COORD &id
     static_assert(!std::is_same_v<typename SV::dtype, float>, "TMA does not support async min/max reductions for fp32 types.");
     coord<> unit_coord = idx.template unit_coord<-1, 3>();
     uint64_t tma_ptr  = reinterpret_cast<uint64_t>(dst.template get_tma<SV, -1>());
-    uint32_t src_ptr  = static_cast<uint32_t>(__cvta_generic_to_shared(&src));
+    uint32_t src_ptr  = 0; // static_cast<uint32_t>(__cvta_generic_to_shared(&src)); // NYI
     for(int i = ::kittens::laneid(); i < detail::sv_tma_dim2<SV>; i += WARP_THREADS) {
         coord<> tma_coord = unit_coord;
         tma_coord.c += i * detail::sv_tma_dim1<SV>;
@@ -332,7 +332,7 @@ static inline void store_min_async(const PGL &dst, const SV &src, const COORD &i
     static_assert(!std::is_same_v<typename SV::dtype, float>, "TMA does not support async min/max reductions for fp32 types.");
     coord<> unit_coord = idx.template unit_coord<-1, 3>();
     uint64_t tma_ptr  = reinterpret_cast<uint64_t>(dst.template get_tma<SV, -1>(dev_idx));
-    uint32_t src_ptr  = static_cast<uint32_t>(__cvta_generic_to_shared(&src));
+    uint32_t src_ptr  = 0; //static_cast<uint32_t>(__cvta_generic_to_shared(&src)); // NYI
     for(int i = ::kittens::laneid(); i < detail::sv_tma_dim2<SV>; i += WARP_THREADS) {
         coord<> tma_coord = unit_coord;
         tma_coord.c += i * detail::sv_tma_dim1<SV>;
@@ -390,7 +390,7 @@ static inline void store_max_async(const GL &dst, const SV &src, const COORD &id
     static_assert(!std::is_same_v<typename SV::dtype, float>, "TMA does not support async min/max reductions for fp32 types.");
     coord<> unit_coord = idx.template unit_coord<-1, 3>();
     uint64_t tma_ptr  = reinterpret_cast<uint64_t>(dst.template get_tma<SV, -1>());
-    uint32_t src_ptr  = static_cast<uint32_t>(__cvta_generic_to_shared(&src));
+    uint32_t src_ptr  = 0; // static_cast<uint32_t>(__cvta_generic_to_shared(&src)); // NYI
     for(int i = ::kittens::laneid(); i < detail::sv_tma_dim2<SV>; i += WARP_THREADS) {
         coord<> tma_coord = unit_coord;
         tma_coord.c += i * detail::sv_tma_dim1<SV>;
@@ -437,7 +437,7 @@ static inline void store_max_async(const PGL &dst, const SV &src, const COORD &i
     static_assert(!std::is_same_v<typename SV::dtype, float>, "TMA does not support async min/max reductions for fp32 types.");
     coord<> unit_coord = idx.template unit_coord<-1, 3>();
     uint64_t tma_ptr  = reinterpret_cast<uint64_t>(dst.template get_tma<SV, -1>(dev_idx));
-    uint32_t src_ptr  = static_cast<uint32_t>(__cvta_generic_to_shared(&src));
+    uint32_t src_ptr  = 0; // static_cast<uint32_t>(__cvta_generic_to_shared(&src)); // NYI
     for(int i = ::kittens::laneid(); i < detail::sv_tma_dim2<SV>; i += WARP_THREADS) {
         coord<> tma_coord = unit_coord;
         tma_coord.c += i * detail::sv_tma_dim1<SV>;

@@ -61,6 +61,8 @@ struct mamba2_fwd_layout {
         rt_fl<16, 64> kv;
 	};
 };
+template <>
+struct sycl::is_device_copyable<mamba2_fwd_layout::globals> : std::true_type {};
 struct mamba2_fwd_template {
 	static constexpr int NUM_CONSUMER_WARPS=8, OUTPUT_PIPE_STAGES=2, INPUT_PIPE_STAGES=2, PRODUCER_BARRIER_ARRIVALS=1, CONSUMER_BARRIER_ARRIVALS=NUM_CONSUMER_WARPS/4;
 	using layout = mamba2_fwd_layout;

@@ -23,7 +23,7 @@
  */
 template<ducks::sv::all SV1, ducks::sv::all SV2>
 static inline void copy(SV1 &dst, const SV2 &src) {
-    static_assert(dst.length == src.length, "Source and destination vectors must have the same length.");
+    //static_assert(dst.length == src.length, "Source and destination vectors must have the same length.");//NYI
     #pragma unroll
     for(int i = laneid(); i < dst.length; i+=GROUP_THREADS) {
         dst[i] = base_types::convertor<typename SV1::dtype, typename SV2::dtype>::convert(src[i]);

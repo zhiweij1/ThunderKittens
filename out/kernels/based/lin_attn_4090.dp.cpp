@@ -377,10 +377,10 @@ based_globals based_init(
     using v_gl     = globals::v_gl;
     using o_gl     = globals::o_gl;
 
-    q_gl     q_arg{d_q, ATTN_B, ATTN_H, ATTN_N, nullptr};
-    k_gl     k_arg{d_k, ATTN_B, ATTN_H, ATTN_N, nullptr};
-    v_gl     v_arg{d_v, ATTN_B, ATTN_H, ATTN_N, nullptr};
-    o_gl     o_arg{d_o, ATTN_B, ATTN_H, ATTN_N, nullptr};
+    q_gl     q_arg{d_q, (unsigned long)ATTN_B,  (unsigned long)ATTN_H,  (unsigned long)ATTN_N, nullptr};
+    k_gl     k_arg{d_k, (unsigned long)ATTN_B,  (unsigned long)ATTN_H,  (unsigned long)ATTN_N, nullptr};
+    v_gl     v_arg{d_v, (unsigned long)ATTN_B,  (unsigned long)ATTN_H,  (unsigned long)ATTN_N, nullptr};
+    o_gl     o_arg{d_o, (unsigned long)ATTN_B,  (unsigned long)ATTN_H,  (unsigned long)ATTN_N, nullptr};
 
     globals g{
         q_arg, k_arg, v_arg, o_arg, ATTN_N

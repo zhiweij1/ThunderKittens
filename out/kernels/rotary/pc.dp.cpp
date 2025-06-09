@@ -35,6 +35,8 @@ template<int _headdim, int _warps> struct rotary_layout {
     struct producer_state { int active_warps;  };
     struct consumer_state { rt_fl<16, headdim/2> sin, cos; }; // long-resident tiles
 };
+template <> struct sycl::is_device_copyable<rotary_layout<64, 8>::globals> : std::true_type {}; // NYI
+
 template<int _headdim> struct rotary_template {
     static constexpr int headdim=_headdim, NUM_CONSUMER_WARPS=8, NUM_BLOCKS=1, OUTPUT_PIPE_STAGES=3, INPUT_PIPE_STAGES=3;
     using layout = rotary_layout<headdim, NUM_CONSUMER_WARPS>;
@@ -76,12 +78,12 @@ template<int _headdim> struct rotary_template {
         SYCL_EXTERNAL static void load(producer_load_args<layout> args) {
             auto item_ct1 = sycl::ext::oneapi::this_work_item::get_nd_item<3>();
             if (warpgroup::warpid() == args.iter % 4) {
-                kittens::coord idx = {
+                kittens::coord idx = {(int)(
                     item_ct1.get_group(1) * args.globals.batches +
                         args.iter / args.globals.x.depth(),
                     args.iter % args.globals.x.depth(),
-                    item_ct1.get_group(2) * NUM_CONSUMER_WARPS, 0};
-                tma::expect_bytes(args.inputs_arrived, sizeof(layout::seq_tile)*args.state.active_warps);
+                    item_ct1.get_group(2) * NUM_CONSUMER_WARPS) /* NYI */, 0};
+                tma::expect_bytes(args.inputs_arrived, sizeof(typename /* NFY */layout::seq_tile)*args.state.active_warps);
                 for(int i = 0; i < args.state.active_warps; i++) {
                     tma::load_async(args.input.x[i], args.globals.x, {idx.b,idx.d,idx.r+i,idx.c}, args.inputs_arrived);
                 }
@@ -93,11 +95,11 @@ template<int _headdim> struct rotary_template {
         SYCL_EXTERNAL static void store(producer_store_args<layout> args) {
             auto item_ct1 = sycl::ext::oneapi::this_work_item::get_nd_item<3>();
             if (warpgroup::warpid() == args.iter % 4) {
-                kittens::coord idx = {
+                kittens::coord idx = {(int)(  // NYI
                     item_ct1.get_group(1) * args.globals.batches +
-                        args.iter / args.globals.x.depth(),
+                        args.iter / args.globals.x.depth()),
                     args.iter % args.globals.x.depth(),
-                    item_ct1.get_group(2) * NUM_CONSUMER_WARPS, 0};
+                    (int)(item_ct1.get_group(2) * NUM_CONSUMER_WARPS) /* NYI */, 0};
                 for(int i = 0; i < args.state.active_warps; i++) {
                     tma::store_async(args.globals.o, args.output.o[i], {idx.b,idx.d,idx.r+i,idx.c});
                 }
@@ -111,10 +113,10 @@ template<int _headdim> struct rotary_template {
     struct consumer {
         SYCL_EXTERNAL static void setup(consumer_setup_args<layout> args) {
             warpgroup::consumer_registers<NUM_CONSUMER_WARPS/4>();
-            kittens::coord idx = {
+            kittens::coord idx = { (int)(
                 sycl::ext::oneapi::this_work_item::get_nd_item<3>().get_group(
                     2) * NUM_CONSUMER_WARPS +
-                    warpid(),
+                    warpid()),
                 0};
             load(args.state.sin, args.globals.sin, idx); // could be better coalesced but doing just once
             load(args.state.cos, args.globals.cos, idx);

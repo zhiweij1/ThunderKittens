@@ -43,7 +43,7 @@ inline static void load(RT &dst, const ST &src) {
     int laneid = kittens::laneid();
 
     // convert to shared state space
-    uint32_t shared_addr = static_cast<uint32_t>(__cvta_generic_to_shared(&src.data[0]));
+    uint32_t shared_addr = 0; // static_cast<uint32_t>(__cvta_generic_to_shared(&src.data[0])); // NYI
 
     #pragma unroll
     for(int i = 0; i < dst.height; i++) {
@@ -164,7 +164,7 @@ inline static void store(ST &dst, const RT &src) {
     using U2 = base_types::packing<U >::packed_type;
 
     // convert to shared state space
-    uint32_t shared_addr = static_cast<uint32_t>(__cvta_generic_to_shared(&dst.data[0]));
+    uint32_t shared_addr = 0 ;// static_cast<uint32_t>(__cvta_generic_to_shared(&dst.data[0])); // NYI
 
     int laneid =
         sycl::ext::oneapi::this_work_item::get_nd_item<3>().get_local_id(2) %

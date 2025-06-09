@@ -63,11 +63,11 @@ static inline void mma_fence(D &dst) {
     /*
     DPCT1053:285: Migration of device assembly code is not supported.
     */
-    asm volatile("wgmma.fence.sync.aligned;\n" ::: "memory");
+    // asm volatile("wgmma.fence.sync.aligned;\n" ::: "memory");
     /*
     DPCT1053:286: Migration of device assembly code is not supported.
     */
-    asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
+    // asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
 }
 template<ducks::crt::row_layout D>
 static inline void mma_fence(D &dst) {
@@ -112,16 +112,16 @@ static inline void mma_fence(D &dst) {
                     DPCT1053:296: Migration of device assembly code is not
                     supported.
                     */
-                    asm volatile(""
-                                 : "+r"(*(uint32_t *)&dst.real.tiles[i][j]
-                                             .data[k])::"memory");
+                    // asm volatile(""
+                    //              : "+r"(*(uint32_t *)&dst.real.tiles[i][j]
+                    //                          .data[k])::"memory");
                     /*
                     DPCT1053:297: Migration of device assembly code is not
                     supported.
                     */
-                    asm volatile(""
-                                 : "+r"(*(uint32_t *)&dst.imag.tiles[i][j]
-                                             .data[k])::"memory");
+                    // asm volatile(""
+                    //              : "+r"(*(uint32_t *)&dst.imag.tiles[i][j]
+                    //                          .data[k])::"memory");
                 }
             }
         }
@@ -129,11 +129,11 @@ static inline void mma_fence(D &dst) {
     /*
     DPCT1053:290: Migration of device assembly code is not supported.
     */
-    asm volatile("wgmma.fence.sync.aligned;\n" ::: "memory");
+    // asm volatile("wgmma.fence.sync.aligned;\n" ::: "memory");
     /*
     DPCT1053:291: Migration of device assembly code is not supported.
     */
-    asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
+    // asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
 }
 template<typename T=kittens::ducks::default_type> // prevents static assert being instantiated unless called.
 static inline void mma_fence() {
@@ -141,11 +141,11 @@ static inline void mma_fence() {
     /*
     DPCT1053:298: Migration of device assembly code is not supported.
     */
-    asm volatile("wgmma.fence.sync.aligned;\n" ::: "memory");
+    // asm volatile("wgmma.fence.sync.aligned;\n" ::: "memory");
     /*
     DPCT1053:299: Migration of device assembly code is not supported.
     */
-    asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
+    // asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
 }
 
 /**
@@ -157,7 +157,7 @@ static inline void mma_commit_group() {
     /*
     DPCT1053:300: Migration of device assembly code is not supported.
     */
-    asm volatile("wgmma.commit_group.sync.aligned;\n" ::: "memory");
+    // asm volatile("wgmma.commit_group.sync.aligned;\n" ::: "memory");
 }
 
 /**
@@ -173,7 +173,7 @@ static inline void mma_async_wait() {
     /*
     DPCT1053:301: Migration of device assembly code is not supported.
     */
-    asm volatile("wgmma.wait_group.sync.aligned %0;" : : "n"(N) : "memory");
+    // asm volatile("wgmma.wait_group.sync.aligned %0;" : : "n"(N) : "memory");
 }
 
 

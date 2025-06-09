@@ -45,26 +45,26 @@ static inline void prefetch(ST &dst, const GL &src, const COORD &idx) {
             /*
             DPCT1053:72: Migration of device assembly code is not supported.
             */
-            asm volatile("cp.async.bulk.prefetch.tensor.5d.L2.global.tile"
-                         " [%0, {%1, %2, %3, %4, %5}];"
-                         :
-                         : "l"(tma_ptr), "n"(0), "r"(tma_coords.x()),
-                           "r"(tma_coords.y()), "r"(tma_coords.z()),
-                           "r"(tma_coords.w())
-                         : "memory");
+            // asm volatile("cp.async.bulk.prefetch.tensor.5d.L2.global.tile"
+            //              " [%0, {%1, %2, %3, %4, %5}];"
+            //              :
+            //              : "l"(tma_ptr), "n"(0), "r"(tma_coords.x()),
+            //                "r"(tma_coords.y()), "r"(tma_coords.z()),
+            //                "r"(tma_coords.w())
+            //              : "memory");
         }
         else {
             /*
             DPCT1053:73: Migration of device assembly code is not supported.
             */
-            asm volatile(
-                "cp.async.bulk.prefetch.tensor.5d.L2.global.tile.L2::cache_hint"
-                " [%0, {%1, %2, %3, %4, %5}], %6;"
-                :
-                : "l"(tma_ptr), "n"(0), "r"(tma_coords.x()),
-                  "r"(tma_coords.y()), "r"(tma_coords.z()), "r"(tma_coords.w()),
-                  "l"(make_cache_policy<policy>())
-                : "memory");
+            // asm volatile(
+            //     "cp.async.bulk.prefetch.tensor.5d.L2.global.tile.L2::cache_hint"
+            //     " [%0, {%1, %2, %3, %4, %5}], %6;"
+            //     :
+            //     : "l"(tma_ptr), "n"(0), "r"(tma_coords.x()),
+            //       "r"(tma_coords.y()), "r"(tma_coords.z()), "r"(tma_coords.w()),
+            //       "l"(make_cache_policy<policy>())
+            //     : "memory");
         }
     }
 }
@@ -97,32 +97,32 @@ static inline void store_async(const GL &dst, const ST &src, const COORD &idx) {
         /*
         DPCT1053:74: Migration of device assembly code is not supported.
         */
-        asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
+        // asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
         if constexpr (policy == cache_policy::NORMAL) {
             /*
             DPCT1053:75: Migration of device assembly code is not supported.
             */
-            asm volatile(
-                "cp.async.bulk.tensor.5d.global.shared::cta.tile.bulk_group"
-                " [%0, {%2, %3, %4, %5, %6}], [%1];"
-                :
-                : "l"(tma_ptr), "r"(src_ptr), "n"(0), "r"(tma_coords.x()),
-                  "r"(tma_coords.y()), "r"(tma_coords.z()), "r"(tma_coords.w())
-                : "memory");
+            // asm volatile(
+            //     "cp.async.bulk.tensor.5d.global.shared::cta.tile.bulk_group"
+            //     " [%0, {%2, %3, %4, %5, %6}], [%1];"
+            //     :
+            //     : "l"(tma_ptr), "r"(src_ptr), "n"(0), "r"(tma_coords.x()),
+            //       "r"(tma_coords.y()), "r"(tma_coords.z()), "r"(tma_coords.w())
+            //     : "memory");
         }
         else {
             /*
             DPCT1053:76: Migration of device assembly code is not supported.
             */
-            asm volatile("cp.async.bulk.tensor.5d.global.shared::cta.tile.bulk_"
-                         "group.L2::cache_hint"
-                         " [%0, {%2, %3, %4, %5, %6}], [%1], %7;"
-                         :
-                         : "l"(tma_ptr), "r"(src_ptr), "n"(0),
-                           "r"(tma_coords.x()), "r"(tma_coords.y()),
-                           "r"(tma_coords.z()), "r"(tma_coords.w()),
-                           "l"(make_cache_policy<policy>())
-                         : "memory");
+            // asm volatile("cp.async.bulk.tensor.5d.global.shared::cta.tile.bulk_"
+            //              "group.L2::cache_hint"
+            //              " [%0, {%2, %3, %4, %5, %6}], [%1], %7;"
+            //              :
+            //              : "l"(tma_ptr), "r"(src_ptr), "n"(0),
+            //                "r"(tma_coords.x()), "r"(tma_coords.y()),
+            //                "r"(tma_coords.z()), "r"(tma_coords.w()),
+            //                "l"(make_cache_policy<policy>())
+            //              : "memory");
         }
     }
     store_commit_group();
@@ -142,32 +142,32 @@ static inline void store_async(const PGL &dst, const ST &src, const COORD &idx, 
         /*
         DPCT1053:77: Migration of device assembly code is not supported.
         */
-        asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
+        // asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
         if constexpr (policy == cache_policy::NORMAL) {
             /*
             DPCT1053:78: Migration of device assembly code is not supported.
             */
-            asm volatile(
-                "cp.async.bulk.tensor.5d.global.shared::cta.tile.bulk_group"
-                " [%0, {%2, %3, %4, %5, %6}], [%1];"
-                :
-                : "l"(tma_ptr), "r"(src_ptr), "n"(0), "r"(tma_coords.x()),
-                  "r"(tma_coords.y()), "r"(tma_coords.z()), "r"(tma_coords.w())
-                : "memory");
+            // asm volatile(
+            //     "cp.async.bulk.tensor.5d.global.shared::cta.tile.bulk_group"
+            //     " [%0, {%2, %3, %4, %5, %6}], [%1];"
+            //     :
+            //     : "l"(tma_ptr), "r"(src_ptr), "n"(0), "r"(tma_coords.x()),
+            //       "r"(tma_coords.y()), "r"(tma_coords.z()), "r"(tma_coords.w())
+            //     : "memory");
         }
         else {
             /*
             DPCT1053:79: Migration of device assembly code is not supported.
             */
-            asm volatile("cp.async.bulk.tensor.5d.global.shared::cta.tile.bulk_"
-                         "group.L2::cache_hint"
-                         " [%0, {%2, %3, %4, %5, %6}], [%1], %7;"
-                         :
-                         : "l"(tma_ptr), "r"(src_ptr), "n"(0),
-                           "r"(tma_coords.x()), "r"(tma_coords.y()),
-                           "r"(tma_coords.z()), "r"(tma_coords.w()),
-                           "l"(make_cache_policy<policy>())
-                         : "memory");
+            // asm volatile("cp.async.bulk.tensor.5d.global.shared::cta.tile.bulk_"
+            //              "group.L2::cache_hint"
+            //              " [%0, {%2, %3, %4, %5, %6}], [%1], %7;"
+            //              :
+            //              : "l"(tma_ptr), "r"(src_ptr), "n"(0),
+            //                "r"(tma_coords.x()), "r"(tma_coords.y()),
+            //                "r"(tma_coords.z()), "r"(tma_coords.w()),
+            //                "l"(make_cache_policy<policy>())
+            //              : "memory");
         }
     }
     store_commit_group();
@@ -206,33 +206,33 @@ static inline void store_add_async(const GL &dst, const ST &src, const COORD &id
         /*
         DPCT1053:80: Migration of device assembly code is not supported.
         */
-        asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
+        // asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
         if constexpr (policy == cache_policy::NORMAL) {
             /*
             DPCT1053:81: Migration of device assembly code is not supported.
             */
-            asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
-                         "add.tile.bulk_group"
-                         " [%0, {%2, %3, %4, %5, %6}], [%1];"
-                         :
-                         : "l"(tma_ptr), "r"(src_ptr), "n"(0),
-                           "r"(tma_coords.x()), "r"(tma_coords.y()),
-                           "r"(tma_coords.z()), "r"(tma_coords.w())
-                         : "memory");
+            // asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
+            //              "add.tile.bulk_group"
+            //              " [%0, {%2, %3, %4, %5, %6}], [%1];"
+            //              :
+            //              : "l"(tma_ptr), "r"(src_ptr), "n"(0),
+            //                "r"(tma_coords.x()), "r"(tma_coords.y()),
+            //                "r"(tma_coords.z()), "r"(tma_coords.w())
+            //              : "memory");
         }
         else {
             /*
             DPCT1053:82: Migration of device assembly code is not supported.
             */
-            asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
-                         "add.tile.bulk_group.L2::cache_hint"
-                         " [%0, {%2, %3, %4, %5, %6}], [%1], %7;"
-                         :
-                         : "l"(tma_ptr), "r"(src_ptr), "n"(0),
-                           "r"(tma_coords.x()), "r"(tma_coords.y()),
-                           "r"(tma_coords.z()), "r"(tma_coords.w()),
-                           "l"(make_cache_policy<policy>())
-                         : "memory");
+            // asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
+            //              "add.tile.bulk_group.L2::cache_hint"
+            //              " [%0, {%2, %3, %4, %5, %6}], [%1], %7;"
+            //              :
+            //              : "l"(tma_ptr), "r"(src_ptr), "n"(0),
+            //                "r"(tma_coords.x()), "r"(tma_coords.y()),
+            //                "r"(tma_coords.z()), "r"(tma_coords.w()),
+            //                "l"(make_cache_policy<policy>())
+            //              : "memory");
         }
     }
     store_commit_group();
@@ -257,33 +257,33 @@ static inline void store_add_async(const PGL &dst, const ST &src, const COORD &i
         /*
         DPCT1053:83: Migration of device assembly code is not supported.
         */
-        asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
+        // asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
         if constexpr (policy == cache_policy::NORMAL) {
             /*
             DPCT1053:84: Migration of device assembly code is not supported.
             */
-            asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
-                         "add.tile.bulk_group"
-                         " [%0, {%2, %3, %4, %5, %6}], [%1];"
-                         :
-                         : "l"(tma_ptr), "r"(src_ptr), "n"(0),
-                           "r"(tma_coords.x()), "r"(tma_coords.y()),
-                           "r"(tma_coords.z()), "r"(tma_coords.w())
-                         : "memory");
+            // asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
+            //              "add.tile.bulk_group"
+            //              " [%0, {%2, %3, %4, %5, %6}], [%1];"
+            //              :
+            //              : "l"(tma_ptr), "r"(src_ptr), "n"(0),
+            //                "r"(tma_coords.x()), "r"(tma_coords.y()),
+            //                "r"(tma_coords.z()), "r"(tma_coords.w())
+            //              : "memory");
         }
         else {
             /*
             DPCT1053:85: Migration of device assembly code is not supported.
             */
-            asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
-                         "add.tile.bulk_group.L2::cache_hint"
-                         " [%0, {%2, %3, %4, %5, %6}], [%1], %7;"
-                         :
-                         : "l"(tma_ptr), "r"(src_ptr), "n"(0),
-                           "r"(tma_coords.x()), "r"(tma_coords.y()),
-                           "r"(tma_coords.z()), "r"(tma_coords.w()),
-                           "l"(make_cache_policy<policy>())
-                         : "memory");
+            // asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
+            //              "add.tile.bulk_group.L2::cache_hint"
+            //              " [%0, {%2, %3, %4, %5, %6}], [%1], %7;"
+            //              :
+            //              : "l"(tma_ptr), "r"(src_ptr), "n"(0),
+            //                "r"(tma_coords.x()), "r"(tma_coords.y()),
+            //                "r"(tma_coords.z()), "r"(tma_coords.w()),
+            //                "l"(make_cache_policy<policy>())
+            //              : "memory");
         }
     }
     store_commit_group();
@@ -321,33 +321,33 @@ static inline void store_min_async(const GL &dst, const ST &src, const COORD &id
         /*
         DPCT1053:86: Migration of device assembly code is not supported.
         */
-        asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
+        // asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
         if constexpr (policy == cache_policy::NORMAL) {
             /*
             DPCT1053:87: Migration of device assembly code is not supported.
             */
-            asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
-                         "min.tile.bulk_group"
-                         " [%0, {%2, %3, %4, %5, %6}], [%1];"
-                         :
-                         : "l"(tma_ptr), "r"(src_ptr), "n"(0),
-                           "r"(tma_coords.x()), "r"(tma_coords.y()),
-                           "r"(tma_coords.z()), "r"(tma_coords.w())
-                         : "memory");
+            // asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
+            //              "min.tile.bulk_group"
+            //              " [%0, {%2, %3, %4, %5, %6}], [%1];"
+            //              :
+            //              : "l"(tma_ptr), "r"(src_ptr), "n"(0),
+            //                "r"(tma_coords.x()), "r"(tma_coords.y()),
+            //                "r"(tma_coords.z()), "r"(tma_coords.w())
+            //              : "memory");
         }
         else {
             /*
             DPCT1053:88: Migration of device assembly code is not supported.
             */
-            asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
-                         "min.tile.bulk_group.L2::cache_hint"
-                         " [%0, {%2, %3, %4, %5, %6}], [%1], %7;"
-                         :
-                         : "l"(tma_ptr), "r"(src_ptr), "n"(0),
-                           "r"(tma_coords.x()), "r"(tma_coords.y()),
-                           "r"(tma_coords.z()), "r"(tma_coords.w()),
-                           "l"(make_cache_policy<policy>())
-                         : "memory");
+            // asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
+            //              "min.tile.bulk_group.L2::cache_hint"
+            //              " [%0, {%2, %3, %4, %5, %6}], [%1], %7;"
+            //              :
+            //              : "l"(tma_ptr), "r"(src_ptr), "n"(0),
+            //                "r"(tma_coords.x()), "r"(tma_coords.y()),
+            //                "r"(tma_coords.z()), "r"(tma_coords.w()),
+            //                "l"(make_cache_policy<policy>())
+            //              : "memory");
         }
     }
     store_commit_group();
@@ -373,33 +373,33 @@ static inline void store_min_async(const PGL &dst, const ST &src, const COORD &i
         /*
         DPCT1053:89: Migration of device assembly code is not supported.
         */
-        asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
+        // asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
         if constexpr (policy == cache_policy::NORMAL) {
             /*
             DPCT1053:90: Migration of device assembly code is not supported.
             */
-            asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
-                         "min.tile.bulk_group"
-                         " [%0, {%2, %3, %4, %5, %6}], [%1];"
-                         :
-                         : "l"(tma_ptr), "r"(src_ptr), "n"(0),
-                           "r"(tma_coords.x()), "r"(tma_coords.y()),
-                           "r"(tma_coords.z()), "r"(tma_coords.w())
-                         : "memory");
+            // asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
+            //              "min.tile.bulk_group"
+            //              " [%0, {%2, %3, %4, %5, %6}], [%1];"
+            //              :
+            //              : "l"(tma_ptr), "r"(src_ptr), "n"(0),
+            //                "r"(tma_coords.x()), "r"(tma_coords.y()),
+            //                "r"(tma_coords.z()), "r"(tma_coords.w())
+            //              : "memory");
         }
         else {
             /*
             DPCT1053:91: Migration of device assembly code is not supported.
             */
-            asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
-                         "min.tile.bulk_group.L2::cache_hint"
-                         " [%0, {%2, %3, %4, %5, %6}], [%1], %7;"
-                         :
-                         : "l"(tma_ptr), "r"(src_ptr), "n"(0),
-                           "r"(tma_coords.x()), "r"(tma_coords.y()),
-                           "r"(tma_coords.z()), "r"(tma_coords.w()),
-                           "l"(make_cache_policy<policy>())
-                         : "memory");
+            // asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
+            //              "min.tile.bulk_group.L2::cache_hint"
+            //              " [%0, {%2, %3, %4, %5, %6}], [%1], %7;"
+            //              :
+            //              : "l"(tma_ptr), "r"(src_ptr), "n"(0),
+            //                "r"(tma_coords.x()), "r"(tma_coords.y()),
+            //                "r"(tma_coords.z()), "r"(tma_coords.w()),
+            //                "l"(make_cache_policy<policy>())
+            //              : "memory");
         }
     }
     store_commit_group();
@@ -437,33 +437,33 @@ static inline void store_max_async(const GL &dst, const ST &src, const COORD &id
         /*
         DPCT1053:92: Migration of device assembly code is not supported.
         */
-        asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
+        // asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
         if constexpr (policy == cache_policy::NORMAL) {
             /*
             DPCT1053:93: Migration of device assembly code is not supported.
             */
-            asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
-                         "max.tile.bulk_group"
-                         " [%0, {%2, %3, %4, %5, %6}], [%1];"
-                         :
-                         : "l"(tma_ptr), "r"(src_ptr), "n"(0),
-                           "r"(tma_coords.x()), "r"(tma_coords.y()),
-                           "r"(tma_coords.z()), "r"(tma_coords.w())
-                         : "memory");
+            // asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
+            //              "max.tile.bulk_group"
+            //              " [%0, {%2, %3, %4, %5, %6}], [%1];"
+            //              :
+            //              : "l"(tma_ptr), "r"(src_ptr), "n"(0),
+            //                "r"(tma_coords.x()), "r"(tma_coords.y()),
+            //                "r"(tma_coords.z()), "r"(tma_coords.w())
+            //              : "memory");
         }
         else {
             /*
             DPCT1053:94: Migration of device assembly code is not supported.
             */
-            asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
-                         "max.tile.bulk_group.L2::cache_hint"
-                         " [%0, {%2, %3, %4, %5, %6}], [%1], %7;"
-                         :
-                         : "l"(tma_ptr), "r"(src_ptr), "n"(0),
-                           "r"(tma_coords.x()), "r"(tma_coords.y()),
-                           "r"(tma_coords.z()), "r"(tma_coords.w()),
-                           "l"(make_cache_policy<policy>())
-                         : "memory");
+            // asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
+            //              "max.tile.bulk_group.L2::cache_hint"
+            //              " [%0, {%2, %3, %4, %5, %6}], [%1], %7;"
+            //              :
+            //              : "l"(tma_ptr), "r"(src_ptr), "n"(0),
+            //                "r"(tma_coords.x()), "r"(tma_coords.y()),
+            //                "r"(tma_coords.z()), "r"(tma_coords.w()),
+            //                "l"(make_cache_policy<policy>())
+            //              : "memory");
         }
     }
     store_commit_group();
@@ -489,33 +489,33 @@ static inline void store_max_async(const PGL &dst, const ST &src, const COORD &i
         /*
         DPCT1053:95: Migration of device assembly code is not supported.
         */
-        asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
+        // asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
         if constexpr (policy == cache_policy::NORMAL) {
             /*
             DPCT1053:96: Migration of device assembly code is not supported.
             */
-            asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
-                         "max.tile.bulk_group"
-                         " [%0, {%2, %3, %4, %5, %6}], [%1];"
-                         :
-                         : "l"(tma_ptr), "r"(src_ptr), "n"(0),
-                           "r"(tma_coords.x()), "r"(tma_coords.y()),
-                           "r"(tma_coords.z()), "r"(tma_coords.w())
-                         : "memory");
+            // asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
+            //              "max.tile.bulk_group"
+            //              " [%0, {%2, %3, %4, %5, %6}], [%1];"
+            //              :
+            //              : "l"(tma_ptr), "r"(src_ptr), "n"(0),
+            //                "r"(tma_coords.x()), "r"(tma_coords.y()),
+            //                "r"(tma_coords.z()), "r"(tma_coords.w())
+            //              : "memory");
         }
         else {
             /*
             DPCT1053:97: Migration of device assembly code is not supported.
             */
-            asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
-                         "max.tile.bulk_group.L2::cache_hint"
-                         " [%0, {%2, %3, %4, %5, %6}], [%1], %7;"
-                         :
-                         : "l"(tma_ptr), "r"(src_ptr), "n"(0),
-                           "r"(tma_coords.x()), "r"(tma_coords.y()),
-                           "r"(tma_coords.z()), "r"(tma_coords.w()),
-                           "l"(make_cache_policy<policy>())
-                         : "memory");
+            // asm volatile("cp.reduce.async.bulk.tensor.5d.global.shared::cta."
+            //              "max.tile.bulk_group.L2::cache_hint"
+            //              " [%0, {%2, %3, %4, %5, %6}], [%1], %7;"
+            //              :
+            //              : "l"(tma_ptr), "r"(src_ptr), "n"(0),
+            //                "r"(tma_coords.x()), "r"(tma_coords.y()),
+            //                "r"(tma_coords.z()), "r"(tma_coords.w()),
+            //                "l"(make_cache_policy<policy>())
+            //              : "memory");
         }
     }
     store_commit_group();
@@ -550,28 +550,28 @@ static inline void load_async(ST &dst, const GL &src, const COORD &idx, semaphor
             /*
             DPCT1053:98: Migration of device assembly code is not supported.
             */
-            asm volatile("cp.async.bulk.tensor.5d.shared::cluster.global.tile."
-                         "mbarrier::complete_tx::bytes"
-                         " [%0], [%1, {%3, %4, %5, %6, %7}], [%2];"
-                         :
-                         : "r"(dst_ptr), "l"(tma_ptr), "r"(mbar_ptr), "n"(0),
-                           "r"(tma_coords.x()), "r"(tma_coords.y()),
-                           "r"(tma_coords.z()), "r"(tma_coords.w())
-                         : "memory");
+            // asm volatile("cp.async.bulk.tensor.5d.shared::cluster.global.tile."
+            //              "mbarrier::complete_tx::bytes"
+            //              " [%0], [%1, {%3, %4, %5, %6, %7}], [%2];"
+            //              :
+            //              : "r"(dst_ptr), "l"(tma_ptr), "r"(mbar_ptr), "n"(0),
+            //                "r"(tma_coords.x()), "r"(tma_coords.y()),
+            //                "r"(tma_coords.z()), "r"(tma_coords.w())
+            //              : "memory");
         }
         else {
             /*
             DPCT1053:99: Migration of device assembly code is not supported.
             */
-            asm volatile("cp.async.bulk.tensor.5d.shared::cluster.global.tile."
-                         "mbarrier::complete_tx::bytes.L2::cache_hint"
-                         " [%0], [%1, {%3, %4, %5, %6, %7}], [%2], %8;"
-                         :
-                         : "r"(dst_ptr), "l"(tma_ptr), "r"(mbar_ptr), "n"(0),
-                           "r"(tma_coords.x()), "r"(tma_coords.y()),
-                           "r"(tma_coords.z()), "r"(tma_coords.w()),
-                           "l"(make_cache_policy<policy>())
-                         : "memory");
+            // asm volatile("cp.async.bulk.tensor.5d.shared::cluster.global.tile."
+            //              "mbarrier::complete_tx::bytes.L2::cache_hint"
+            //              " [%0], [%1, {%3, %4, %5, %6, %7}], [%2], %8;"
+            //              :
+            //              : "r"(dst_ptr), "l"(tma_ptr), "r"(mbar_ptr), "n"(0),
+            //                "r"(tma_coords.x()), "r"(tma_coords.y()),
+            //                "r"(tma_coords.z()), "r"(tma_coords.w()),
+            //                "l"(make_cache_policy<policy>())
+            //              : "memory");
         }
     }
 }

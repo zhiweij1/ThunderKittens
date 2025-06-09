@@ -44,13 +44,13 @@ static inline void sync(int id) {
     /*
     DPCT1053:280: Migration of device assembly code is not supported.
     */
-    asm volatile("bar.sync %0, %1;\n" ::"r"(id), "n"(GROUP_THREADS));
+    // asm volatile("bar.sync %0, %1;\n" ::"r"(id), "n"(GROUP_THREADS));
 }
 static inline void arrive(int id) {
     /*
     DPCT1053:281: Migration of device assembly code is not supported.
     */
-    asm volatile("bar.arrive %0, %1;\n" ::"r"(id), "n"(GROUP_THREADS));
+    // asm volatile("bar.arrive %0, %1;\n" ::"r"(id), "n"(GROUP_THREADS));
 }
 
 #include "memory/memory.dp.hpp"
@@ -66,7 +66,7 @@ template<int n_reg> static inline void increase_registers() {
     /*
     DPCT1053:302: Migration of device assembly code is not supported.
     */
-    asm volatile("setmaxnreg.inc.sync.aligned.u32 %0;\n" ::"n"(n_reg));
+    // asm volatile("setmaxnreg.inc.sync.aligned.u32 %0;\n" ::"n"(n_reg));
 }
 template<int n_reg> static inline void decrease_registers() {
     static_assert(N_WARPS % 4 == 0, "N_WARPS must be a multiple of 4");
@@ -74,7 +74,7 @@ template<int n_reg> static inline void decrease_registers() {
     /*
     DPCT1053:303: Migration of device assembly code is not supported.
     */
-    asm volatile("setmaxnreg.dec.sync.aligned.u32 %0;\n" ::"n"(n_reg));
+    // asm volatile("setmaxnreg.dec.sync.aligned.u32 %0;\n" ::"n"(n_reg));
 }
 static inline void producer_registers() { decrease_registers<24>(); }
 template<int NCWG> static inline void consumer_registers() { increase_registers<480/NCWG - 8*(NCWG>3) - 224*(NCWG==1)>(); }

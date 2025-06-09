@@ -35,10 +35,10 @@ static inline void expect_bytes(semaphore& bar, uint32_t bytes) {
         /*
         DPCT1053:33: Migration of device assembly code is not supported.
         */
-        asm volatile(
-            "mbarrier.arrive.expect_tx.shared::cta.b64 _, [%0], %1;\n" ::"r"(
-                bar_ptr),
-            "r"(bytes));
+        // asm volatile(
+        //     "mbarrier.arrive.expect_tx.shared::cta.b64 _, [%0], %1;\n" ::"r"(
+        //         bar_ptr),
+        //     "r"(bytes));
     }
 }
 /**
@@ -61,7 +61,7 @@ static inline void store_commit_group() {
         /*
         DPCT1053:34: Migration of device assembly code is not supported.
         */
-        asm volatile("cp.async.bulk.commit_group;");
+        // asm volatile("cp.async.bulk.commit_group;");
     }
     sycl::group_barrier(sycl::ext::oneapi::this_work_item::get_sub_group());
 }
@@ -76,7 +76,7 @@ static inline void store_async_wait() {
         /*
         DPCT1053:35: Migration of device assembly code is not supported.
         */
-        asm volatile("cp.async.bulk.wait_group %0;" : : "n"(N) : "memory");
+        // asm volatile("cp.async.bulk.wait_group %0;" : : "n"(N) : "memory");
     }
     sycl::group_barrier(sycl::ext::oneapi::this_work_item::get_sub_group());
 }
@@ -91,7 +91,7 @@ static inline void store_async_read_wait() {
         /*
         DPCT1053:36: Migration of device assembly code is not supported.
         */
-        asm volatile("cp.async.bulk.wait_group.read %0;" : : "n"(N) : "memory");
+        // asm volatile("cp.async.bulk.wait_group.read %0;" : : "n"(N) : "memory");
     }
     sycl::group_barrier(sycl::ext::oneapi::this_work_item::get_sub_group());
 }
@@ -105,13 +105,13 @@ static inline void arrive_aligned() { // All threads in the cluster must call th
     /*
     DPCT1053:37: Migration of device assembly code is not supported.
     */
-    asm volatile("barrier.cluster.arrive.release.aligned;\n");
+    // asm volatile("barrier.cluster.arrive.release.aligned;\n");
 }
 static inline void wait_aligned() {
     /*
     DPCT1053:38: Migration of device assembly code is not supported.
     */
-    asm volatile("barrier.cluster.wait.acquire.aligned;\n");
+    // asm volatile("barrier.cluster.wait.acquire.aligned;\n");
 }
 static inline void sync() {
     arrive_aligned();
@@ -131,16 +131,16 @@ static inline void wait(semaphore& bar, int kPhaseBit) {
     /*
     DPCT1053:39: Migration of device assembly code is not supported.
     */
-    asm volatile("{\n"
-                 ".reg .pred                P1;\n"
-                 "LAB_WAIT:\n"
-                 "mbarrier.try_wait.parity.acquire.cluster.shared::cta.b64 P1, "
-                 "[%0], %1;\n"
-                 "@P1                       bra.uni DONE;\n"
-                 "bra.uni                   LAB_WAIT;\n"
-                 "DONE:\n"
-                 "}\n" ::"r"(mbar_ptr),
-                 "r"(kPhaseBit));
+    // asm volatile("{\n"
+    //              ".reg .pred                P1;\n"
+    //              "LAB_WAIT:\n"
+    //              "mbarrier.try_wait.parity.acquire.cluster.shared::cta.b64 P1, "
+    //              "[%0], %1;\n"
+    //              "@P1                       bra.uni DONE;\n"
+    //              "bra.uni                   LAB_WAIT;\n"
+    //              "DONE:\n"
+    //              "}\n" ::"r"(mbar_ptr),
+    //              "r"(kPhaseBit));
 }
 
 /**
@@ -164,17 +164,17 @@ static inline void expect_bytes(semaphore& bar, uint32_t bytes, int dst_cta) {
         /*
         DPCT1053:40: Migration of device assembly code is not supported.
         */
-        asm volatile("mapa.shared::cluster.u32  %0, %1, %2;\n"
-                     : "=r"(neighbor_mbar_addr)
-                     : "r"(mbar_addr), "r"(dst_cta));
+        // asm volatile("mapa.shared::cluster.u32  %0, %1, %2;\n"
+        //              : "=r"(neighbor_mbar_addr)
+        //              : "r"(mbar_addr), "r"(dst_cta));
 
         /*
         DPCT1053:41: Migration of device assembly code is not supported.
         */
-        asm volatile(
-            "mbarrier.arrive.expect_tx.shared::cluster.b64 _, [%0], %1;\n" ::
-                "r"(neighbor_mbar_addr),
-            "r"(bytes));
+        // asm volatile(
+        //     "mbarrier.arrive.expect_tx.shared::cluster.b64 _, [%0], %1;\n" ::
+        //         "r"(neighbor_mbar_addr),
+        //     "r"(bytes));
     }
 }
 /**
@@ -211,16 +211,16 @@ static inline void arrive(semaphore& bar, int dst_cta, uint32_t count=1) {
     /*
     DPCT1053:42: Migration of device assembly code is not supported.
     */
-    asm volatile("mapa.shared::cluster.u32  %0, %1, %2;\n"
-                 : "=r"(neighbor_mbar_addr)
-                 : "r"(mbar_addr), "r"(dst_cta));
+    // asm volatile("mapa.shared::cluster.u32  %0, %1, %2;\n"
+    //              : "=r"(neighbor_mbar_addr)
+    //              : "r"(mbar_addr), "r"(dst_cta));
     /*
     DPCT1053:43: Migration of device assembly code is not supported.
     */
-    asm volatile("mbarrier.arrive.shared::cluster.b64 _, [%0], %1;\n"
-                 :
-                 : "r"(neighbor_mbar_addr), "r"(count)
-                 : "memory");
+    // asm volatile("mbarrier.arrive.shared::cluster.b64 _, [%0], %1;\n"
+    //              :
+    //              : "r"(neighbor_mbar_addr), "r"(count)
+    //              : "memory");
 }
 
 // Generic transfer
@@ -240,33 +240,33 @@ static inline void store_async(void *dst, void *src, int dst_cta, uint32_t size_
         /*
         DPCT1053:44: Migration of device assembly code is not supported.
         */
-        asm volatile("mapa.shared::cluster.u32  %0, %1, %2;\n"
-                     : "=r"(neighbor_addr_dst)
-                     : "r"(dst_ptr), "r"(dst_cta));
+        // asm volatile("mapa.shared::cluster.u32  %0, %1, %2;\n"
+        //              : "=r"(neighbor_addr_dst)
+        //              : "r"(dst_ptr), "r"(dst_cta));
 
         auto neighbor_addr_mbarrier = mbarrier_ptr;
         /*
         DPCT1053:45: Migration of device assembly code is not supported.
         */
-        asm volatile("mapa.shared::cluster.u32  %0, %1, %2;\n"
-                     : "=r"(neighbor_addr_mbarrier)
-                     : "r"(mbarrier_ptr), "r"(dst_cta));
+        // asm volatile("mapa.shared::cluster.u32  %0, %1, %2;\n"
+        //              : "=r"(neighbor_addr_mbarrier)
+        //              : "r"(mbarrier_ptr), "r"(dst_cta));
 
         // cp.async instr = https://docs.nvidia.com/cuda/parallel-thread-execution/index.html#data-movement-and-conversion-instructions-cp-async-bulk 
         // copy src into dst in neighbor's cta
         /*
         DPCT1053:46: Migration of device assembly code is not supported.
         */
-        asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
+        // asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
         /*
         DPCT1053:47: Migration of device assembly code is not supported.
         */
-        asm volatile("cp.async.bulk.shared::cluster.shared::cta.mbarrier::"
-                     "complete_tx::bytes [%0], [%1], %2, [%3];\n"
-                     :
-                     : "r"(neighbor_addr_dst), "r"(src_ptr), "r"(size_bytes),
-                       "r"(neighbor_addr_mbarrier)
-                     : "memory");
+        // asm volatile("cp.async.bulk.shared::cluster.shared::cta.mbarrier::"
+        //              "complete_tx::bytes [%0], [%1], %2, [%3];\n"
+        //              :
+        //              : "r"(neighbor_addr_dst), "r"(src_ptr), "r"(size_bytes),
+        //                "r"(neighbor_addr_mbarrier)
+        //              : "memory");
     }
 }
 

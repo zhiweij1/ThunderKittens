@@ -76,39 +76,39 @@ template<> struct move<bf16_2> {
         /*
         DPCT1053:9: Migration of device assembly code is not supported.
         */
-        asm volatile("ldmatrix.sync.aligned.m8n8.x4.shared::cta.b16 {%0, %1, "
-                     "%2, %3}, [%4];\n"
-                     : "=r"(*(uint32_t *)&dst1), "=r"(*(uint32_t *)&dst2),
-                       "=r"(*(uint32_t *)&dst3), "=r"(*(uint32_t *)&dst4)
-                     : "r"(src));
+        //asm volatile("ldmatrix.sync.aligned.m8n8.x4.shared::cta.b16 {%0, %1, "
+        //             "%2, %3}, [%4];\n"
+        //             : "=r"(*(uint32_t *)&dst1), "=r"(*(uint32_t *)&dst2),
+        //               "=r"(*(uint32_t *)&dst3), "=r"(*(uint32_t *)&dst4)
+        //             : "r"(src));
     }
     static inline void ldsm4t(bf16_2& dst1, bf16_2& dst2, bf16_2& dst3, bf16_2& dst4, uint32_t src) {
         /*
         DPCT1053:10: Migration of device assembly code is not supported.
         */
-        asm volatile("ldmatrix.sync.aligned.m8n8.x4.trans.shared::cta.b16 {%0, "
-                     "%1, %2, %3}, [%4];\n"
-                     : "=r"(*(uint32_t *)&dst1), "=r"(*(uint32_t *)&dst2),
-                       "=r"(*(uint32_t *)&dst3), "=r"(*(uint32_t *)&dst4)
-                     : "r"(src));
+        //asm volatile("ldmatrix.sync.aligned.m8n8.x4.trans.shared::cta.b16 {%0, "
+        //             "%1, %2, %3}, [%4];\n"
+        //             : "=r"(*(uint32_t *)&dst1), "=r"(*(uint32_t *)&dst2),
+        //               "=r"(*(uint32_t *)&dst3), "=r"(*(uint32_t *)&dst4)
+        //             : "r"(src));
     }
     static inline void stsm4(uint32_t dst, bf16_2& src1, bf16_2& src2, bf16_2& src3, bf16_2& src4) {
         /*
         DPCT1053:11: Migration of device assembly code is not supported.
         */
-        asm volatile("stmatrix.sync.aligned.m8n8.x4.shared::cta.b16 [%4], {%0, "
-                     "%1, %2, %3};\n" ::"r"(*(uint32_t *)&src1),
-                     "r"(*(uint32_t *)&src2), "r"(*(uint32_t *)&src3),
-                     "r"(*(uint32_t *)&src4), "r"(dst));
+        //asm volatile("stmatrix.sync.aligned.m8n8.x4.shared::cta.b16 [%4], {%0, "
+        //             "%1, %2, %3};\n" ::"r"(*(uint32_t *)&src1),
+        //             "r"(*(uint32_t *)&src2), "r"(*(uint32_t *)&src3),
+        //             "r"(*(uint32_t *)&src4), "r"(dst));
     }
     static inline void stsm4t(uint32_t dst, bf16_2& src1, bf16_2& src2, bf16_2& src3, bf16_2& src4) {
         /*
         DPCT1053:12: Migration of device assembly code is not supported.
         */
-        asm volatile("stmatrix.sync.aligned.m8n8.x4.trans.shared::cta.b16 "
-                     "[%4], {%0, %1, %2, %3};\n" ::"r"(*(uint32_t *)&src1),
-                     "r"(*(uint32_t *)&src2), "r"(*(uint32_t *)&src3),
-                     "r"(*(uint32_t *)&src4), "r"(dst));
+        // asm volatile("stmatrix.sync.aligned.m8n8.x4.trans.shared::cta.b16 "
+        //              "[%4], {%0, %1, %2, %3};\n" ::"r"(*(uint32_t *)&src1),
+        //              "r"(*(uint32_t *)&src2), "r"(*(uint32_t *)&src3),
+        //              "r"(*(uint32_t *)&src4), "r"(dst));
     }
 };
 template<> struct move<half_2> {
@@ -128,39 +128,39 @@ template<> struct move<half_2> {
         /*
         DPCT1053:13: Migration of device assembly code is not supported.
         */
-        asm volatile("ldmatrix.sync.aligned.m8n8.x4.shared::cta.b16 {%0, %1, "
-                     "%2, %3}, [%4];\n"
-                     : "=r"(*(uint32_t *)&dst1), "=r"(*(uint32_t *)&dst2),
-                       "=r"(*(uint32_t *)&dst3), "=r"(*(uint32_t *)&dst4)
-                     : "r"(src));
+        // asm volatile("ldmatrix.sync.aligned.m8n8.x4.shared::cta.b16 {%0, %1, "
+        //              "%2, %3}, [%4];\n"
+        //              : "=r"(*(uint32_t *)&dst1), "=r"(*(uint32_t *)&dst2),
+        //                "=r"(*(uint32_t *)&dst3), "=r"(*(uint32_t *)&dst4)
+        //              : "r"(src));
     }
     static inline void ldsm4t(half_2& dst1, half_2& dst2, half_2& dst3, half_2& dst4, uint32_t src) {
         /*
         DPCT1053:14: Migration of device assembly code is not supported.
         */
-        asm volatile("ldmatrix.sync.aligned.m8n8.x4.trans.shared::cta.b16 {%0, "
-                     "%1, %2, %3}, [%4];\n"
-                     : "=r"(*(uint32_t *)&dst1), "=r"(*(uint32_t *)&dst2),
-                       "=r"(*(uint32_t *)&dst3), "=r"(*(uint32_t *)&dst4)
-                     : "r"(src));
+        // asm volatile("ldmatrix.sync.aligned.m8n8.x4.trans.shared::cta.b16 {%0, "
+        //              "%1, %2, %3}, [%4];\n"
+        //              : "=r"(*(uint32_t *)&dst1), "=r"(*(uint32_t *)&dst2),
+        //                "=r"(*(uint32_t *)&dst3), "=r"(*(uint32_t *)&dst4)
+        //              : "r"(src));
     }
     static inline void stsm4(uint32_t dst, half_2& src1, half_2& src2, half_2& src3, half_2& src4) {
         /*
         DPCT1053:15: Migration of device assembly code is not supported.
         */
-        asm volatile("stmatrix.sync.aligned.m8n8.x4.shared::cta.b16 [%4], {%0, "
-                     "%1, %2, %3};\n" ::"r"(*(uint32_t *)&src1),
-                     "r"(*(uint32_t *)&src2), "r"(*(uint32_t *)&src3),
-                     "r"(*(uint32_t *)&src4), "r"(dst));
+        // asm volatile("stmatrix.sync.aligned.m8n8.x4.shared::cta.b16 [%4], {%0, "
+        //              "%1, %2, %3};\n" ::"r"(*(uint32_t *)&src1),
+        //              "r"(*(uint32_t *)&src2), "r"(*(uint32_t *)&src3),
+        //              "r"(*(uint32_t *)&src4), "r"(dst));
     }
     static inline void stsm4t(uint32_t dst, half_2& src1, half_2& src2, half_2& src3, half_2& src4) {
         /*
         DPCT1053:16: Migration of device assembly code is not supported.
         */
-        asm volatile("stmatrix.sync.aligned.m8n8.x4.trans.shared::cta.b16 "
-                     "[%4], {%0, %1, %2, %3};\n" ::"r"(*(uint32_t *)&src1),
-                     "r"(*(uint32_t *)&src2), "r"(*(uint32_t *)&src3),
-                     "r"(*(uint32_t *)&src4), "r"(dst));
+        // asm volatile("stmatrix.sync.aligned.m8n8.x4.trans.shared::cta.b16 "
+        //              "[%4], {%0, %1, %2, %3};\n" ::"r"(*(uint32_t *)&src1),
+        //              "r"(*(uint32_t *)&src2), "r"(*(uint32_t *)&src3),
+        //              "r"(*(uint32_t *)&src4), "r"(dst));
     }
 };
 template <> struct move<sycl::float2> {
@@ -229,20 +229,20 @@ template<> struct move<fp8e4m3_4> {
         /*
         DPCT1053:17: Migration of device assembly code is not supported.
         */
-        asm volatile("ldmatrix.sync.aligned.m8n8.x4.shared::cta.b16 {%0, %1, "
-                     "%2, %3}, [%4];\n"
-                     : "=r"(*(uint32_t *)&dst1), "=r"(*(uint32_t *)&dst2),
-                       "=r"(*(uint32_t *)&dst3), "=r"(*(uint32_t *)&dst4)
-                     : "r"(src));
+        // asm volatile("ldmatrix.sync.aligned.m8n8.x4.shared::cta.b16 {%0, %1, "
+        //              "%2, %3}, [%4];\n"
+        //              : "=r"(*(uint32_t *)&dst1), "=r"(*(uint32_t *)&dst2),
+        //                "=r"(*(uint32_t *)&dst3), "=r"(*(uint32_t *)&dst4)
+        //              : "r"(src));
     }
     static inline void stsm4(uint32_t dst, fp8e4m3_4& src1, fp8e4m3_4& src2, fp8e4m3_4& src3, fp8e4m3_4& src4) {
         /*
         DPCT1053:18: Migration of device assembly code is not supported.
         */
-        asm volatile("stmatrix.sync.aligned.m8n8.x4.shared::cta.b16 [%4], {%0, "
-                     "%1, %2, %3};\n" ::"r"(*(uint32_t *)&src1),
-                     "r"(*(uint32_t *)&src2), "r"(*(uint32_t *)&src3),
-                     "r"(*(uint32_t *)&src4), "r"(dst));
+        // asm volatile("stmatrix.sync.aligned.m8n8.x4.shared::cta.b16 [%4], {%0, "
+        //              "%1, %2, %3};\n" ::"r"(*(uint32_t *)&src1),
+        //              "r"(*(uint32_t *)&src2), "r"(*(uint32_t *)&src3),
+        //              "r"(*(uint32_t *)&src4), "r"(dst));
     }
 
 };
@@ -251,20 +251,20 @@ template<> struct move<fp8e5m2_4> {
         /*
         DPCT1053:19: Migration of device assembly code is not supported.
         */
-        asm volatile("ldmatrix.sync.aligned.m8n8.x4.shared::cta.b16 {%0, %1, "
-                     "%2, %3}, [%4];\n"
-                     : "=r"(*(uint32_t *)&dst1), "=r"(*(uint32_t *)&dst2),
-                       "=r"(*(uint32_t *)&dst3), "=r"(*(uint32_t *)&dst4)
-                     : "r"(src));
+        // asm volatile("ldmatrix.sync.aligned.m8n8.x4.shared::cta.b16 {%0, %1, "
+        //              "%2, %3}, [%4];\n"
+        //              : "=r"(*(uint32_t *)&dst1), "=r"(*(uint32_t *)&dst2),
+        //                "=r"(*(uint32_t *)&dst3), "=r"(*(uint32_t *)&dst4)
+        //              : "r"(src));
     }
     static inline void stsm4(uint32_t dst, fp8e5m2_4& src1, fp8e5m2_4& src2, fp8e5m2_4& src3, fp8e5m2_4& src4) {
         /*
         DPCT1053:20: Migration of device assembly code is not supported.
         */
-        asm volatile("stmatrix.sync.aligned.m8n8.x4.shared::cta.b16 [%4], {%0, "
-                     "%1, %2, %3};\n" ::"r"(*(uint32_t *)&src1),
-                     "r"(*(uint32_t *)&src2), "r"(*(uint32_t *)&src3),
-                     "r"(*(uint32_t *)&src4), "r"(dst));
+        // asm volatile("stmatrix.sync.aligned.m8n8.x4.shared::cta.b16 [%4], {%0, "
+        //              "%1, %2, %3};\n" ::"r"(*(uint32_t *)&src1),
+        //              "r"(*(uint32_t *)&src2), "r"(*(uint32_t *)&src3),
+        //              "r"(*(uint32_t *)&src4), "r"(dst));
     }
 };
 #endif
@@ -284,17 +284,17 @@ template<cache_policy policy> inline uint64_t make_cache_policy() {
         /*
         DPCT1053:21: Migration of device assembly code is not supported.
         */
-        asm volatile("createpolicy.fractional.L2::evict_first.b64 %0, %1;\n"
-                     : "=l"(cache_policy_val)
-                     : "f"(fraction));
+        // asm volatile("createpolicy.fractional.L2::evict_first.b64 %0, %1;\n"
+        //              : "=l"(cache_policy_val)
+        //              : "f"(fraction));
     }
     else {
         /*
         DPCT1053:22: Migration of device assembly code is not supported.
         */
-        asm volatile("createpolicy.fractional.L2::evict_last.b64 %0, %1;\n"
-                     : "=l"(cache_policy_val)
-                     : "f"(fraction));
+        // asm volatile("createpolicy.fractional.L2::evict_last.b64 %0, %1;\n"
+        //              : "=l"(cache_policy_val)
+        //              : "f"(fraction));
     }
     return cache_policy_val;
 }
@@ -331,8 +331,8 @@ static inline void init_semaphore(semaphore& bar, int thread_count, int transact
         /*
         DPCT1053:23: Migration of device assembly code is not supported.
         */
-        asm volatile("mbarrier.init.shared::cta.b64 [%0], %1;\n" ::"r"(bar_ptr),
-                     "r"(thread_count + transaction_count));
+        //asm volatile("mbarrier.init.shared::cta.b64 [%0], %1;\n" ::"r"(bar_ptr),
+        //             "r"(thread_count + transaction_count));
     }
 }
 /**
@@ -348,7 +348,7 @@ static inline void invalidate_semaphore(semaphore& bar) {
         /*
         DPCT1053:24: Migration of device assembly code is not supported.
         */
-        asm volatile("mbarrier.inval.shared::cta.b64 [%0];\n" ::"r"(bar_ptr));
+        // asm volatile("mbarrier.inval.shared::cta.b64 [%0];\n" ::"r"(bar_ptr));
     }
 }
 
@@ -365,18 +365,18 @@ static inline void arrive(semaphore& sem) {
     /*
     DPCT1053:25: Migration of device assembly code is not supported.
     */
-    asm volatile("mbarrier.arrive.release.cta.shared::cta.b64 _, [%0];\n"
-                 :
-                 : "r"(mbar_ptr)
-                 : "memory");
+    // asm volatile("mbarrier.arrive.release.cta.shared::cta.b64 _, [%0];\n"
+    //              :
+    //              : "r"(mbar_ptr)
+    //              : "memory");
 }
 template<int num_warps> static inline void arrive(barrier<num_warps> bar) {
     /*
     DPCT1053:26: Migration of device assembly code is not supported.
     */
-    asm volatile("bar.arrive %0, %1;\n" ::"r"(bar.barrier_id),
-                 "n"(num_warps * WARP_THREADS)
-                 : "memory");
+    // asm volatile("bar.arrive %0, %1;\n" ::"r"(bar.barrier_id),
+    //              "n"(num_warps * WARP_THREADS)
+    //              : "memory");
 }
 
 #ifdef KITTENS_HOPPER
@@ -393,10 +393,10 @@ static inline void arrive(semaphore& sem, uint32_t count) {
     /*
     DPCT1053:27: Migration of device assembly code is not supported.
     */
-    asm volatile("mbarrier.arrive.release.cta.shared::cta.b64 _, [%0], %1;\n"
-                 :
-                 : "r"(mbar_ptr), "r"(count)
-                 : "memory");
+    // asm volatile("mbarrier.arrive.release.cta.shared::cta.b64 _, [%0], %1;\n"
+    //              :
+    //              : "r"(mbar_ptr), "r"(count)
+    //              : "memory");
 }
 #endif
 
@@ -414,29 +414,29 @@ static inline void wait(semaphore& sem, int kPhaseBit) {
     /*
     DPCT1053:28: Migration of device assembly code is not supported.
     */
-    asm volatile("{\n"
-                 ".reg .pred                P1;\n"
-                 "LAB_WAIT:\n"
-                 "mbarrier.try_wait.parity.shared::cta.b64 P1, [%0], %1;\n"
-                 "@P1                       bra.uni DONE;\n"
-                 "bra.uni                   LAB_WAIT;\n"
-                 "DONE:\n"
-                 "}\n" ::"r"(mbar_ptr),
-                 "r"(kPhaseBit));
+    // asm volatile("{\n"
+    //              ".reg .pred                P1;\n"
+    //              "LAB_WAIT:\n"
+    //              "mbarrier.try_wait.parity.shared::cta.b64 P1, [%0], %1;\n"
+    //              "@P1                       bra.uni DONE;\n"
+    //              "bra.uni                   LAB_WAIT;\n"
+    //              "DONE:\n"
+    //              "}\n" ::"r"(mbar_ptr),
+    //              "r"(kPhaseBit));
 #else
-    asm volatile (
-        "{\n"
-        ".reg .pred                P1;\n"
-        "LAB_WAIT:\n"
-        "mbarrier.test_wait.parity.shared::cta.b64 P1, [%0], %1;\n"
-        "@P1                       bra.uni DONE;\n"
-        "nanosleep.u32 5;\n" // wait a few nanoseconds on pre-Hopper architectures to save instruction issue slots
-        "bra.uni                   LAB_WAIT;\n"
-        "DONE:\n"
-        "}\n"
-        :: "r"(mbar_ptr),
-        "r"(kPhaseBit)
-    );
+    // asm volatile (
+    //     "{\n"
+    //     ".reg .pred                P1;\n"
+    //     "LAB_WAIT:\n"
+    //     "mbarrier.test_wait.parity.shared::cta.b64 P1, [%0], %1;\n"
+    //     "@P1                       bra.uni DONE;\n"
+    //     "nanosleep.u32 5;\n" // wait a few nanoseconds on pre-Hopper architectures to save instruction issue slots
+    //     "bra.uni                   LAB_WAIT;\n"
+    //     "DONE:\n"
+    //     "}\n"
+    //     :: "r"(mbar_ptr),
+    //     "r"(kPhaseBit)
+    // );
 #endif
 }
 
@@ -453,13 +453,13 @@ static inline int test_wait(semaphore& sem, int kPhaseBit) {
     /*
     DPCT1053:29: Migration of device assembly code is not supported.
     */
-    asm volatile("{\n"
-                 ".reg .pred P1;\n"
-                 "mbarrier.test_wait.parity.shared::cta.b64 P1, [%1], %2;\n"
-                 "selp.u32 %0,1,0,P1;"
-                 "}\n"
-                 : "=r"(result)
-                 : "r"(mbar_ptr), "r"(kPhaseBit));
+    // asm volatile("{\n"
+    //              ".reg .pred P1;\n"
+    //              "mbarrier.test_wait.parity.shared::cta.b64 P1, [%1], %2;\n"
+    //              "selp.u32 %0,1,0,P1;"
+    //              "}\n"
+    //              : "=r"(result)
+    //              : "r"(mbar_ptr), "r"(kPhaseBit));
     return result;
 }
 
@@ -471,9 +471,9 @@ template<int num_warps> static inline void arrive_and_wait(barrier<num_warps> ba
     /*
     DPCT1053:30: Migration of device assembly code is not supported.
     */
-    asm volatile("bar.sync %0, %1;\n" ::"r"(bar.barrier_id),
-                 "n"(num_warps * WARP_THREADS)
-                 : "memory");
+    // asm volatile("bar.sync %0, %1;\n" ::"r"(bar.barrier_id),
+    //              "n"(num_warps * WARP_THREADS)
+    //              : "memory");
 }
 
 template<int N=0> static inline void load_async_wait() { // for completing (non-TMA) async loads

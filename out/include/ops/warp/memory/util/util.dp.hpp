@@ -165,30 +165,62 @@ template<> struct move<half_2> {
 };
 template <> struct move<sycl::float2> {
     static inline void lds(sycl::float2 &dst, uint32_t src) {
-        {dst.x(), dst.y()} = *((float *)(uintptr_t)src);
+        float *p = (float *)(uintptr_t)src;
+        dst.x() = *p;
+        dst.y() = *(p + 1);
+        //{dst.x(), dst.y()} = *((float *)(uintptr_t)src);
     }
     static inline void sts(uint32_t dst, const sycl::float2 &src) {
-        *((float *)(uintptr_t)dst) = {src.x(), src.y()};
+        float *p = (float *)(uintptr_t)dst;
+        *p = src.x();
+        *(p + 1) = src.y();
+        //*((float *)(uintptr_t)dst) = {src.x(), src.y()};
     }
     static inline void ldg(sycl::float2 &dst, sycl::float2 *src) {
-        {dst.x(), dst.y()} = *((float *)(uintptr_t)src);
+        float *p = (float *)(uintptr_t)src;
+        dst.x() = *p;
+        dst.y() = *(p + 1);
+        //{dst.x(), dst.y()} = *((float *)(uintptr_t)src);
     }
     static inline void stg(sycl::float2 *dst, const sycl::float2 &src) {
-        *((float *)(uintptr_t)dst) = {src.x(), src.y()};
+        float *p = (float *)(uintptr_t)dst;
+        *p = src.x();
+        *(p + 1) = src.y();
+        //*((float *)(uintptr_t)dst) = {src.x(), src.y()};
     }
 };
 template <> struct move<sycl::float4> {
     static inline void lds(sycl::float4 &dst, uint32_t src) {
-        {dst.x(), dst.y(), dst.z(), dst.w()} = *((float *)(uintptr_t)src);
+        float *p = (float *)(uintptr_t)src;
+        dst.x() = *p;
+        dst.y() = *(p + 1);
+        dst.z() = *(p + 1);
+        dst.w() = *(p + 1);
+        //{dst.x(), dst.y(), dst.z(), dst.w()} = *((float *)(uintptr_t)src);
     }
     static inline void sts(uint32_t dst, const sycl::float4 &src) {
-        *((float *)(uintptr_t)dst) = {src.x(), src.y(), src.z(), src.w()};
+        float *p = (float *)(uintptr_t)dst;
+        *p = src.x();
+        *(p + 1) = src.y();
+        *(p + 2) = src.z();
+        *(p + 3) = src.w();
+        //*((float *)(uintptr_t)dst) = {src.x(), src.y(), src.z(), src.w()};
     }
     static inline void ldg(sycl::float4 &dst, sycl::float4 *src) {
-        {dst.x(), dst.y(), dst.z(), dst.w()} = *((float *)(uintptr_t)src);
+        float *p = (float *)(uintptr_t)src;
+        dst.x() = *p;
+        dst.y() = *(p + 1);
+        dst.z() = *(p + 1);
+        dst.w() = *(p + 1);
+        //{dst.x(), dst.y(), dst.z(), dst.w()} = *((float *)(uintptr_t)src);
     }
     static inline void stg(sycl::float4 *dst, const sycl::float4 &src) {
-        *((float *)(uintptr_t)dst) = {src.x(), src.y(), src.z(), src.w()};
+        float *p = (float *)(uintptr_t)dst;
+        *p = src.x();
+        *(p + 1) = src.y();
+        *(p + 2) = src.z();
+        *(p + 3) = src.w();
+        //*((float *)(uintptr_t)dst) = {src.x(), src.y(), src.z(), src.w()};
     }
 };
 #ifdef KITTENS_HOPPER

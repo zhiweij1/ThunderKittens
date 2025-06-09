@@ -541,7 +541,7 @@ template<int axis, cache_policy policy, ducks::st::all ST, ducks::gl::all GL, du
 static inline void load_async(ST &dst, const GL &src, const COORD &idx, semaphore& bar) {
     if (::kittens::laneid() == 0) {
         uint64_t tma_ptr = reinterpret_cast<uint64_t>(src.template get_tma<ST, axis>());
-        uint32_t mbar_ptr = static_cast<uint32_t>(__cvta_generic_to_shared(&bar));
+        auto mbar_ptr = &bar;
         auto dst_ptr = &dst;
         coord<ducks::default_type> unit_coord = idx.template unit_coord<axis, 3>(); // convert to unit coordinates
         sycl::int4 tma_coords = detail::tma_coords<ST, axis>(unit_coord);
@@ -599,8 +599,8 @@ template<int axis, cache_policy policy, ducks::st::all ST, ducks::gl::all GL, du
 static inline void load_async(ST &dst, const GL &src, const COORD &idx, semaphore& bar, uint16_t cluster_mask) {
     if (::kittens::laneid() == 0) {
         uint64_t tma_ptr = reinterpret_cast<uint64_t>(src.template get_tma<ST, axis>());
-        uint32_t mbar_ptr = static_cast<uint32_t>(__cvta_generic_to_shared(&bar));
-        uint32_t dst_ptr  = static_cast<uint32_t>(__cvta_generic_to_shared(&dst));
+        auto mbar_ptr = &bar;
+        auto dst_ptr  = &dst;
         coord<ducks::default_type> unit_coord = idx.template unit_coord<axis, 3>(); // convert to unit coordinates
         sycl::int4 tma_coords = detail::tma_coords<ST, axis>(unit_coord);
 

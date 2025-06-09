@@ -134,7 +134,7 @@ struct pgl {
         /*
         DPCT1007:465: Migration of cuMulticastCreate is not supported.
         */
-        CUCHECK(cuMulticastCreate(&mc_handle, &mc_prop));
+        // CUCHECK(cuMulticastCreate(&mc_handle, &mc_prop)); // NYI
 
         // Add devices to MC handle
         for (int i = 0; i < NUM_DEVICES; ++i) {
@@ -143,8 +143,8 @@ struct pgl {
             /*
             DPCT1007:467: Migration of cuMulticastAddDevice is not supported.
             */
-            CUCHECK(cuMulticastAddDevice(
-                mc_handle, dev)); // must be done before any bindig
+            // CUCHECK(cuMulticastAddDevice(
+            //     mc_handle, dev)); // must be done before any bindig // NYI
         }
 
         // Get granularities
@@ -152,7 +152,7 @@ struct pgl {
         /*
         DPCT1007:462: Migration of cuMulticastGetGranularity is not supported.
         */
-        cuMulticastGetGranularity(&mc_granularity, &mc_prop, MC_GRAN_TYPE);
+        // cuMulticastGetGranularity(&mc_granularity, &mc_prop, MC_GRAN_TYPE); // NYI
 
         // Map virtual addresses to the mc handle. All devices must be added before any address can be mapped per CUDA docs
         for (int i = 0; i < NUM_DEVICES; ++i) {
@@ -266,9 +266,9 @@ struct pgl {
         DPCT1028:470: The cuDeviceGetAttribute was not migrated because
         parameter CU_DEVICE_ATTRIBUTE_MULTICAST_SUPPORTED is unsupported.
         */
-        CUCHECK(cuDeviceGetAttribute(&device_supports_multicast,
-                                     CU_DEVICE_ATTRIBUTE_MULTICAST_SUPPORTED,
-                                     dev));
+        //CUCHECK(cuDeviceGetAttribute(&device_supports_multicast,
+        //                             CU_DEVICE_ATTRIBUTE_MULTICAST_SUPPORTED,
+        //                             dev));//NYI
 
         if (!device_supports_multicast) {
             std::cerr << "DEVICE ISSUE: Device " << device_id <<" does not support Multicast Objects." << std::endl;

@@ -227,7 +227,7 @@ static inline void arrive(semaphore& bar, int dst_cta, uint32_t count=1) {
 static inline void store_async(void *dst, void *src, int dst_cta, uint32_t size_bytes, semaphore& bar) {
     if (laneid() == 0) {
         void const* const ptr = &bar;
-        uint32_t mbarrier_ptr = static_cast<uint32_t>(__cvta_generic_to_shared(ptr)); 
+        auto mbarrier_ptr = ptr; 
 
         // **************************************************
         // load from src to dst in different threadblocks
@@ -244,7 +244,7 @@ static inline void store_async(void *dst, void *src, int dst_cta, uint32_t size_
                      : "=r"(neighbor_addr_dst)
                      : "r"(dst_ptr), "r"(dst_cta));
 
-        uint32_t neighbor_addr_mbarrier = mbarrier_ptr;
+        auto neighbor_addr_mbarrier = mbarrier_ptr;
         /*
         DPCT1053:45: Migration of device assembly code is not supported.
         */

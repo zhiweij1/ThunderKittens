@@ -51,8 +51,8 @@ static inline void copy(SV1 &dst, const SV2 &src) {
 * @note The subvec length must evenly divide the vector length.
 */
 template<int subvec_length, ducks::sv::all SV>
-inline typename SV::subvec<subvec_length> &subvec_inplace(SV &src, int vec_idx) {
-    return *(typename SV::subvec<subvec_length>*)(&src[vec_idx*subvec_length]);
+inline typename SV::template subvec<subvec_length> &subvec_inplace(SV &src, int vec_idx) {
+    return *(typename SV::template subvec<subvec_length>*)(&src[vec_idx*subvec_length]);
 }
 
 }

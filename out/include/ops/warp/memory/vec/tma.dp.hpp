@@ -495,8 +495,8 @@ template<cache_policy policy, ducks::sv::all SV, ducks::gl::all GL, ducks::coord
 static inline void load_async(SV &dst, const GL &src, const COORD &idx, semaphore& bar) {
     coord<> unit_coord = idx.template unit_coord<-1, 3>();
     uint64_t tma_ptr  = reinterpret_cast<uint64_t>(src.template get_tma<SV, -1>());
-    uint32_t mbar_ptr = static_cast<uint32_t>(__cvta_generic_to_shared(&bar));
-    uint32_t dst_ptr  = static_cast<uint32_t>(__cvta_generic_to_shared(&dst));
+    auto mbar_ptr = &bar;
+    auto dst_ptr  = &dst;
     for(int i = ::kittens::laneid(); i < detail::sv_tma_dim2<SV>; i += WARP_THREADS) {
         coord<> tma_coord = unit_coord;
         tma_coord.c += i * detail::sv_tma_dim1<SV>;
@@ -553,12 +553,12 @@ template<cache_policy policy, ducks::sv::all SV, ducks::gl::all GL, ducks::coord
 static inline void load_async(SV &dst, const GL &src, const COORD &idx, semaphore& bar, uint16_t cluster_mask) {
     coord<> unit_coord = idx.template unit_coord<-1, 3>();
     uint64_t tma_ptr  = reinterpret_cast<uint64_t>(src.template get_tma<SV, -1>());
-    uint32_t mbar_ptr = static_cast<uint32_t>(__cvta_generic_to_shared(&bar));
-    uint32_t dst_ptr  = static_cast<uint32_t>(__cvta_generic_to_shared(&dst));
+    auto mbar_ptr = &bar;
+    auto dst_ptr  = &dst;
     for(int i = ::kittens::laneid(); i < detail::sv_tma_dim2<SV>; i += WARP_THREADS) {
         coord<> tma_coord = unit_coord;
         tma_coord.c += i * detail::sv_tma_dim1<SV>;
-        uint32_t dst_i_ptr = dst_ptr + i*detail::sv_tma_dim1<SV>*sizeof(typename SV::dtype);
+        auto dst_i_ptr = dst_ptr + i*detail::sv_tma_dim1<SV>*sizeof(typename SV::dtype);
 
         if constexpr (policy == cache_policy::NORMAL) {
             /*

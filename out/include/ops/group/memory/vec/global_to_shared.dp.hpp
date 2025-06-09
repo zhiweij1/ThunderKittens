@@ -23,9 +23,9 @@ template<ducks::sv::all SV, ducks::gl::all GL, ducks::coord::vec COORD=coord<SV>
 static inline void load(SV &dst, const GL &src, const COORD &idx) {
     constexpr uint32_t elem_per_transfer =
         sizeof(sycl::float4) / sizeof(typename SV::dtype);
-    constexpr uint32_t total_calls = dst.length / elem_per_transfer; // guaranteed to divide
+    constexpr uint32_t total_calls = 0; //dst.length / elem_per_transfer; // guaranteed to divide // NYI
     typename GL::dtype *src_ptr = (typename GL::dtype*)&src[(idx.template unit_coord<-1, 3>())];
-    uint32_t dst_ptr = static_cast<uint32_t>(__cvta_generic_to_shared(&dst.data[0]));
+    uint32_t dst_ptr; // = static_cast<uint32_t>(__cvta_generic_to_shared(&dst.data[0])); // NYI
     #pragma unroll
     for (uint32_t i =
              sycl::ext::oneapi::this_work_item::get_nd_item<3>().get_local_id(

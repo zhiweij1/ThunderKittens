@@ -35,19 +35,19 @@ template<kittens::ducks::sv::all SV> static inline void init_bias(rt_fl<16,SV::l
                 (*(bf16_2 *)&bias.data[16 * i + 0 + 2 * (laneid() % 4)]).x()),
             sycl::ext::intel::math::bfloat162float(
                 (*(bf16_2 *)&bias.data[16 * i + 0 + 2 * (laneid() % 4)]).y()));
-        acc.tiles[0][i].data[0].x = tmp1.x();
-        acc.tiles[0][i].data[0].y = tmp1.y();
-        acc.tiles[0][i].data[1].x = tmp1.x();
-        acc.tiles[0][i].data[1].y = tmp1.y();
+        acc.tiles[0][i].data[0].x() = tmp1.x();  // NYI
+        acc.tiles[0][i].data[0].y() = tmp1.y();  // NYI
+        acc.tiles[0][i].data[1].x() = tmp1.x();  // NYI
+        acc.tiles[0][i].data[1].y() = tmp1.y();  // NYI
         sycl::float2 tmp2 = sycl::float2(
             sycl::ext::intel::math::bfloat162float(
                 (*(bf16_2 *)&bias.data[16 * i + 8 + 2 * (laneid() % 4)]).x()),
             sycl::ext::intel::math::bfloat162float(
                 (*(bf16_2 *)&bias.data[16 * i + 8 + 2 * (laneid() % 4)]).y()));
-        acc.tiles[0][i].data[2].x = tmp2.x();
-        acc.tiles[0][i].data[2].y = tmp2.y();
-        acc.tiles[0][i].data[3].x = tmp2.x();
-        acc.tiles[0][i].data[3].y = tmp2.y();
+        acc.tiles[0][i].data[2].x() = tmp2.x(); // NYI
+        acc.tiles[0][i].data[2].y() = tmp2.y(); // NYI
+        acc.tiles[0][i].data[3].x() = tmp2.x(); // NYI
+        acc.tiles[0][i].data[3].y() = tmp2.y(); // NYI
     }
 }
 using namespace kittens::prototype;
@@ -89,7 +89,7 @@ struct flux_matmul_gelu_template {
         static void load(producer_load_args<layout> args) { // semaphore for the producer to load into
             auto item_ct1 = sycl::ext::oneapi::this_work_item::get_nd_item<3>();
             if (warpgroup::warpid() == 0) {
-                tma::expect_bytes(args.inputs_arrived, sizeof(layout::input_block));
+                tma::expect_bytes(args.inputs_arrived, sizeof(typename layout::input_block)); // NYI
                 for(int i = 0; i < NUM_CONSUMER_WARPGROUPS; i++) {
                     if constexpr (transpose_lhs)
                         tma::load_async(
@@ -147,9 +147,9 @@ struct flux_matmul_gelu_template {
             for(int i = 0; i < args.state.acc.width; i++) {
                 #pragma unroll
                 for(int j = 0; j < 4; j++) {
-                    float f = args.state.acc.tiles[0][i].data[j].x, g = args.state.acc.tiles[0][i].data[j].y;
-                    args.state.acc.tiles[0][i].data[j].x = f * 0.5f * (1.0f + fast_tanh(f * 0.79788456f * (1.f + f * f *0.044715f)));  
-                    args.state.acc.tiles[0][i].data[j].y = g * 0.5f * (1.0f + fast_tanh(g * 0.79788456f * (1.f + g * g *0.044715f)));  
+                    float f = args.state.acc.tiles[0][i].data[j].x(), g = args.state.acc.tiles[0][i].data[j].y(); // NYI
+                    args.state.acc.tiles[0][i].data[j].x() = f * 0.5f * (1.0f + fast_tanh(f * 0.79788456f * (1.f + f * f *0.044715f)));  // NYI
+                    args.state.acc.tiles[0][i].data[j].y() = g * 0.5f * (1.0f + fast_tanh(g * 0.79788456f * (1.f + g * g *0.044715f)));  // NYI
                 } 
             }
             warpgroup::store(args.finish.acc[warpgroup::groupid()], args.state.acc);
@@ -164,6 +164,9 @@ struct flux_matmul_gelu_template {
         }
     };
 };
+
+template <> struct sycl::is_device_copyable<flux_matmul_gelu_layout<192, 192, 64, 0, 1>::globals> : std::true_type {}; // NYI
+template <> struct sycl::is_device_copyable<flux_matmul_gelu_layout<128, 192, 64, 0, 1>::globals> : std::true_type {}; // NYI
 
 #ifdef RUN_MAIN
 #include <iostream>
@@ -237,10 +240,10 @@ void runbenchmark(size_t M, size_t N, size_t K) {
 
     // Allocate device memory
     sycl::ext::oneapi::bfloat16 *d_A, *d_B, *d_C, *d_bias;
-    cudaMalloc(&d_A, M*K*2);
-    cudaMalloc(&d_B, K*N*2);
-    cudaMalloc(&d_C, M*N*2);
-    cudaMalloc(&d_bias, N*2);
+    // cudaMalloc(&d_A, M*K*2);  // NYI
+    // cudaMalloc(&d_B, K*N*2);  // NYI
+    // cudaMalloc(&d_C, M*N*2);  // NYI
+    // cudaMalloc(&d_bias, N*2); // NYI
 
     std::cout << "Allocated device memory" << std::endl;
 
@@ -277,7 +280,7 @@ void runbenchmark(size_t M, size_t N, size_t K) {
 
     unsigned long mem_size = MAX_SHARED_MEMORY; // need to launch two blocks if possible.
     
-    cudaFuncSetAttribute(prototype::lcf::kernel<fmt>, cudaFuncAttributeMaxDynamicSharedMemorySize, mem_size);
+    // cudaFuncSetAttribute(prototype::lcf::kernel<fmt>, cudaFuncAttributeMaxDynamicSharedMemorySize, mem_size); // NYI
     // Launch kernel
     dpct::dim3 grid(M / (acc_tile::rows *
                          prototype::detail::NUM_CONSUMER_WARPGROUPS_v<fmt>),

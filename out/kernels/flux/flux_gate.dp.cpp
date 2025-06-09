@@ -161,9 +161,9 @@ struct flux_matmul_gate_template {
             warpgroup::increase_registers<NUM_CONSUMER_WARPGROUPS == 3 ? 152
                                                                        : 232>();
             group<NUM_CONSUMER_WARPS>::load(
-                args.scratch.bias, args.globals.bias, {item_ct1.get_group(1)});
+                args.scratch.bias, args.globals.bias, {(int)item_ct1.get_group(1)});  // NYI
             group<NUM_CONSUMER_WARPS>::load(
-                args.scratch.gate, args.globals.gate, {item_ct1.get_group(1)});
+                args.scratch.gate, args.globals.gate, {(int)item_ct1.get_group(1)});  // NYI
             group<NUM_CONSUMER_WARPS>::sync(6);
             rt_sv_op<base_ops::copy2>(args.state.acc, args.scratch.bias); // copy bias in to start
             zero(args.state.acc);
@@ -182,10 +182,10 @@ struct flux_matmul_gate_template {
         }
         static void finish(consumer_finish_args<layout> args) {
             auto item_ct1 = sycl::ext::oneapi::this_work_item::get_nd_item<3>();
-            kittens::coord idx = {item_ct1.get_group(2) *
+            kittens::coord idx = {static_cast<int> (item_ct1.get_group(2) *
                                           NUM_CONSUMER_WARPGROUPS +
-                                      warpgroup::groupid(),
-                                  item_ct1.get_group(1)};
+                                      warpgroup::groupid()), // NYI
+                                  static_cast<int> (item_ct1.get_group(1))}; // NYI
             warpgroup::load_async(args.finish.acc[warpgroup::groupid()], args.globals.y, idx);
             rt_sv_op<base_ops::mul>(args.state.acc, args.scratch.gate); // multiply gate onto acc
             warpgroup::load_async_wait(warpgroup::groupid()); // y now arrived
@@ -199,6 +199,9 @@ struct flux_matmul_gate_template {
         }
     };
 };
+
+template <> struct sycl::is_device_copyable<flux_matmul_gate_layout<192, 192, 64, 0, 0>::globals> : std::true_type {}; // NYI
+template <> struct sycl::is_device_copyable<flux_matmul_gate_layout<128, 256, 64, 0, 0>::globals> : std::true_type {}; // NYI
 
 #include <iostream>
 #include <random>
@@ -274,23 +277,23 @@ void run_bench(int M, int N, int K) {
 
     // Allocate device memory
     sycl::half *d_A, *d_B, *d_C, *d_bias, *d_gate, *d_y;
-    cudaMalloc(&d_A, M*K*2);
-    cudaMalloc(&d_B, K*N*2);
-    cudaMalloc(&d_C, M*N*2);
-    cudaMalloc(&d_bias, N*2);
-    cudaMalloc(&d_gate, N*2);
-    cudaMalloc(&d_y, M*N*2);
+    // cudaMalloc(&d_A, M*K*2);  // Not Migrated, bug, // NYI
+    // cudaMalloc(&d_B, K*N*2); // Not Migrated, bug, // NYI
+    // cudaMalloc(&d_C, M*N*2); // Not Migrated, bug, // NYI
+    // cudaMalloc(&d_bias, N*2); // Not Migrated, bug, // NYI
+    // cudaMalloc(&d_gate, N*2); // Not Migrated, bug, // NYI
+    // cudaMalloc(&d_y, M*N*2); // Not Migrated, bug, // NYI
     std::cout << "Allocated device memory" << std::endl;
 
     std::cout << "lhs_tile::rows=" << lhs_tile::rows << " lhs_tile::cols=" << lhs_tile::cols << std::endl;
     std::cout << "rhs_tile::rows=" << rhs_tile::rows << " rhs_tile::cols=" << rhs_tile::cols << std::endl;
     std::cout << "acc_tile::rows=" << acc_tile::rows << " acc_tile::cols=" << acc_tile::cols << std::endl;
-    lhs_global Ag{d_A, nullptr, nullptr, transpose_lhs ? K : M, transpose_lhs ? M : K};
-    rhs_global Bg{d_B, nullptr, nullptr, transpose_rhs ? N : K, transpose_rhs ? K : N};
-    acc_global Cg{d_C, nullptr, nullptr, M, N};
-    acc_global Yg{d_y, nullptr, nullptr, M, N};
-    bias_global Biasg{d_bias, nullptr, nullptr, nullptr, N};
-    bias_global Gateg{d_gate, nullptr, nullptr, nullptr, N};
+    lhs_global Ag{d_A, nullptr, nullptr, static_cast<unsigned long>(transpose_lhs ? K : M), static_cast<unsigned long>(transpose_lhs ? M : K)}; // NYI
+    rhs_global Bg{d_B, nullptr, nullptr, static_cast<unsigned long>(transpose_rhs ? N : K), static_cast<unsigned long>(transpose_rhs ? K : N)}; // NYI
+    acc_global Cg{d_C, nullptr, nullptr, (unsigned long)M, (unsigned long)N}; // NYI
+    acc_global Yg{d_y, nullptr, nullptr, (unsigned long)M, (unsigned long)N}; // NYI
+    bias_global Biasg{d_bias, nullptr, nullptr, nullptr,(unsigned long) N}; // NYI
+    bias_global Gateg{d_gate, nullptr, nullptr, nullptr, (unsigned long)N}; // NYI
     globals G{Ag, Bg, Biasg, Gateg, Yg, Cg};
     
     // Check for CUDA errors
@@ -354,7 +357,7 @@ void run_bench(int M, int N, int K) {
 
     unsigned long mem_size = MAX_SHARED_MEMORY; // need to launch two blocks if possible.
     
-    cudaFuncSetAttribute(prototype::lcf::kernel<fmt>, cudaFuncAttributeMaxDynamicSharedMemorySize, mem_size);
+    // cudaFuncSetAttribute(prototype::lcf::kernel<fmt>, cudaFuncAttributeMaxDynamicSharedMemorySize, mem_size); // NYI
     // Launch kernel
     dpct::dim3 grid(M / (acc_tile::rows *
                          prototype::detail::NUM_CONSUMER_WARPGROUPS_v<fmt>),

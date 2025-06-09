@@ -11,6 +11,79 @@
 #include "../../common/common.dp.hpp"
 #include "../shared/shared.dp.hpp"
 
+#define CU_TENSOR_MAP_NUM_QWORDS 16
+typedef struct CUtensorMap_st {
+    std::uint64_t opaque[CU_TENSOR_MAP_NUM_QWORDS];
+} CUtensorMap;
+typedef enum CUtensorMapDataType_enum {
+    CU_TENSOR_MAP_DATA_TYPE_UINT8 = 0,
+    CU_TENSOR_MAP_DATA_TYPE_UINT16,
+    CU_TENSOR_MAP_DATA_TYPE_UINT32,
+    CU_TENSOR_MAP_DATA_TYPE_INT32,
+    CU_TENSOR_MAP_DATA_TYPE_UINT64,
+    CU_TENSOR_MAP_DATA_TYPE_INT64,
+    CU_TENSOR_MAP_DATA_TYPE_FLOAT16,
+    CU_TENSOR_MAP_DATA_TYPE_FLOAT32,
+    CU_TENSOR_MAP_DATA_TYPE_FLOAT64,
+    CU_TENSOR_MAP_DATA_TYPE_BFLOAT16,
+    CU_TENSOR_MAP_DATA_TYPE_FLOAT32_FTZ,
+    CU_TENSOR_MAP_DATA_TYPE_TFLOAT32,
+    CU_TENSOR_MAP_DATA_TYPE_TFLOAT32_FTZ,
+    CU_TENSOR_MAP_DATA_TYPE_16U4_ALIGN8B,
+    CU_TENSOR_MAP_DATA_TYPE_16U4_ALIGN16B,
+    CU_TENSOR_MAP_DATA_TYPE_16U6_ALIGN16B
+} CUtensorMapDataType;
+typedef enum CUtensorMapInterleave_enum {
+    CU_TENSOR_MAP_INTERLEAVE_NONE = 0,
+    CU_TENSOR_MAP_INTERLEAVE_16B,
+    CU_TENSOR_MAP_INTERLEAVE_32B
+} CUtensorMapInterleave;
+typedef enum CUtensorMapL2promotion_enum {
+    CU_TENSOR_MAP_L2_PROMOTION_NONE = 0,
+    CU_TENSOR_MAP_L2_PROMOTION_L2_64B,
+    CU_TENSOR_MAP_L2_PROMOTION_L2_128B,
+    CU_TENSOR_MAP_L2_PROMOTION_L2_256B
+} CUtensorMapL2promotion;
+typedef enum CUtensorMapFloatOOBfill_enum {
+    CU_TENSOR_MAP_FLOAT_OOB_FILL_NONE = 0,
+    CU_TENSOR_MAP_FLOAT_OOB_FILL_NAN_REQUEST_ZERO_FMA
+} CUtensorMapFloatOOBfill;
+typedef enum CUtensorMapSwizzle_enum {
+    CU_TENSOR_MAP_SWIZZLE_NONE = 0,
+    CU_TENSOR_MAP_SWIZZLE_32B,
+    CU_TENSOR_MAP_SWIZZLE_64B,
+    CU_TENSOR_MAP_SWIZZLE_128B,
+    CU_TENSOR_MAP_SWIZZLE_128B_ATOM_32B,
+    CU_TENSOR_MAP_SWIZZLE_128B_ATOM_32B_FLIP_8B,
+    CU_TENSOR_MAP_SWIZZLE_128B_ATOM_64B
+} CUtensorMapSwizzle;
+typedef enum CUmulticastGranularity_flags_enum {
+    CU_MULTICAST_GRANULARITY_MINIMUM     = 0x0,     /**< Minimum required granularity */
+    CU_MULTICAST_GRANULARITY_RECOMMENDED = 0x1      /**< Recommended granularity for best performance */
+} CUmulticastGranularity_flags;
+typedef struct CUmulticastObjectProp_st {
+    /**
+     * The number of devices in the multicast team that will bind memory to this
+     * object
+     */
+    unsigned int numDevices;
+    /** 
+     * The maximum amount of memory that can be bound to this multicast object
+     * per device
+     */
+    size_t size;
+    /**
+     * Bitmask of exportable handle types (see ::CUmemAllocationHandleType) for
+     * this object
+     */
+    unsigned long long handleTypes;
+    /** 
+     * Flags for future use, must be zero now
+     */
+    unsigned long long flags;
+} CUmulticastObjectProp_v1;
+typedef CUmulticastObjectProp_v1 CUmulticastObjectProp;
+
 namespace kittens {
 namespace tma {
 namespace detail {
@@ -142,10 +215,10 @@ static inline void create_tensor_map(CUtensorMap *tma_map, const typename ST::dt
     /*
     DPCT1007:454: Migration of cuTensorMapEncodeTiled is not supported.
     */
-    int result = cuTensorMapEncodeTiled(
+    int result /*= cuTensorMapEncodeTiled(
         tma_map, tma_format, tma_dim, global_addr, gmem_shape_ptr,
         gmem_stride_ptr, smem_shape_ptr, smem_stride_ptr, tma_interleave,
-        tma_swizzle, tma_l2Promotion, tma_oobFill);
+        tma_swizzle, tma_l2Promotion, tma_oobFill)*/; //NYI
 
     const char *error_string;
     /*
@@ -263,10 +336,10 @@ static inline void create_tensor_map(CUtensorMap *tma_map, const typename SV::dt
     /*
     DPCT1007:458: Migration of cuTensorMapEncodeTiled is not supported.
     */
-    int result = cuTensorMapEncodeTiled(
+    int result /*= cuTensorMapEncodeTiled(
         tma_map, tma_format, tma_dim, global_addr, gmem_shape_ptr,
         gmem_stride_ptr, smem_shape_ptr, smem_stride_ptr, tma_interleave,
-        swizzle, tma_l2Promotion, tma_oobFill);
+        swizzle, tma_l2Promotion, tma_oobFill)*/; //NYI
 
     const char *error_string;
     /*

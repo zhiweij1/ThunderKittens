@@ -1,8 +1,8 @@
-#include <ATen/ATen.h>
-#include <ATen/cuda/CUDAContext.h>
-#include <pybind11/pybind11.h>
-#include <torch/extension.h>
-namespace py = pybind11;
+//#include <ATen/ATen.h>//NYI
+//#include <ATen/cuda/CUDAContext.h>
+//#include <pybind11/pybind11.h>
+//#include <torch/extension.h>
+//namespace py = pybind11;
 
 #define ONEAPI_BACKEND_LEVEL_ZERO_EXT
 #define DPCT_PROFILING_ENABLED
@@ -14,7 +14,7 @@ namespace py = pybind11;
 #include <vector>
 
 #include "kittens.dp.hpp"
-#include "pyutils/torch_helpers.dp.hpp"
+//#include "pyutils/torch_helpers.dp.hpp"//NYI
 
 constexpr int NUM_DEVICES         = 8;
 constexpr int CONSUMER_WARPGROUPS = 3; 

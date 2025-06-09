@@ -28,6 +28,8 @@ struct matmul_layout {
         rt_fl8_e4m3<16, c_tile::cols> accum_fp8;  // Changed to match tall format
     };
 };
+template <>
+struct sycl::is_device_copyable<matmul_layout::globals> : std::true_type {};
 template<int _SUPER_M=12>
 struct matmul_template {
     static constexpr int SUPER_M = _SUPER_M;
@@ -234,9 +236,9 @@ int run_benchmark(size_t M, size_t N, size_t K) {
 
     // Allocate device memory
     fp8e4m3 *d_A, *d_B, *d_C;
-    cudaMalloc(&d_A, M*K*sizeof(fp8e4m3));
-    cudaMalloc(&d_B, K*N*sizeof(fp8e4m3));
-    cudaMalloc(&d_C, M*N*sizeof(fp8e4m3));
+    d_A = (fp8e4m3 *)sycl::malloc_device(M*K*sizeof(fp8e4m3), dpct::get_default_queue());
+    d_B = (fp8e4m3 *)sycl::malloc_device(K*N*sizeof(fp8e4m3), dpct::get_default_queue());
+    d_C = (fp8e4m3 *)sycl::malloc_device(M*N*sizeof(fp8e4m3), dpct::get_default_queue());
 
     // Check for CUDA errors
     /*
@@ -289,7 +291,7 @@ int run_benchmark(size_t M, size_t N, size_t K) {
     std::cout << "Copied matrices to device" << std::endl;
 
     unsigned long mem_size = MAX_SHARED_MEMORY - 1024;
-    cudaFuncSetAttribute(prototype::lcf::kernel<mmt>, cudaFuncAttributeMaxDynamicSharedMemorySize, mem_size);
+    //cudaFuncSetAttribute(prototype::lcf::kernel<mmt>, cudaFuncAttributeMaxDynamicSharedMemorySize, mem_size);//NYI
 
     // Launch kernel
     dpct::dim3 grid(mmt::grid(M, N, K));

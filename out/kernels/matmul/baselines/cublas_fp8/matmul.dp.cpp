@@ -15,6 +15,8 @@
 
 #include <dpct/lib_common_utils.hpp>
 
+#include <common/base_types.dp.hpp>
+
 // Error checking macros
 /*
 DPCT1001:512: The statement could not be removed.
@@ -189,8 +191,8 @@ void benchmark(int m, int n, int k) try {
             dpct::compute_type::f32, dpct::library_data_t::real_float)));
 
     // Set operation attributes - "TN" format required for FP8
-    const int32_t transa = oneapi::mkl::transpose::trans;
-    const int32_t transb = oneapi::mkl::transpose::nontrans;
+    const int32_t transa = (int)oneapi::mkl::transpose::trans;
+    const int32_t transb = (int)oneapi::mkl::transpose::nontrans;
     CHECK_CUBLAS(DPCT_CHECK_ERROR(operationDesc->set_attribute(
         dpct::blas_gemm::experimental::matmul_desc_t::attribute::trans_a,
         &transa)));

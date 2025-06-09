@@ -18,6 +18,8 @@ struct matmul_layout {
     struct common_state { sycl::int2 coord; };
     struct consumer_state { rt_fl<16, 64> accum[N_BLOCK]; };
 };
+template <>
+struct sycl::is_device_copyable<matmul_layout<2, 4>::globals> : std::true_type {};
 template<int _M_BLOCK=2, int _N_BLOCK=4, int _SUPER_M=12>
 struct matmul_template {
     static constexpr int M_BLOCK = _M_BLOCK, N_BLOCK = _N_BLOCK, SUPER_M = _SUPER_M;
@@ -55,7 +57,7 @@ struct matmul_template {
         }
         args.num_iters = args.globals.A.cols()/64;  // 64
         int id = warpgroup::groupid() == NUM_CONSUMER_WARPS/4 ? 0 : warpgroup::groupid(); // producer sets as 0
-        args.common.coord = { args.common.coord.x*M_BLOCK + id, args.common.coord.y*N_BLOCK };
+        args.common.coord = { args.common.coord.x()*M_BLOCK + id, args.common.coord.y()*N_BLOCK };
     }
     struct producer {
         static void setup(producer_setup_args<layout> args) {
@@ -66,10 +68,10 @@ struct matmul_template {
                 tma::expect(args.inputs_arrived, args.input);
                 for(int i = 0; i < M_BLOCK; i++)
                     tma::load_async(args.input.a[i], args.globals.A,
-                                    {args.common.coord.x+i, args.iter}, args.inputs_arrived);
+                                    {args.common.coord.x()+i, args.iter}, args.inputs_arrived);
                 for(int i = 0; i < N_BLOCK; i++)
                     tma::load_async(args.input.b[i], args.globals.B,
-                                    {args.common.coord.y+i, args.iter}, args.inputs_arrived);
+                                    {args.common.coord.y()+i, args.iter}, args.inputs_arrived);
             }
         }
     };
@@ -99,7 +101,7 @@ struct matmul_template {
             if(warpgroup::warpid() == 0) {
                 for(int i = 0; i < N_BLOCK; i++) {
                     tma::store_async(args.globals.C, args.finish.c[warpgroup::groupid()][i],
-                                   {args.common.coord.x, args.common.coord.y+i});
+                                   {args.common.coord.x(), args.common.coord.y()+i});
                     tma::store_async_read_wait();
                 }
             }
@@ -208,9 +210,9 @@ int run_benchmark(size_t M, size_t N, size_t K) {
 
     // Allocate device memory
     sycl::ext::oneapi::bfloat16 *d_A, *d_B, *d_C;
-    cudaMalloc(&d_A, M * K * sizeof(sycl::ext::oneapi::bfloat16));
-    cudaMalloc(&d_B, K * N * sizeof(sycl::ext::oneapi::bfloat16));
-    cudaMalloc(&d_C, M * N * sizeof(sycl::ext::oneapi::bfloat16));
+    d_A = (sycl::ext::oneapi::bfloat16*)sycl::malloc_device(M * K * sizeof(sycl::ext::oneapi::bfloat16), dpct::get_default_queue());
+    d_B = (sycl::ext::oneapi::bfloat16*)sycl::malloc_device(K * N * sizeof(sycl::ext::oneapi::bfloat16), dpct::get_default_queue());
+    d_C = (sycl::ext::oneapi::bfloat16*)sycl::malloc_device(M * N * sizeof(sycl::ext::oneapi::bfloat16), dpct::get_default_queue());
 
     // Check for CUDA errors
     /*
@@ -256,7 +258,7 @@ int run_benchmark(size_t M, size_t N, size_t K) {
     std::cout << "Copied matrices to device" << std::endl;
 
     unsigned long mem_size = MAX_SHARED_MEMORY - 1024;
-    cudaFuncSetAttribute(prototype::lcf::kernel<mmt>, cudaFuncAttributeMaxDynamicSharedMemorySize, mem_size);
+    //cudaFuncSetAttribute(prototype::lcf::kernel<mmt>, cudaFuncAttributeMaxDynamicSharedMemorySize, mem_size);//NYI
 
     // Launch kernel
     dpct::dim3 grid(mmt::grid(M, N, K));

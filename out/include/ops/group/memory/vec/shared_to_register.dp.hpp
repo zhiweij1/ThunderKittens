@@ -17,16 +17,16 @@
  * @param src[in]  The source shared vector.
  */
 template<ducks::rv::all RV, ducks::sv::all SV>
-inline static void load(RV &dst, const SV &_src) {
+SYCL_EXTERNAL inline static void load(RV &dst, const SV &_src) {
     using T2 = RV::dtype;
     using U = SV::dtype;
     using U2 = base_types::packing<U>::packed_type;
     using T = base_types::packing<T2>::unpacked_type;
 
-    static_assert(_src.length == dst.length*N_WARPS);// confirm size correct
-    auto &src = subvec_inplace<dst.length>(_src, warpid()); // pretend it's smaller and do warp-level load
+    //static_assert(_src.length == dst.length*N_WARPS);// confirm size correct//NYI
+    //auto &src = subvec_inplace<dst.length>(_src, warpid()); // pretend it's smaller and do warp-level load//NYI
 
-    ::kittens::load(dst, src); // warp-level
+    //::kittens::load(dst, src); // warp-level
 }
 
 /**
@@ -38,14 +38,14 @@ inline static void load(RV &dst, const SV &_src) {
  * @param src[in]  The source register vector.
  */
 template<ducks::sv::all SV, ducks::rv::all RV>
-inline static void store(SV &_dst, const RV &src) {
+SYCL_EXTERNAL inline static void store(SV &_dst, const RV &src) {
     using T2 = RV::dtype;
     using U = SV::dtype;
     using U2 = base_types::packing<U>::packed_type;
     using T = base_types::packing<T2>::unpacked_type;
 
-    static_assert(_dst.length == src.length*N_WARPS);// confirm size correct
-    auto &dst = subvec_inplace<src.length>(_dst, warpid()); // pretend it's smaller and do warp-level load
+    //static_assert(_dst.length == src.length*N_WARPS);// confirm size correct//NYI
+    //auto &dst = subvec_inplace<src.length>(_dst, warpid()); // pretend it's smaller and do warp-level load//NYI
 
-    ::kittens::store(dst, src); // warp-level
+    //::kittens::store(dst, src); // warp-level
 }

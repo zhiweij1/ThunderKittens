@@ -78,7 +78,7 @@ template<cache_policy policy, ducks::sv::all SV, ducks::gl::all GL, ducks::coord
 static inline void store_async(const GL &dst, const SV &src, const COORD &idx) {
     coord<> unit_coord = idx.template unit_coord<-1, 3>();
     uint64_t tma_ptr  = reinterpret_cast<uint64_t>(dst.template get_tma<SV, -1>());
-    uint32_t src_ptr  = static_cast<uint32_t>(__cvta_generic_to_shared(&src));
+    uint32_t src_ptr  /*= static_cast<uint32_t>(__cvta_generic_to_shared(&src))*/;//NYI
     for(int i = ::kittens::laneid(); i < detail::sv_tma_dim2<SV>; i += WARP_THREADS) {
         coord<> tma_coord = unit_coord;
         tma_coord.c += i * detail::sv_tma_dim1<SV>;
@@ -500,7 +500,7 @@ static inline void load_async(SV &dst, const GL &src, const COORD &idx, semaphor
     for(int i = ::kittens::laneid(); i < detail::sv_tma_dim2<SV>; i += WARP_THREADS) {
         coord<> tma_coord = unit_coord;
         tma_coord.c += i * detail::sv_tma_dim1<SV>;
-        uint32_t dst_i_ptr = dst_ptr + i*detail::sv_tma_dim1<SV>*sizeof(typename SV::dtype);
+        uint32_t dst_i_ptr /*= dst_ptr + i*detail::sv_tma_dim1<SV>*sizeof(typename SV::dtype)*/; //NYI
 
         if constexpr (policy == cache_policy::NORMAL) {
             /*

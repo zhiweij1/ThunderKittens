@@ -301,19 +301,19 @@ static inline void copy(rt<T2, _height, _width, layout> &dst,
                     using fp8_4_t = std::conditional_t<std::is_same_v<T2, fp8e4m3>, fp8e4m3_4, fp8e5m2_4>;
                     fp8_4_t f4_fp8;
                     if ( laneid % 4 < 2 ) {
-                        f4.x() = val01.x; // Thread 2N's first value
-                        f4.y() = val01.y; // Thread 2N's second value
-                        f4.z() = val23.x; // Thread 2N+1's first value
-                        f4.w() = val23.y; // Thread 2N+1's second value
+                        f4.x() = val01.x(); // Thread 2N's first value
+                        f4.y() = val01.y(); // Thread 2N's second value
+                        f4.z() = val23.x(); // Thread 2N+1's first value
+                        f4.w() = val23.y(); // Thread 2N+1's second value
                         f4_fp8 =
                             base_types::convertor<fp8_4_t,
                                                   sycl::float4>::convert(f4);
                         dst.tiles[i][j].data[k] = f4_fp8;
                     } else {
-                        f4.x() = val23.x; // Thread 2N+1's first value
-                        f4.y() = val23.y; // Thread 2N+1's second value
-                        f4.z() = val01.x; // Thread 2N's first value
-                        f4.w() = val01.y; // Thread 2N's second value
+                        f4.x() = val23.x(); // Thread 2N+1's first value
+                        f4.y() = val23.y(); // Thread 2N+1's second value
+                        f4.z() = val01.x(); // Thread 2N's first value
+                        f4.w() = val01.y(); // Thread 2N's second value
                         f4_fp8 =
                             base_types::convertor<fp8_4_t,
                                                   sycl::float4>::convert(f4);

@@ -19,10 +19,10 @@ constexpr int MAX_VEC_SIZE = 16;
 using namespace kittens;
 
 using global_layout   =  gl<bf16, 1, 1, -1, -1>;
-using pgl_m  =  pgl_manager<gl<bf16, 1, 1, -1, -1>, true>;
+//using pgl_m  =  pgl_manager<gl<bf16, 1, 1, -1, -1>, true>;//NYI
 
 void all_reduce_bf16(kittens::pgl<global_layout> p_o) {
-    kittens::all_reduce_add(p_o);
+    //kittens::all_reduce_add(p_o);//NYI
 }
 
 int main() {
@@ -83,14 +83,14 @@ int main() {
         Adjust the selected device if needed.
         */
         dpct::select_device(dev_idx);
-        pglCudaMalloc(NUM_DEVICES, device_ids, dev_idx, &dev_mats[dev_idx], &dev_handles[dev_idx], size);
+        //pglCudaMalloc(NUM_DEVICES, device_ids, dev_idx, &dev_mats[dev_idx], &dev_handles[dev_idx], size);//NYI
         dpct::get_in_order_queue()
             .memcpy(dev_mats[dev_idx], host_mats_bf16[dev_idx], size)
             .wait();
     }
 
     // Initialize parallel global layout
-    pgl_m dev_mat_pgl{device_ids, NUM_DEVICES, dev_mats, nullptr, nullptr, N, N};
+    //pgl_m dev_mat_pgl{device_ids, NUM_DEVICES, dev_mats, nullptr, nullptr, N, N};//NYI
 
     // Perform the reduction
     KittensClub club(device_ids, NUM_DEVICES);
@@ -114,16 +114,16 @@ int main() {
                 sycl::ext::oneapi::experimental::use_root_sync};
 
             dpct::get_in_order_queue().submit([&](sycl::handler &cgh) {
-                auto dev_mat_pgl_get_pgl_obj_worker_id_ct0 =
-                    dev_mat_pgl.get_pgl_obj(worker_id);
+                //auto dev_mat_pgl_get_pgl_obj_worker_id_ct0 =
+                //    dev_mat_pgl.get_pgl_obj(worker_id);//NYI
 
                 cgh.depends_on(dpct::get_current_device()
                                    .get_in_order_queues_last_events());
 
                 cgh.parallel_for(sycl::nd_range<3>(grid * block, block),
                                  exp_props, [=](sycl::nd_item<3> item_ct1) {
-                                     all_reduce_bf16(
-                                         dev_mat_pgl_get_pgl_obj_worker_id_ct0);
+                                     //all_reduce_bf16(
+                                     //    dev_mat_pgl_get_pgl_obj_worker_id_ct0);//NYI
                                  });
             });
         }
@@ -177,7 +177,7 @@ int main() {
     for (int dev_idx = 0; dev_idx < NUM_DEVICES; ++dev_idx) {
         delete[] host_mats[dev_idx];
         delete[] host_mats_bf16[dev_idx];
-        pglCudaFree(dev_idx, dev_mats[dev_idx], dev_handles[dev_idx], size);
+        //pglCudaFree(dev_idx, dev_mats[dev_idx], dev_handles[dev_idx], size);//NYI
     }
     delete[] host_mats;
     delete[] host_mats_bf16;

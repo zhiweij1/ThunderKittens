@@ -53,8 +53,8 @@ static inline void row_reduce(V &row_accum, const T &src, const V &src_accum) {
             }
         }
         dtype accum_packed;
-        accum_packed.x = op::template op<base_types::packing<dtype>::unpacked_type>(accum_top_row.x,    accum_top_row.y);
-        accum_packed.y = op::template op<base_types::packing<dtype>::unpacked_type>(accum_bottom_row.x, accum_bottom_row.y);
+        accum_packed.x() = op::template op<typename base_types::packing<dtype>::unpacked_type>(accum_top_row.x(),    accum_top_row.y());
+        accum_packed.y() = op::template op<typename base_types::packing<dtype>::unpacked_type>(accum_bottom_row.x(), accum_bottom_row.y());
 
         // Now we need to do a lil shuffle to make everyone happy.
 

@@ -115,14 +115,14 @@ SYCL_EXTERNAL void fwd_attend_ker(const fwd_globals<D> g, uint8_t *dpct_local) {
         tma::expect_bytes(qsmem_semaphore, sizeof(q_smem));
 
         for (int wg = 0; wg < CONSUMER_WARPGROUPS; wg++) {
-            coord<q_tile> q_tile_idx = {item_ct1.get_group(0),
-                                        item_ct1.get_group(1), (seq_idx) + wg,
+            coord<q_tile> q_tile_idx = {static_cast<int>(item_ct1.get_group(0)),
+                                        static_cast<int>(item_ct1.get_group(1)), (seq_idx) + wg,
                                         0};
             tma::load_async(q_smem[wg], g.q, q_tile_idx, qsmem_semaphore);
         }
 
         for (int j = 0; j < K::stages - 1; j++) {
-            coord<k_tile> kv_tile_idx = {item_ct1.get_group(0), kv_head_idx, j,
+            coord<k_tile> kv_tile_idx = {static_cast<int>(item_ct1.get_group(0)), kv_head_idx, j,
                                          0};
             tma::expect_bytes(k_smem_arrived[j], sizeof(k_tile));
             tma::load_async(k_smem[j], g.k, kv_tile_idx, k_smem_arrived[j]);
@@ -151,7 +151,7 @@ SYCL_EXTERNAL void fwd_attend_ker(const fwd_globals<D> g, uint8_t *dpct_local) {
 
         if(warpid == NUM_WORKERS-4) {
             for (auto kv_idx = pipe_idx - 1; kv_idx <= kv_iters; kv_idx++) {
-                coord<k_tile> kv_tile_idx = {item_ct1.get_group(0), kv_head_idx,
+                coord<k_tile> kv_tile_idx = {static_cast<int>(item_ct1.get_group(0)), kv_head_idx,
                                              kv_idx + 1, 0};
                 tma::expect_bytes(k_smem_arrived[(kv_idx+1)%K::stages], sizeof(k_tile));
                 tma::load_async(k_smem[(kv_idx+1)%K::stages], g.k, kv_tile_idx, k_smem_arrived[(kv_idx+1)%K::stages]);
@@ -248,8 +248,8 @@ SYCL_EXTERNAL void fwd_attend_ker(const fwd_globals<D> g, uint8_t *dpct_local) {
         warpgroup::sync(warpgroupid+4);
 
         if (warpid % 4 == 0) {
-            coord<o_tile> o_tile_idx = {item_ct1.get_group(0),
-                                        item_ct1.get_group(1),
+            coord<o_tile> o_tile_idx = {static_cast<int>(item_ct1.get_group(0)),
+                                        static_cast<int>(item_ct1.get_group(1)),
                                         (seq_idx) + warpgroupid, 0};
             tma::store_async(g.o, o_smem[warpgroupid], o_tile_idx);
         }
@@ -265,8 +265,8 @@ SYCL_EXTERNAL void fwd_attend_ker(const fwd_globals<D> g, uint8_t *dpct_local) {
         warpgroup::sync(warpgroupid+4);
 
         if (warpid % 4 == 0) {
-            coord<l_col_vec> tile_idx = {item_ct1.get_group(0),
-                                         item_ct1.get_group(1), 0,
+            coord<l_col_vec> tile_idx = {static_cast<int>(item_ct1.get_group(0)),
+                                         static_cast<int>(item_ct1.get_group(1)), 0,
                                          (seq_idx) + warpgroupid};
             tma::store_async(g.l, l_smem[warpgroupid], tile_idx);
         }
@@ -344,9 +344,9 @@ SYCL_EXTERNAL void bwd_attend_prep_ker(const bwd_prep_globals<D> g,
 
     if (warpid == 0) {
         for (int w = 0; w < 4; w++) {
-            coord<o_tile> tile_idx = {item_ct1.get_group(0),
-                                      item_ct1.get_group(1),
-                                      (item_ct1.get_group(2) * 4) + w, 0};
+            coord<o_tile> tile_idx = {static_cast<int>(item_ct1.get_group(0)),
+                                      static_cast<int>(item_ct1.get_group(1)),
+                                      static_cast<int>((item_ct1.get_group(2) * 4) + w), 0};
             tma::load_async(o_smem[w],  g.o,  tile_idx, smem_semaphore);
             tma::load_async(og_smem[w], g.og, tile_idx, smem_semaphore);
         }
@@ -367,9 +367,9 @@ SYCL_EXTERNAL void bwd_attend_prep_ker(const bwd_prep_globals<D> g,
 
     if (warpid == 0) {
         for (int w = 0; w < 4; w++) {
-            coord<d_tile> tile_idx = {item_ct1.get_group(0),
-                                      item_ct1.get_group(1), 0,
-                                      (item_ct1.get_group(2) * 4) + w};
+            coord<d_tile> tile_idx = {static_cast<int>(item_ct1.get_group(0)),
+                                      static_cast<int>(item_ct1.get_group(1)), 0,
+                                      static_cast<int>((item_ct1.get_group(2) * 4) + w)};
             tma::store_async(g.d, d_smem[w], tile_idx);
         }
     }
@@ -452,10 +452,10 @@ stream_tile(auto &reg_tile, auto &smem_vec, int tic) {
     #pragma unroll
     for(int i = 0; i < 4; i++) {
         int base_col = 16*i + 2*(kittens::laneid()%4);
-        reg_tile.tiles[0][i].data[0] = *(float2*)&smem_vec[tic][base_col + 0];
-        reg_tile.tiles[0][i].data[1] = *(float2*)&smem_vec[tic][base_col + 0];
-        reg_tile.tiles[0][i].data[2] = *(float2*)&smem_vec[tic][base_col + 8];
-        reg_tile.tiles[0][i].data[3] = *(float2*)&smem_vec[tic][base_col + 8];
+        reg_tile.tiles[0][i].data[0] = *(sycl::float2*)&smem_vec[tic][base_col + 0];
+        reg_tile.tiles[0][i].data[1] = *(sycl::float2*)&smem_vec[tic][base_col + 0];
+        reg_tile.tiles[0][i].data[2] = *(sycl::float2*)&smem_vec[tic][base_col + 8];
+        reg_tile.tiles[0][i].data[3] = *(sycl::float2*)&smem_vec[tic][base_col + 8];
     }
 }
 
@@ -464,10 +464,10 @@ stream_sub_tile(auto &reg_tile, auto &smem_vec, int tic) {
     #pragma unroll
     for(int i = 0; i < 4; i++) {
         int base_col = 16*i + 2*(laneid()%4);
-        reg_tile.tiles[0][i].data[0] = base_ops::sub::template op<float2>(reg_tile.tiles[0][i].data[0], *(float2*)&smem_vec[tic][base_col + 0]);
-        reg_tile.tiles[0][i].data[1] = base_ops::sub::template op<float2>(reg_tile.tiles[0][i].data[1], *(float2*)&smem_vec[tic][base_col + 0]);
-        reg_tile.tiles[0][i].data[2] = base_ops::sub::template op<float2>(reg_tile.tiles[0][i].data[2], *(float2*)&smem_vec[tic][base_col + 8]);
-        reg_tile.tiles[0][i].data[3] = base_ops::sub::template op<float2>(reg_tile.tiles[0][i].data[3], *(float2*)&smem_vec[tic][base_col + 8]);
+        reg_tile.tiles[0][i].data[0] = base_ops::sub::template op<sycl::float2>(reg_tile.tiles[0][i].data[0], *(sycl::float2*)&smem_vec[tic][base_col + 0]);
+        reg_tile.tiles[0][i].data[1] = base_ops::sub::template op<sycl::float2>(reg_tile.tiles[0][i].data[1], *(sycl::float2*)&smem_vec[tic][base_col + 0]);
+        reg_tile.tiles[0][i].data[2] = base_ops::sub::template op<sycl::float2>(reg_tile.tiles[0][i].data[2], *(sycl::float2*)&smem_vec[tic][base_col + 8]);
+        reg_tile.tiles[0][i].data[3] = base_ops::sub::template op<sycl::float2>(reg_tile.tiles[0][i].data[3], *(sycl::float2*)&smem_vec[tic][base_col + 8]);
     }
 }
 
@@ -552,9 +552,9 @@ kv_store(auto &kg_smem, auto &kg_reg,
     group<4>::sync(warpgroup::groupid()+4);
     if (kittens::warpid() % 4 == 0) {
         coord<kg_tile> tile_idx = {
-            item_ct1.get_group(0), kv_head_idx,
-            (item_ct1.get_group(2) * BWD_CONSUMER_WARPGROUPS) +
-                (kittens::warpid() / kittens::WARPGROUP_WARPS),
+            static_cast<int>(item_ct1.get_group(0)), kv_head_idx,
+            static_cast<int>((item_ct1.get_group(2) * BWD_CONSUMER_WARPGROUPS) +
+                (kittens::warpid() / kittens::WARPGROUP_WARPS)),
             0};
         tma::store_add_async(dst.kg, kg_smem[kittens::warpid()/kittens::WARPGROUP_WARPS], tile_idx);
         tma::store_commit_group();
@@ -566,9 +566,9 @@ kv_store(auto &kg_smem, auto &kg_reg,
 
     if (kittens::warpid() % 4 == 0) {
         coord<vg_tile> tile_idx = {
-            item_ct1.get_group(0), kv_head_idx,
-            (item_ct1.get_group(2) * BWD_CONSUMER_WARPGROUPS) +
-                (kittens::warpid() / kittens::WARPGROUP_WARPS),
+            static_cast<int>(item_ct1.get_group(0)), kv_head_idx,
+            static_cast<int>((item_ct1.get_group(2) * BWD_CONSUMER_WARPGROUPS) +
+                (kittens::warpid() / kittens::WARPGROUP_WARPS)),
             0};
         tma::store_add_async(dst.vg, vg_smem[kittens::warpid()/kittens::WARPGROUP_WARPS], tile_idx);
         tma::store_commit_group();
@@ -656,20 +656,20 @@ SYCL_EXTERNAL void bwd_attend_ker(const bwd_globals<D> g, uint8_t *dpct_local) {
         tma::expect_bytes(kv_b, (sizeof(k_smem[0]) + sizeof(v_smem[0])) * BWD_CONSUMER_WARPGROUPS);
         for (int w = 0; w < BWD_CONSUMER_WARPGROUPS; w++) {
             coord<k_tile> tile_idx = {
-                item_ct1.get_group(0), kv_head_idx,
-                (item_ct1.get_group(2) * BWD_CONSUMER_WARPGROUPS) + w, 0};
+                static_cast<int>(item_ct1.get_group(0)), kv_head_idx,
+                static_cast<int>((item_ct1.get_group(2) * BWD_CONSUMER_WARPGROUPS) + w), 0};
             tma::load_async(k_smem[w], g.k, tile_idx, kv_b);
             tma::load_async(v_smem[w], g.v, tile_idx, kv_b);
         }
 
-        coord<q_tile> tile_idx = {item_ct1.get_group(0), item_ct1.get_group(1),
+        coord<q_tile> tile_idx = {static_cast<int>(item_ct1.get_group(0)), static_cast<int>(item_ct1.get_group(1)),
                                   q_start, 0};
         tma::expect_bytes(q_b[tic],   sizeof(q_smem[0]));
         tma::load_async(q_smem[tic],  g.q,  tile_idx, q_b[tic]);
         tma::expect_bytes(o_b[tic],   sizeof(og_smem[0]));
         tma::load_async(og_smem[tic], g.og, tile_idx, o_b[tic]);
 
-        coord<l_tile> vec_idx = {item_ct1.get_group(0), item_ct1.get_group(1),
+        coord<l_tile> vec_idx = {static_cast<int>(item_ct1.get_group(0)), static_cast<int>(item_ct1.get_group(1)),
                                  0, q_start};
         tma::expect_bytes(vec_b[tic], sizeof(l_smem[0]) + sizeof(d_smem[0]));
         tma::load_async(l_smem[tic], g.l, vec_idx, vec_b[tic]);
@@ -688,16 +688,16 @@ SYCL_EXTERNAL void bwd_attend_ker(const bwd_globals<D> g, uint8_t *dpct_local) {
         if (warpid % kittens::WARPGROUP_WARPS == 0) {
             for (auto qo_idx = q_start; qo_idx < qo_blocks; qo_idx++, tic ^= 1, toc ^= 1) {
                 if (qo_idx + 1 < qo_blocks) {
-                    coord<q_tile> tile_idx = {item_ct1.get_group(0),
-                                              item_ct1.get_group(1), qo_idx + 1,
+                    coord<q_tile> tile_idx = {static_cast<int>(item_ct1.get_group(0)),
+                                              static_cast<int>(item_ct1.get_group(1)), qo_idx + 1,
                                               0};
                     tma::expect_bytes(q_b[toc],   sizeof(q_smem[0])); 
                     tma::load_async(q_smem[toc], g.q,  tile_idx, q_b[toc]);
                     tma::expect_bytes(o_b[toc],   sizeof(og_smem[0]));
                     tma::load_async(og_smem[toc], g.og, tile_idx, o_b[toc]);
 
-                    coord<l_tile> vec_idx = {item_ct1.get_group(0),
-                                             item_ct1.get_group(1), 0,
+                    coord<l_tile> vec_idx = {static_cast<int>(item_ct1.get_group(0)),
+                                             static_cast<int>(item_ct1.get_group(1)), 0,
                                              qo_idx + 1};
                     tma::expect_bytes(vec_b[toc], sizeof(l_smem[0]) + sizeof(d_smem[0]));
                     tma::load_async(l_smem[toc], g.l, vec_idx, vec_b[toc]);
@@ -711,8 +711,8 @@ SYCL_EXTERNAL void bwd_attend_ker(const bwd_globals<D> g, uint8_t *dpct_local) {
             for (auto qo_idx = q_start; qo_idx < qo_blocks; qo_idx++, tic ^= 1, toc ^= 1) {
                 wait(compute_done[tic], ((qo_idx - q_start)/(2))%2);
 
-                coord<qg_tile> tile_idx = {item_ct1.get_group(0),
-                                           item_ct1.get_group(1), qo_idx, 0};
+                coord<qg_tile> tile_idx = {static_cast<int>(item_ct1.get_group(0)),
+                                           static_cast<int>(item_ct1.get_group(1)), qo_idx, 0};
                 tma::store_add_async(g.qg, qg_smem, tile_idx);
                 tma::store_async_wait();
                 

@@ -32,10 +32,10 @@ inline static void load(RV &dst, const SV &src) {
     using U2 = base_types::packing<U>::packed_type;
     using T = base_types::packing<T2>::unpacked_type;
 
-    static_assert(src.length == dst.length);
+    //static_assert(src.length == dst.length);//NYI
     
     int laneid = ::kittens::laneid();
-    uint32_t src_ptr = static_cast<uint32_t>(__cvta_generic_to_shared(&src.data[0]));
+    uint32_t src_ptr /* = static_cast<uint32_t>(__cvta_generic_to_shared(&src.data[0]))*/; //NYI
 
     sycl::group_barrier(sycl::ext::oneapi::this_work_item::get_sub_group());
     if constexpr (std::is_same_v<typename RV::layout, align_l>) {
@@ -111,10 +111,10 @@ inline static void store(SV &dst, const RV &src) {
     using U2 = base_types::packing<U>::packed_type;
     using T = base_types::packing<T2>::unpacked_type;
 
-    static_assert(dst.length == src.length);
+    //static_assert(dst.length == src.length);//NYI
     
     int laneid = ::kittens::laneid();
-    uint32_t dst_ptr = static_cast<uint32_t>(__cvta_generic_to_shared(&dst.data[0]));
+    uint32_t dst_ptr /*= static_cast<uint32_t>(__cvta_generic_to_shared(&dst.data[0]))*/;//NYI
 
     sycl::group_barrier(sycl::ext::oneapi::this_work_item::get_sub_group());
     if constexpr (std::is_same_v<typename RV::layout, align_l>) {

@@ -462,14 +462,14 @@ hedgehog_globals hedgehog_init(
     using kmap_global = gl<bf16, -1, -1, -1, -1, qk_map_tile>;
     
     using globals = hedgehog_globals;
-    q_global q_arg{d_q, ATTN_B, ATTN_H, ATTN_N, ATTN_F};
-    k_global k_arg{d_k, ATTN_B, ATTN_H, ATTN_N, ATTN_F};
-    v_global v_arg{d_v, ATTN_B, ATTN_H, ATTN_N, ATTN_D};
-    o_global o_arg{d_o, ATTN_B, ATTN_H, ATTN_N, ATTN_D};
-    qmap_global qmap_arg{d_qmap, 1, ATTN_H, ATTN_F, HALF_ATTN_F};
-    kmap_global kmap_arg{d_kmap, 1, ATTN_H, ATTN_F, HALF_ATTN_F};
-    kv_state_global kv_state_arg{d_kv_state, ATTN_B, ATTN_H, ATTN_F, ATTN_D};
-    k_state_global k_state_arg{d_k_state, ATTN_B, ATTN_H, 1, ATTN_D};
+    q_global q_arg{d_q, static_cast<unsigned long>(ATTN_B), static_cast<unsigned long>(ATTN_H), static_cast<unsigned long>(ATTN_N), ATTN_F};
+    k_global k_arg{d_k, static_cast<unsigned long>(ATTN_B), static_cast<unsigned long>(ATTN_H), static_cast<unsigned long>(ATTN_N), ATTN_F};
+    v_global v_arg{d_v, static_cast<unsigned long>(ATTN_B), static_cast<unsigned long>(ATTN_H), static_cast<unsigned long>(ATTN_N), ATTN_D};
+    o_global o_arg{d_o, static_cast<unsigned long>(ATTN_B), static_cast<unsigned long>(ATTN_H), static_cast<unsigned long>(ATTN_N), ATTN_D};
+    qmap_global qmap_arg{d_qmap, 1, static_cast<unsigned long>(ATTN_H), ATTN_F, HALF_ATTN_F};
+    kmap_global kmap_arg{d_kmap, 1, static_cast<unsigned long>(ATTN_H), ATTN_F, HALF_ATTN_F};
+    kv_state_global kv_state_arg{d_kv_state, static_cast<unsigned long>(ATTN_B), static_cast<unsigned long>(ATTN_H), ATTN_F, ATTN_D};
+    k_state_global k_state_arg{d_k_state, static_cast<unsigned long>(ATTN_B), static_cast<unsigned long>(ATTN_H), 1, ATTN_D};
 
     globals g{
         q_arg, k_arg, v_arg, 

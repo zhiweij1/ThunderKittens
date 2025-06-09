@@ -40,7 +40,7 @@ static inline void reduce(typename SV::dtype &dst_accum, const SV &src, const ty
     }
     sycl::group_barrier(sycl::ext::oneapi::this_work_item::get_sub_group());
     // We can now reduce within the warp.
-    if constexpr (src.length > 16) {
+    if constexpr (/*src.length > */16) { //NYI
         accum = op::template op<T>(accum, packed_shfl_down_sync(kittens::MASK_ALL, accum, 16));
         sycl::group_barrier(sycl::ext::oneapi::this_work_item::get_sub_group());
     }

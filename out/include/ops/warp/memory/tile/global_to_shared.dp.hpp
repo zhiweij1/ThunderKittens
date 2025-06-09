@@ -31,12 +31,12 @@ static inline void load(ST &dst, const GL &src, const COORD &idx) {
     constexpr int elem_per_memcpy =
         sizeof(sycl::float4) / sizeof(typename ST::dtype);
     constexpr int memcpy_per_row = 0/*= dst.cols / elem_per_memcpy*/; //NYI
-    constexpr int total_calls = (/*dst.height*dst.width * */ kittens::TILE_ROW_DIM<T>*kittens::TILE_COL_DIM<T> + N_THREADS*elem_per_memcpy-1) / (N_THREADS*elem_per_memcpy); // round up
-    constexpr int total_rows = dst.height*dst.width;
+    constexpr int total_calls = (/*dst.height*dst.width * */ kittens::TILE_ROW_DIM<T>*kittens::TILE_COL_DIM<T> + N_THREADS*elem_per_memcpy-1) / (N_THREADS*elem_per_memcpy); // round up //NYI
+    constexpr int total_rows = 0/*dst.height*dst.width*/; //NYI
 
     coord<> unit_coord = idx.template unit_coord<axis, 3>();
     typename GL::dtype *src_ptr = (typename GL::dtype*)&src[unit_coord];
-    uint32_t dst_ptr = static_cast<uint32_t>(__cvta_generic_to_shared(&dst.data[0]));
+    uint32_t dst_ptr /*= static_cast<uint32_t>(__cvta_generic_to_shared(&dst.data[0]))*/; //NYI
     int laneid =
         sycl::ext::oneapi::this_work_item::get_nd_item<3>().get_local_id(2) %
         N_THREADS;
@@ -90,12 +90,12 @@ static inline void store(const GL &dst, const ST &src, const COORD &idx) {
     // we can handle this many rows each time we run a memcpy_async
     constexpr int elem_per_memcpy =
         sizeof(sycl::float4) / sizeof(typename ST::dtype);
-    constexpr int memcpy_per_row = src.cols / elem_per_memcpy;
-    constexpr int total_calls = (src.height*src.width * kittens::TILE_ROW_DIM<T>*kittens::TILE_COL_DIM<T> + N_THREADS*elem_per_memcpy-1) / (N_THREADS*elem_per_memcpy); // round up
+    constexpr int memcpy_per_row = 0/*src.cols / elem_per_memcpy*/;//NYI
+    constexpr int total_calls = (/*src.height*src.width * */kittens::TILE_ROW_DIM<T>*kittens::TILE_COL_DIM<T> + N_THREADS*elem_per_memcpy-1) / (N_THREADS*elem_per_memcpy); // round up//NYI
 
     coord<> unit_coord = idx.template unit_coord<axis, 3>();
     typename GL::dtype *dst_ptr = (typename GL::dtype*)&dst[unit_coord];
-    uint32_t src_ptr = static_cast<uint32_t>(__cvta_generic_to_shared(&src.data[0]));
+    uint32_t src_ptr /*= static_cast<uint32_t>(__cvta_generic_to_shared(&src.data[0]))*/;//NYI
     int laneid =
         sycl::ext::oneapi::this_work_item::get_nd_item<3>().get_local_id(2) %
         N_THREADS;
@@ -145,12 +145,12 @@ static inline void load_async(ST &dst, const GL &src, const COORD &idx) {
     // we can handle this many rows each time we run a memcpy_async
     constexpr int elem_per_memcpy =
         sizeof(sycl::float4) / sizeof(typename ST::dtype);
-    constexpr int memcpy_per_row = dst.cols / elem_per_memcpy;
-    constexpr int total_calls = (dst.height*dst.width * kittens::TILE_ROW_DIM<T>*kittens::TILE_COL_DIM<T> + N_THREADS*elem_per_memcpy-1) / (N_THREADS*elem_per_memcpy); // round up
+    constexpr int memcpy_per_row = 0/*dst.cols / elem_per_memcpy*/;//NYI
+    constexpr int total_calls = (/*dst.height*dst.width * */kittens::TILE_ROW_DIM<T>*kittens::TILE_COL_DIM<T> + N_THREADS*elem_per_memcpy-1) / (N_THREADS*elem_per_memcpy); // round up//NYI
 
     coord<> unit_coord = idx.template unit_coord<axis, 3>();
     typename GL::dtype *src_ptr = (typename GL::dtype*)&src[unit_coord];
-    uint32_t dst_ptr = static_cast<uint32_t>(__cvta_generic_to_shared(&dst.data[0]));
+    uint32_t dst_ptr /*= static_cast<uint32_t>(__cvta_generic_to_shared(&dst.data[0]))*/;//NYI
     int laneid =
         sycl::ext::oneapi::this_work_item::get_nd_item<3>().get_local_id(2) %
         N_THREADS;

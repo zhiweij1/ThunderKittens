@@ -46,6 +46,8 @@ struct fftconv_layout {
         complex_fft_layout f_g, finv_g, tw_real_g, twinv_g;
     };
 };
+template <>
+struct sycl::is_device_copyable<fftconv_layout<8, 8, 16, 1024, 32>::globals> : std::true_type {};
 template<int _b_tiles, int _h_tiles, int _h, int _n, int _n1>
 struct fftconv_template {
     static constexpr int b_tiles=_b_tiles, h_tiles=_h_tiles, h=_h, n=_n, n1=_n1;

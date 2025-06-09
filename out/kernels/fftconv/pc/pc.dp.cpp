@@ -39,6 +39,8 @@ template<int _wg> struct fftconv_1024_layout { // 4096
     };
     struct consumer_state { int current_head; };
 };
+template <>
+struct sycl::is_device_copyable<typename fftconv_1024_layout<2>::globals> : std::true_type {};
 struct fft_1024_template {
     static constexpr int NUM_CONSUMER_WARPS=8, NUM_CONSUMER_WARPGROUPS=NUM_CONSUMER_WARPS/4, NUM_BLOCKS=1, OUTPUT_PIPE_STAGES=3, INPUT_PIPE_STAGES=3;
     using layout = fftconv_1024_layout<NUM_CONSUMER_WARPGROUPS>;
@@ -222,6 +224,8 @@ template<int _wg> struct fftconv_4096_layout { // 4096
     };
     struct consumer_state { int current_head; };
 };
+template <>
+struct sycl::is_device_copyable<typename fftconv_4096_layout<2>::globals> : std::true_type {};
 struct fft_4096_template {
     static constexpr int NUM_CONSUMER_WARPS=8, NUM_CONSUMER_WARPGROUPS=NUM_CONSUMER_WARPS/4, NUM_BLOCKS=1, OUTPUT_PIPE_STAGES=2, INPUT_PIPE_STAGES=4;
     using layout = fftconv_4096_layout<NUM_CONSUMER_WARPGROUPS>;
@@ -389,13 +393,13 @@ template<int SEQ> typename fft_template<SEQ>::layout::globals setup_templates(
     using seq_layout    = fftst::layout::seq_layout;
 
     // input and output
-    seq_layout u_gl{d_u_real, B, H, nullptr, nullptr};
-    seq_layout o_gl{d_o, B, H, nullptr, nullptr};
+    seq_layout u_gl{d_u_real, static_cast<unsigned long>(B), static_cast<unsigned long>(H), nullptr, nullptr};
+    seq_layout o_gl{d_o, static_cast<unsigned long>(B), static_cast<unsigned long>(H), nullptr, nullptr};
 
     // filters
     filter_layout kf_gl{
-        typename filter_layout::component{d_kf_real, nullptr, H, nullptr, nullptr},
-        typename filter_layout::component{d_kf_imag, nullptr, H, nullptr, nullptr}
+        typename filter_layout::component{d_kf_real, nullptr, static_cast<unsigned long>(H), nullptr, nullptr},
+        typename filter_layout::component{d_kf_imag, nullptr, static_cast<unsigned long>(H), nullptr, nullptr}
     };
     
     // factors

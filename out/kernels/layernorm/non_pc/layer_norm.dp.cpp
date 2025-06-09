@@ -218,10 +218,10 @@ void dispatch_layernorm(
 
     // global pointers
     using globals = norm_globals<D>;
-    x_gl  x_arg{d_x_bf, B, 1, N, D};
-    residual_gl  residual_arg{d_residual_bf, B, 1, N, D};
-    o_gl  o_arg{d_o, B, 1, N, D};
-    o_resid_gl  o_resid_arg{d_o_resid, B, 1, N, D};
+    x_gl  x_arg{d_x_bf, static_cast<unsigned long>(B), 1, static_cast<unsigned long>(N), D};
+    residual_gl  residual_arg{d_residual_bf, static_cast<unsigned long>(B), 1, static_cast<unsigned long>(N), D};
+    o_gl  o_arg{d_o, static_cast<unsigned long>(B), 1, static_cast<unsigned long>(N), D};
+    o_resid_gl  o_resid_arg{d_o_resid, static_cast<unsigned long>(B), 1, static_cast<unsigned long>(N), D};
     norm_weight_gl norm_weight_arg{d_norm_weight_bf, 1, 1, 1, D};
     norm_bias_gl norm_bias_arg{d_norm_bias_bf, 1, 1, 1, D};
 

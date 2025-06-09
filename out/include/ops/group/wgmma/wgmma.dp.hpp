@@ -677,7 +677,7 @@ static inline void mma_AB(D &d,
         }
         #pragma unroll
         for(int k = 0; k < K; k++) {
-            base::rt_st<-1>( // INVERT THE SIGN OF THE IMAGINARY PART
+            base::template rt_st<-1>( // INVERT THE SIGN OF THE IMAGINARY PART
                 d_ref,
                 a.imag.tiles[m][k],
                 b_desc_imag.chunk_descriptor(k),
@@ -769,7 +769,7 @@ static inline void mma_AB(D &d,
     }
     #pragma unroll
     for(int k = 0; k < K; k++) {
-        base::st_st<-1>( // INVERT THE SIGN OF THE IMAGINARY PART
+        base::template st_st<-1>( // INVERT THE SIGN OF THE IMAGINARY PART
             d.real,
             a_desc_imag.chunk_descriptor(k),
             b_desc_imag.chunk_descriptor(k),

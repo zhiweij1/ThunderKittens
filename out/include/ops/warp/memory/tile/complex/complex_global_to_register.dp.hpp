@@ -30,8 +30,8 @@ namespace kittens {
  template<int axis, ducks::crt::all CRT, ducks::cgl::all CGL, ducks::coord::tile COORD=coord<CRT>>
 inline static void load(CRT &dst, const CGL &src, const COORD &idx) {
     // Internally will use the correct load() method for row and column types
-    load<axis, CRT, CGL, COORD>(dst.real, src.real, idx);
-    load<axis, CRT, CGL, COORD>(dst.imag, src.imag, idx);
+    //load<axis, CRT, CGL, COORD>(dst.real, src.real, idx);//NYI
+    //load<axis, CRT, CGL, COORD>(dst.imag, src.imag, idx);//NYI
 }
 template<ducks::crt::all CRT, ducks::cgl::all CGL, ducks::coord::tile COORD=coord<CRT>>
 inline static void load(CRT &dst, const CGL &src, const COORD &idx) {

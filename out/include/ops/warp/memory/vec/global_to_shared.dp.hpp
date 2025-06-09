@@ -27,9 +27,9 @@ template<ducks::sv::all SV, ducks::gl::all GL, ducks::coord::vec COORD=coord<SV>
 static inline void load(SV &dst, const GL &src, const COORD &idx) {
     constexpr int elem_per_transfer =
         sizeof(sycl::float4) / sizeof(typename SV::dtype);
-    constexpr int total_calls = (dst.length + WARP_THREADS*elem_per_transfer - 1) / (WARP_THREADS*elem_per_transfer); // round up
+    constexpr int total_calls = (/*dst.length +*/ WARP_THREADS*elem_per_transfer - 1) / (WARP_THREADS*elem_per_transfer); // round up//WIP
     typename GL::dtype *src_ptr = (typename GL::dtype*)&src[(idx.template unit_coord<-1, 3>())];
-    uint32_t dst_ptr = static_cast<uint32_t>(__cvta_generic_to_shared(&dst.data[0]));
+    uint32_t dst_ptr /*= static_cast<uint32_t>(__cvta_generic_to_shared(&dst.data[0]))*/; //NYI
     #pragma unroll
     for(int iter = 0, i = ::kittens::laneid(); iter < total_calls; iter++, i+=WARP_THREADS) {
         if(i * elem_per_transfer < dst.length) {
@@ -55,9 +55,9 @@ template<ducks::sv::all SV, ducks::gl::all GL, ducks::coord::vec COORD=coord<SV>
 static inline void store(const GL &dst, const SV &src, const COORD &idx) {
     constexpr int elem_per_transfer =
         sizeof(sycl::float4) / sizeof(typename SV::dtype);
-    constexpr int total_calls = (src.length + WARP_THREADS*elem_per_transfer-1) / (WARP_THREADS*elem_per_transfer); // round up
+    constexpr int total_calls = (/*src.length +*/ WARP_THREADS*elem_per_transfer-1) / (WARP_THREADS*elem_per_transfer); // round up//NYI
     typename GL::dtype *dst_ptr = (typename GL::dtype*)&dst[(idx.template unit_coord<-1, 3>())];
-    uint32_t src_ptr = static_cast<uint32_t>(__cvta_generic_to_shared(&src.data[0]));
+    uint32_t src_ptr /*= static_cast<uint32_t>(__cvta_generic_to_shared(&src.data[0]))*/;//NYI
     #pragma unroll
     for(int iter = 0, i = ::kittens::laneid(); iter < total_calls; iter++, i+=WARP_THREADS) {
         if(i * elem_per_transfer < src.length) {
@@ -82,7 +82,7 @@ template<ducks::sv::all SV, ducks::gl::all GL, ducks::coord::vec COORD=coord<SV>
 static inline void load_async(SV &dst, const GL &src, const COORD &idx) {
     constexpr uint32_t elem_per_transfer =
         sizeof(sycl::float4) / sizeof(typename SV::dtype);
-    constexpr uint32_t total_calls = (dst.length + WARP_THREADS*elem_per_transfer-1) / (WARP_THREADS*elem_per_transfer); // round up
+    constexpr uint32_t total_calls = (/*dst.length +*/ WARP_THREADS*elem_per_transfer-1) / (WARP_THREADS*elem_per_transfer); // round up//NYI
     typename GL::dtype *src_ptr = (typename GL::dtype*)&src[(idx.template unit_coord<-1, 3>())];
     auto dst_ptr = &dst.data[0];
     sycl::group_barrier(sycl::ext::oneapi::this_work_item::get_sub_group());

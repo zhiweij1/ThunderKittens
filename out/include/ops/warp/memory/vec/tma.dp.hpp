@@ -564,28 +564,28 @@ static inline void load_async(SV &dst, const GL &src, const COORD &idx, semaphor
             /*
             DPCT1053:132: Migration of device assembly code is not supported.
             */
-            asm volatile("cp.async.bulk.tensor.4d.shared::cluster.global.tile."
-                         "mbarrier::complete_tx::bytes.multicast::cluster"
-                         " [%0], [%1, {%3, %4, %5, %6}], [%2], %7;"
-                         :
-                         : "r"(dst_i_ptr), "l"(tma_ptr), "r"(mbar_ptr),
-                           "r"(tma_coord.c), "r"(tma_coord.r), "r"(tma_coord.d),
-                           "r"(tma_coord.b), "h"(cluster_mask)
-                         : "memory");
+//            asm volatile("cp.async.bulk.tensor.4d.shared::cluster.global.tile."
+//                         "mbarrier::complete_tx::bytes.multicast::cluster"
+//                         " [%0], [%1, {%3, %4, %5, %6}], [%2], %7;"
+//                         :
+//                         : "r"(dst_i_ptr), "l"(tma_ptr), "r"(mbar_ptr),
+//                           "r"(tma_coord.c), "r"(tma_coord.r), "r"(tma_coord.d),
+//                           "r"(tma_coord.b), "h"(cluster_mask)
+//                         : "memory");
         }
         else {
             /*
             DPCT1053:133: Migration of device assembly code is not supported.
             */
-            asm volatile(
-                "cp.async.bulk.tensor.4d.shared::cluster.global.tile.mbarrier::"
-                "complete_tx::bytes.multicast::cluster.L2::cache_hint"
-                " [%0], [%1, {%3, %4, %5, %6}], [%2], %7, %8;"
-                :
-                : "r"(dst_i_ptr), "l"(tma_ptr), "r"(mbar_ptr), "r"(tma_coord.c),
-                  "r"(tma_coord.r), "r"(tma_coord.d), "r"(tma_coord.b),
-                  "h"(cluster_mask), "l"(make_cache_policy<policy>())
-                : "memory");
+//            asm volatile(
+//                "cp.async.bulk.tensor.4d.shared::cluster.global.tile.mbarrier::"
+//                "complete_tx::bytes.multicast::cluster.L2::cache_hint"
+//                " [%0], [%1, {%3, %4, %5, %6}], [%2], %7, %8;"
+//                :
+//                : "r"(dst_i_ptr), "l"(tma_ptr), "r"(mbar_ptr), "r"(tma_coord.c),
+//                  "r"(tma_coord.r), "r"(tma_coord.d), "r"(tma_coord.b),
+//                  "h"(cluster_mask), "l"(make_cache_policy<policy>())
+//                : "memory");
         }
     }
 }

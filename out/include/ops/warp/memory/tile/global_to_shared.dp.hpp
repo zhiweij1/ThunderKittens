@@ -30,8 +30,8 @@ static inline void load(ST &dst, const GL &src, const COORD &idx) {
     // we can handle this many rows each time we run a memcpy_async
     constexpr int elem_per_memcpy =
         sizeof(sycl::float4) / sizeof(typename ST::dtype);
-    constexpr int memcpy_per_row = dst.cols / elem_per_memcpy;
-    constexpr int total_calls = (dst.height*dst.width * kittens::TILE_ROW_DIM<T>*kittens::TILE_COL_DIM<T> + N_THREADS*elem_per_memcpy-1) / (N_THREADS*elem_per_memcpy); // round up
+    constexpr int memcpy_per_row = 0/*= dst.cols / elem_per_memcpy*/; //NYI
+    constexpr int total_calls = (/*dst.height*dst.width * */ kittens::TILE_ROW_DIM<T>*kittens::TILE_COL_DIM<T> + N_THREADS*elem_per_memcpy-1) / (N_THREADS*elem_per_memcpy); // round up
     constexpr int total_rows = dst.height*dst.width;
 
     coord<> unit_coord = idx.template unit_coord<axis, 3>();

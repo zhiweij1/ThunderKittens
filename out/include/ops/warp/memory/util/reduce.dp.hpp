@@ -156,12 +156,12 @@ struct multimem_ld_reduce_op<bf16, ReduceOp::ADD> {
         /*
         DPCT1053:58: Migration of device assembly code is not supported.
         */
-        asm volatile("multimem.ld_reduce.relaxed.sys.global.add.v4.bf16x2 {%0, "
-                     "%1, %2, %3}, [%4];"
-                     : "=f"(dst->x()), "=f"(dst->y()), "=f"(dst->z()),
-                       "=f"(dst->w())
-                     : "l"(src)
-                     : "memory");
+//        asm volatile("multimem.ld_reduce.relaxed.sys.global.add.v4.bf16x2 {%0, "
+//                     "%1, %2, %3}, [%4];"
+//                     : "=f"(dst->x()), "=f"(dst->y()), "=f"(dst->z()),
+//                       "=f"(dst->w())
+//                     : "l"(src)
+//                     : "memory");
     }
 };
 
@@ -171,12 +171,12 @@ struct multimem_ld_reduce_op<bf16, ReduceOp::MIN> {
         /*
         DPCT1053:59: Migration of device assembly code is not supported.
         */
-        asm volatile("multimem.ld_reduce.relaxed.sys.global.min.v4.bf16x2 {%0, "
-                     "%1, %2, %3}, [%4];"
-                     : "=f"(dst->x()), "=f"(dst->y()), "=f"(dst->z()),
-                       "=f"(dst->w())
-                     : "l"(src)
-                     : "memory");
+//        asm volatile("multimem.ld_reduce.relaxed.sys.global.min.v4.bf16x2 {%0, "
+//                     "%1, %2, %3}, [%4];"
+//                     : "=f"(dst->x()), "=f"(dst->y()), "=f"(dst->z()),
+//                       "=f"(dst->w())
+//                     : "l"(src)
+//                     : "memory");
     }
 };
 
@@ -186,12 +186,12 @@ struct multimem_ld_reduce_op<bf16, ReduceOp::MAX> {
         /*
         DPCT1053:60: Migration of device assembly code is not supported.
         */
-        asm volatile("multimem.ld_reduce.relaxed.sys.global.max.v4.bf16x2 {%0, "
-                     "%1, %2, %3}, [%4];"
-                     : "=f"(dst->x()), "=f"(dst->y()), "=f"(dst->z()),
-                       "=f"(dst->w())
-                     : "l"(src)
-                     : "memory");
+//        asm volatile("multimem.ld_reduce.relaxed.sys.global.max.v4.bf16x2 {%0, "
+//                     "%1, %2, %3}, [%4];"
+//                     : "=f"(dst->x()), "=f"(dst->y()), "=f"(dst->z()),
+//                       "=f"(dst->w())
+//                     : "l"(src)
+//                     : "memory");
     }
 };
 
@@ -249,12 +249,12 @@ struct multimem_ld_reduce_op<float, ReduceOp::ADD> {
         /*
         DPCT1053:64: Migration of device assembly code is not supported.
         */
-        asm volatile("multimem.ld_reduce.relaxed.sys.global.add.v4.f32 {%0, "
-                     "%1, %2, %3}, [%4];"
-                     : "=f"(dst->x()), "=f"(dst->y()), "=f"(dst->z()),
-                       "=f"(dst->w())
-                     : "l"(src)
-                     : "memory");
+//        asm volatile("multimem.ld_reduce.relaxed.sys.global.add.v4.f32 {%0, "
+//                     "%1, %2, %3}, [%4];"
+//                     : "=f"(dst->x()), "=f"(dst->y()), "=f"(dst->z()),
+//                       "=f"(dst->w())
+//                     : "l"(src)
+//                     : "memory");
     }
 };
 
@@ -345,11 +345,11 @@ template <> struct multimem_ld_reduce_op<sycl::float2, ReduceOp::ADD> {
         /*
         DPCT1053:71: Migration of device assembly code is not supported.
         */
-        asm volatile(
-            "multimem.ld_reduce.relaxed.sys.global.add.v2.f32 {%0, %1}, [%2];"
-            : "=f"(dst->x()), "=f"(dst->y())
-            : "l"(src)
-            : "memory");
+//        asm volatile(
+//            "multimem.ld_reduce.relaxed.sys.global.add.v2.f32 {%0, %1}, [%2];"
+//            : "=f"(dst->x()), "=f"(dst->y())
+//            : "l"(src)
+//            : "memory");
     }
 };
 

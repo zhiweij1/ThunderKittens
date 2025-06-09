@@ -608,30 +608,30 @@ static inline void load_async(ST &dst, const GL &src, const COORD &idx, semaphor
             /*
             DPCT1053:100: Migration of device assembly code is not supported.
             */
-            asm volatile("cp.async.bulk.tensor.5d.shared::cluster.global.tile."
-                         "mbarrier::complete_tx::bytes.multicast::cluster"
-                         " [%0], [%1, {%3, %4, %5, %6, %7}], [%2], %8;"
-                         :
-                         : "r"(dst_ptr), "l"(tma_ptr), "r"(mbar_ptr), "n"(0),
-                           "r"(tma_coords.x()), "r"(tma_coords.y()),
-                           "r"(tma_coords.z()), "r"(tma_coords.w()),
-                           "h"(cluster_mask)
-                         : "memory");
+//            asm volatile("cp.async.bulk.tensor.5d.shared::cluster.global.tile."
+//                         "mbarrier::complete_tx::bytes.multicast::cluster"
+//                         " [%0], [%1, {%3, %4, %5, %6, %7}], [%2], %8;"
+//                         :
+//                         : "r"(dst_ptr), "l"(tma_ptr), "r"(mbar_ptr), "n"(0),
+//                           "r"(tma_coords.x()), "r"(tma_coords.y()),
+//                           "r"(tma_coords.z()), "r"(tma_coords.w()),
+//                           "h"(cluster_mask)
+//                         : "memory");
         }
         else {
             /*
             DPCT1053:101: Migration of device assembly code is not supported.
             */
-            asm volatile(
-                "cp.async.bulk.tensor.5d.shared::cluster.global.tile.mbarrier::"
-                "complete_tx::bytes.multicast::cluster.L2::cache_hint"
-                " [%0], [%1, {%3, %4, %5, %6, %7}], [%2], %8, %9;"
-                :
-                : "r"(dst_ptr), "l"(tma_ptr), "r"(mbar_ptr), "n"(0),
-                  "r"(tma_coords.x()), "r"(tma_coords.y()), "r"(tma_coords.z()),
-                  "r"(tma_coords.w()), "h"(cluster_mask),
-                  "l"(make_cache_policy<policy>())
-                : "memory");
+//            asm volatile(
+//                "cp.async.bulk.tensor.5d.shared::cluster.global.tile.mbarrier::"
+//                "complete_tx::bytes.multicast::cluster.L2::cache_hint"
+//                " [%0], [%1, {%3, %4, %5, %6, %7}], [%2], %8, %9;"
+//                :
+//                : "r"(dst_ptr), "l"(tma_ptr), "r"(mbar_ptr), "n"(0),
+//                  "r"(tma_coords.x()), "r"(tma_coords.y()), "r"(tma_coords.z()),
+//                  "r"(tma_coords.w()), "h"(cluster_mask),
+//                  "l"(make_cache_policy<policy>())
+//                : "memory");
         }
     }
 }

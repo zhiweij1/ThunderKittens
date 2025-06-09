@@ -39,26 +39,26 @@ static inline void hmma16816(sycl::float2 &d0, sycl::float2 &d1,
     /*
     DPCT1053:5: Migration of device assembly code is not supported.
     */
-    asm volatile(
-        // https://docs.nvidia.com/cuda/parallel-thread-execution/index.html#multiply-and-accumulate-instruction-mma
-        "mma.sync.aligned.m16n8k16.row.col.f32.bf16.bf16.f32 "
-        "{%0, %1, %2, %3}, "
-        "{%4, %5, %6, %7}, "
-        "{%8, %9}, "
-        "{%10, %11, %12, %13};"
-
-        // D matrix
-        : "+f"(d0.x()), "+f"(d0.y()), "+f"(d1.x()), "+f"(d1.y())
-
-        // A matrix
-        : "r"(*(uint32_t *)(&a0)), "r"(*(uint32_t *)(&a1)),
-          "r"(*(uint32_t *)(&a2)), "r"(*(uint32_t *)(&a3)),
-
-          // B matrix
-          "r"(*(uint32_t *)(&b0)), "r"(*(uint32_t *)(&b1)),
-
-          // C matrix
-          "f"(c0.x()), "f"(c0.y()), "f"(c1.x()), "f"(c1.y()));
+//    asm volatile(
+//        // https://docs.nvidia.com/cuda/parallel-thread-execution/index.html#multiply-and-accumulate-instruction-mma
+//        "mma.sync.aligned.m16n8k16.row.col.f32.bf16.bf16.f32 "
+//        "{%0, %1, %2, %3}, "
+//        "{%4, %5, %6, %7}, "
+//        "{%8, %9}, "
+//        "{%10, %11, %12, %13};"
+//
+//        // D matrix
+//        : "+f"(d0.x()), "+f"(d0.y()), "+f"(d1.x()), "+f"(d1.y())
+//
+//        // A matrix
+//        : "r"(*(uint32_t *)(&a0)), "r"(*(uint32_t *)(&a1)),
+//          "r"(*(uint32_t *)(&a2)), "r"(*(uint32_t *)(&a3)),
+//
+//          // B matrix
+//          "r"(*(uint32_t *)(&b0)), "r"(*(uint32_t *)(&b1)),
+//
+//          // C matrix
+//          "f"(c0.x()), "f"(c0.y()), "f"(c1.x()), "f"(c1.y()));
 }
 /**
  * @brief Perform the HMMA.16816 operation.
@@ -84,26 +84,26 @@ static inline void hmma16816(      half_2 &d0,       half_2 &d1,
     /*
     DPCT1053:6: Migration of device assembly code is not supported.
     */
-    asm volatile(
-        // https://docs.nvidia.com/cuda/parallel-thread-execution/index.html#multiply-and-accumulate-instruction-mma
-        "mma.sync.aligned.m16n8k16.row.col.f16.f16.f16.f16 "
-        "{%0, %1}, "
-        "{%2, %3, %4, %5}, "
-        "{%6, %7}, "
-        "{%8, %9};"
-
-        // D matrix
-        : "=r"(*(uint32_t *)(&d0)), "=r"(*(uint32_t *)(&d1))
-
-        // A matrix
-        : "r"(*(uint32_t *)(&a0)), "r"(*(uint32_t *)(&a1)),
-          "r"(*(uint32_t *)(&a2)), "r"(*(uint32_t *)(&a3)),
-
-          // B matrix
-          "r"(*(uint32_t *)(&b0)), "r"(*(uint32_t *)(&b1)),
-
-          // C matrix
-          "r"(*(uint32_t *)(&c0)), "r"(*(uint32_t *)(&c1)));
+//    asm volatile(
+//        // https://docs.nvidia.com/cuda/parallel-thread-execution/index.html#multiply-and-accumulate-instruction-mma
+//        "mma.sync.aligned.m16n8k16.row.col.f16.f16.f16.f16 "
+//        "{%0, %1}, "
+//        "{%2, %3, %4, %5}, "
+//        "{%6, %7}, "
+//        "{%8, %9};"
+//
+//        // D matrix
+//        : "=r"(*(uint32_t *)(&d0)), "=r"(*(uint32_t *)(&d1))
+//
+//        // A matrix
+//        : "r"(*(uint32_t *)(&a0)), "r"(*(uint32_t *)(&a1)),
+//          "r"(*(uint32_t *)(&a2)), "r"(*(uint32_t *)(&a3)),
+//
+//          // B matrix
+//          "r"(*(uint32_t *)(&b0)), "r"(*(uint32_t *)(&b1)),
+//
+//          // C matrix
+//          "r"(*(uint32_t *)(&c0)), "r"(*(uint32_t *)(&c1)));
 }
 
 #ifdef KITTENS_HOPPER
@@ -133,24 +133,24 @@ static inline void hmma16816(sycl::float2 &d0, sycl::float2 &d1,
     /*
     DPCT1053:7: Migration of device assembly code is not supported.
     */
-    asm volatile("mma.sync.aligned.m16n8k32.row.col.f32.e4m3.e4m3.f32 "
-                 "{%0, %1, %2, %3}, "
-                 "{%4, %5, %6, %7}, "
-                 "{%8, %9}, "
-                 "{%10, %11, %12, %13};"
-
-                 // D matrix (output)
-                 : "+f"(d0.x()), "+f"(d0.y()), "+f"(d1.x()), "+f"(d1.y())
-
-                 // A matrix
-                 : "r"(*(uint32_t *)(&a0)), "r"(*(uint32_t *)(&a1)),
-                   "r"(*(uint32_t *)(&a2)), "r"(*(uint32_t *)(&a3)),
-
-                   // B matrix
-                   "r"(*(uint32_t *)(&b0)), "r"(*(uint32_t *)(&b1)),
-
-                   // C matrix
-                   "f"(c0.x()), "f"(c0.y()), "f"(c1.x()), "f"(c1.y()));
+//    asm volatile("mma.sync.aligned.m16n8k32.row.col.f32.e4m3.e4m3.f32 "
+//                 "{%0, %1, %2, %3}, "
+//                 "{%4, %5, %6, %7}, "
+//                 "{%8, %9}, "
+//                 "{%10, %11, %12, %13};"
+//
+//                 // D matrix (output)
+//                 : "+f"(d0.x()), "+f"(d0.y()), "+f"(d1.x()), "+f"(d1.y())
+//
+//                 // A matrix
+//                 : "r"(*(uint32_t *)(&a0)), "r"(*(uint32_t *)(&a1)),
+//                   "r"(*(uint32_t *)(&a2)), "r"(*(uint32_t *)(&a3)),
+//
+//                   // B matrix
+//                   "r"(*(uint32_t *)(&b0)), "r"(*(uint32_t *)(&b1)),
+//
+//                   // C matrix
+//                   "f"(c0.x()), "f"(c0.y()), "f"(c1.x()), "f"(c1.y()));
 }
 #endif
 

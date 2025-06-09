@@ -83,30 +83,30 @@ static inline void mma_fence(D &dst) {
                     DPCT1053:292: Migration of device assembly code is not
                     supported.
                     */
-                    asm volatile(
-                        ""
-                        : "+f"(dst.real.tiles[i][j].data[k].x())::"memory");
+                    //asm volatile(
+                    //    ""
+                    //    : "+f"(dst.real.tiles[i][j].data[k].x())::"memory");
                     /*
                     DPCT1053:293: Migration of device assembly code is not
                     supported.
                     */
-                    asm volatile(
-                        ""
-                        : "+f"(dst.real.tiles[i][j].data[k].y())::"memory");
+                    //asm volatile(
+                    //    ""
+                    //    : "+f"(dst.real.tiles[i][j].data[k].y())::"memory");
                     /*
                     DPCT1053:294: Migration of device assembly code is not
                     supported.
                     */
-                    asm volatile(
-                        ""
-                        : "+f"(dst.imag.tiles[i][j].data[k].x())::"memory");
+                    //asm volatile(
+                    //    ""
+                    //    : "+f"(dst.imag.tiles[i][j].data[k].x())::"memory");
                     /*
                     DPCT1053:295: Migration of device assembly code is not
                     supported.
                     */
-                    asm volatile(
-                        ""
-                        : "+f"(dst.imag.tiles[i][j].data[k].y())::"memory");
+                    //asm volatile(
+                    //    ""
+                    //    : "+f"(dst.imag.tiles[i][j].data[k].y())::"memory");
                 } else {
                     /*
                     DPCT1053:296: Migration of device assembly code is not

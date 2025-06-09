@@ -240,10 +240,10 @@ void runbenchmark(size_t M, size_t N, size_t K) {
 
     // Allocate device memory
     sycl::ext::oneapi::bfloat16 *d_A, *d_B, *d_C, *d_bias;
-    // cudaMalloc(&d_A, M*K*2);  // NYI
-    // cudaMalloc(&d_B, K*N*2);  // NYI
-    // cudaMalloc(&d_C, M*N*2);  // NYI
-    // cudaMalloc(&d_bias, N*2); // NYI
+    d_A = sycl::malloc_device<sycl::ext::oneapi::bfloat16>(M*K*2, dpct::get_default_queue());  // NYI
+    d_B = sycl::malloc_device<sycl::ext::oneapi::bfloat16>(K*N*2, dpct::get_default_queue());  // NYI
+    d_C = sycl::malloc_device<sycl::ext::oneapi::bfloat16>( M*N*2, dpct::get_default_queue());  // NYI
+    d_bias = sycl::malloc_device<sycl::ext::oneapi::bfloat16>(N*2, dpct::get_default_queue()); // NYI
 
     std::cout << "Allocated device memory" << std::endl;
 

@@ -277,12 +277,12 @@ void run_bench(int M, int N, int K) {
 
     // Allocate device memory
     sycl::half *d_A, *d_B, *d_C, *d_bias, *d_gate, *d_y;
-    // cudaMalloc(&d_A, M*K*2);  // Not Migrated, bug, // NYI
-    // cudaMalloc(&d_B, K*N*2); // Not Migrated, bug, // NYI
-    // cudaMalloc(&d_C, M*N*2); // Not Migrated, bug, // NYI
-    // cudaMalloc(&d_bias, N*2); // Not Migrated, bug, // NYI
-    // cudaMalloc(&d_gate, N*2); // Not Migrated, bug, // NYI
-    // cudaMalloc(&d_y, M*N*2); // Not Migrated, bug, // NYI
+    d_A = sycl::malloc_device<sycl::half>(M*K*2, dpct::get_default_queue());  // Not Migrated, bug, // NYI
+    d_B = sycl::malloc_device<sycl::half>(K*N*2, dpct::get_default_queue()); // Not Migrated, bug, // NYI
+    d_C = sycl::malloc_device<sycl::half>(M*N*2, dpct::get_default_queue()); // Not Migrated, bug, // NYI
+    d_bias = sycl::malloc_device<sycl::half>(N*2, dpct::get_default_queue()); // Not Migrated, bug, // NYI
+    d_gate = sycl::malloc_device<sycl::half>(N*2, dpct::get_default_queue()); // Not Migrated, bug, // NYI
+    d_y =sycl::malloc_device<sycl::half>(M*N*2, dpct::get_default_queue()); // Not Migrated, bug, // NYI
     std::cout << "Allocated device memory" << std::endl;
 
     std::cout << "lhs_tile::rows=" << lhs_tile::rows << " lhs_tile::cols=" << lhs_tile::cols << std::endl;

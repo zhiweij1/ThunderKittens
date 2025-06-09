@@ -361,12 +361,12 @@ inline void pglCudaMalloc(int num_devices, int *device_ids, int device_id,
         sycl::ext::oneapi::experimental::address_access_mode::read_write, 0)));
 
     // Set access
-    dpct::experimental::mem_access_desc desc_list[num_devices] = {};
+    std::vector<dpct::experimental::mem_access_desc> desc_list(num_devices);
     for (int i = 0; i < num_devices; i++)
         detail::init_mem_desc(&desc_list[i], device_ids[i]);
     CUCHECK(DPCT_CHECK_ERROR(sycl::ext::oneapi::experimental::set_access_mode(
-        (dpct::device_ptr)*ptr, size, desc_list->flags,
-        dpct::get_device(desc_list->location.id).get_context())));
+        (dpct::device_ptr)*ptr, size, desc_list[0].flags,
+        dpct::get_device(desc_list[0].location.id).get_context())));
 }
 catch (sycl::exception const &exc) {
   std::cerr << exc.what() << "Exception caught at file:" << __FILE__
@@ -401,7 +401,7 @@ inline void pglCudaFree(int device_id, T *ptr, size_t size) try {
     /*
     DPCT1007:473: Migration of cuMemRetainAllocationHandle is not supported.
     */
-    CUCHECK(cuMemRetainAllocationHandle(&mem_handle, (void *)ptr));
+    // CUCHECK(cuMemRetainAllocationHandle(&mem_handle, (void *)ptr)); //NYI
 
     // Always free in this order
     CUCHECK(DPCT_CHECK_ERROR(sycl::ext::oneapi::experimental::unmap(

@@ -21,6 +21,66 @@
 #include <bit>
 #include <sycl/ext/intel/math.hpp>
 
+typedef unsigned char __nv_fp8_storage_t;
+typedef unsigned short int __nv_fp8x2_storage_t;
+typedef unsigned int __nv_fp8x4_storage_t;
+struct __nv_fp8_e4m3 {
+    public:
+      __nv_fp8_storage_t __x;
+      constexpr __nv_fp8_e4m3() {}
+      explicit __nv_fp8_e4m3(const float f) {
+        // NYI
+      }
+      explicit operator float() const {
+        // NYI
+        return float();
+      }
+};
+struct __nv_fp8_e5m2 {
+    public:
+      __nv_fp8_storage_t __x;
+      constexpr __nv_fp8_e5m2() {}
+      explicit __nv_fp8_e5m2(const float f) {
+        // NYI
+      }
+      explicit operator float() const {
+        // NYI
+        return float();
+      }
+};
+struct __nv_fp8x2_e4m3 {
+    public:
+      __nv_fp8x2_storage_t __x;
+      constexpr __nv_fp8x2_e4m3() {}
+      explicit __nv_fp8x2_e4m3(const sycl::float2 f) {
+        // NYI
+      }
+};
+struct __nv_fp8x2_e5m2 {
+    public:
+      __nv_fp8x2_storage_t __x;
+      constexpr __nv_fp8x2_e5m2() {}
+      explicit __nv_fp8x2_e5m2(const sycl::float2 f) {
+        // NYI
+      }
+};
+struct __nv_fp8x4_e4m3 {
+    public:
+      __nv_fp8x4_storage_t __x;
+      constexpr  __nv_fp8x4_e4m3() {}
+      explicit __nv_fp8x4_e4m3(const sycl::float4 f) {
+        // NYI
+      }
+};
+struct __nv_fp8x4_e5m2 {
+    public:
+      __nv_fp8x4_storage_t __x;
+      constexpr __nv_fp8x4_e5m2() {}
+      explicit __nv_fp8x4_e5m2(const sycl::float4 f) {
+        // NYI
+      }
+};
+
 namespace kittens {
 
 /**

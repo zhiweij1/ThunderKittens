@@ -30,9 +30,9 @@ inline void swap_layout_8(bf16_2 &dst, const bf16_2 &src) {
     /*
     DPCT1053:4: Migration of device assembly code is not supported.
     */
-    asm volatile("movmatrix.sync.aligned.m8n8.trans.b16 %0, %1;\n"
-                 : "+r"(*(uint32_t *)(&dst))
-                 : "r"(*(uint32_t *)(&src)));
+    //asm volatile("movmatrix.sync.aligned.m8n8.trans.b16 %0, %1;\n"
+    //             : "+r"(*(uint32_t *)(&dst))
+    //             : "r"(*(uint32_t *)(&src)));
 }
 /**
  * @brief Swaps the layout of a register base tile.

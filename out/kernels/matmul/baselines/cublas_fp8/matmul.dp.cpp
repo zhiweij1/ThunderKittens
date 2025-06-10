@@ -4,7 +4,7 @@
 #include <dpct/dpct.hpp>
 #include <iostream>
 #include <vector>
-#include <chrono>
+//#include <chrono>
 #include <random>
 #include <dpct/blas_gemm_utils.hpp>
 

@@ -1,0 +1,108 @@
+---
+MainSourceFile:  '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/out_demo/include/pyutils/pyutils.dp.hpp'
+Replacements:
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/include/pyutils/pyutils.cuh'
+    Offset:          14
+    Length:          19
+    ReplacementText: "#include <sycl/sycl.hpp>\n#include <dpct/dpct.hpp>\n#include \"util.dp.hpp\""
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/include/pyutils/pyutils.cuh'
+    Offset:          2576
+    Length:          73
+    ReplacementText: 'dpct::kernel_launcher::launch(kernel, __g__.grid(), __g__.block(), __dynamic_shared_memory__, __g__)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/include/pyutils/pyutils.cuh'
+    Offset:          2680
+    Length:          46
+    ReplacementText: 'dpct::kernel_launcher::launch(kernel, __g__.grid(), __g__.block(), __g__)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+MainSourceFilesDigest:
+  - MainSourceFile:  ''
+    Digest:          ''
+    HasCUDASyntax:   false
+DpctVersion:     21.0.0
+SDKVersionMajor: '12'
+SDKVersionMinor: '8'
+MainHelperFileName: ''
+USMLevel:        ''
+FeatureMap:      {}
+CompileTargets:  {}
+OptionMap:
+  AnalysisScopePath:
+    Value:           ''
+    ValueVec:
+      - '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration'
+    Specified:       false
+  AsyncHandler:
+    Value:           'false'
+    Specified:       false
+  BuildScript:
+    Value:           '0'
+    Specified:       false
+  CodePinEnabled:
+    Value:           'false'
+    Specified:       false
+  CommentsEnabled:
+    Value:           'false'
+    Specified:       false
+  CompilationsDir:
+    Value:           '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration'
+    Specified:       true
+  CtadEnabled:
+    Value:           'false'
+    Specified:       false
+  EnablepProfiling:
+    Value:           'false'
+    Specified:       false
+  ExperimentalFlag:
+    Value:           '0'
+    Specified:       false
+  ExplicitNamespace:
+    Value:           '20'
+    Specified:       false
+  ExtensionDDFlag:
+    Value:           '0'
+    Specified:       false
+  ExtensionDEFlag:
+    Value:           '4294967295'
+    Specified:       false
+  HelperFuncPreferenceFlag:
+    Value:           '0'
+    Specified:       false
+  NDRangeDim:
+    Value:           '3'
+    Specified:       false
+  NoDRYPattern:
+    Value:           'false'
+    Specified:       false
+  OptimizeMigration:
+    Value:           'false'
+    Specified:       false
+  ProcessAll:
+    Value:           'false'
+    Specified:       false
+  RuleFile:
+    Value:           ''
+    Specified:       false
+  SyclNamedLambda:
+    Value:           'false'
+    Specified:       false
+  UseSYCLCompat:
+    Value:           'false'
+    Specified:       false
+  UsmLevel:
+    Value:           '1'
+    Specified:       false
+...

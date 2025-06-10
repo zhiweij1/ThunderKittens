@@ -1,0 +1,211 @@
+#include <sycl/sycl.hpp>
+#include <dpct/dpct.hpp>
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <cmath>
+
+#define BLOCK_SIZE (32*NUM_WORKERS)
+
+#define CudaCheckError()    __cudaCheckError( __FILE__, __LINE__ )
+inline void __cudaCheckError(const char *file, const int line) try {
+    /*
+    DPCT1010:312: SYCL uses exceptions to report errors and does not use the
+    error codes. The cudaGetLastError function call was replaced with 0. You
+    need to rewrite this code.
+    */
+    dpct::err0 err = 0;
+
+    // More careful checking. However, this will affect performance.
+    // Comment away if needed.
+    err = DPCT_CHECK_ERROR(dpct::get_current_device().queues_wait_and_throw());
+}
+catch (sycl::exception const &exc) {
+  std::cerr << exc.what() << "Exception caught at file:" << __FILE__
+            << ", line:" << __LINE__ << std::endl;
+  std::exit(1);
+}
+
+// Compute FLOPs for forward attention
+constexpr uint64_t ATTN_FLOPS = 
+    2llu * ATTN_B * ATTN_H * ATTN_N * ATTN_N * ATTN_D + // Q * K^T: 2BHNND (multiply-add)
+    4llu * ATTN_B * ATTN_H * ATTN_N * ATTN_N +          // Softmax: 2BHNN (exp and divide, plus flash-attn bookkeeping)
+    2llu * ATTN_B * ATTN_H * ATTN_N * ATTN_N * ATTN_D;      // (Q * K^T) * V: 2BHNND (multiply-add)
+
+int main(int argc, char **argv) {
+    // TODO: consider doing sequential kernel launches to force batches dimension element to execute sequentially,
+    // which may increase the probability of L2 cache hits on KV
+
+    std::cout << "Entered main!" << std::endl;
+
+    // create dummy variables that are the right size
+    constexpr int TOTAL_ELEMENTS = ATTN_B*ATTN_H*ATTN_N*ATTN_D;
+    constexpr int TOTAL_UNIQUE_ELEMENTS = ATTN_H*ATTN_N*ATTN_D;
+
+    float *q = new float[TOTAL_ELEMENTS];
+    float *k = new float[TOTAL_ELEMENTS];
+    float *v = new float[TOTAL_ELEMENTS];
+    float *o_ref = new float[TOTAL_ELEMENTS];
+
+    bf16 *q_bf = new bf16[TOTAL_ELEMENTS];
+    bf16 *k_bf = new bf16[TOTAL_ELEMENTS];
+    bf16 *v_bf = new bf16[TOTAL_ELEMENTS];
+    bf16 *o_bf = new bf16[TOTAL_ELEMENTS];
+    float *o = new float[TOTAL_ELEMENTS];
+
+    std::ifstream infile(argv[1]);
+
+    std::cout << "Starting to enter!" << std::endl;
+
+    for(int i = 0; i < TOTAL_ELEMENTS/ATTN_B; i++) infile >> q[i];
+    std::cout << "Finished loading Q" << std::endl;
+    for(int i = 0; i < TOTAL_ELEMENTS/ATTN_B; i++) infile >> k[i];
+    std::cout << "Finished loading K" << std::endl;
+    for(int i = 0; i < TOTAL_ELEMENTS/ATTN_B; i++) infile >> v[i];
+    std::cout << "Finished loading V" << std::endl;
+    for(int i = 0; i < TOTAL_ELEMENTS/ATTN_B; i++) infile >> o_ref[i];
+    std::cout << "Finished loading O_REF" << std::endl;
+
+    std::cout << "Finished loading file from " << argv[1] << "!" << std::endl;
+
+    // replicate into batch elements
+    for(int i = 0; i < TOTAL_ELEMENTS; i++) {
+        q_bf[i] = sycl::ext::oneapi::bfloat16(q[i % (TOTAL_ELEMENTS / ATTN_B)]);
+        k_bf[i] = sycl::ext::oneapi::bfloat16(k[i % (TOTAL_ELEMENTS / ATTN_B)]);
+        v_bf[i] = sycl::ext::oneapi::bfloat16(v[i % (TOTAL_ELEMENTS / ATTN_B)]);
+    }
+
+    bf16 *d_q, *d_k, *d_v, *d_o;
+    d_q = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue());
+    d_k = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue());
+    d_v = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue());
+    d_o = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue());
+
+    dpct::get_in_order_queue()
+        .memcpy(d_q, q_bf, TOTAL_ELEMENTS * sizeof(bf16))
+        .wait();
+    dpct::get_in_order_queue()
+        .memcpy(d_k, k_bf, TOTAL_ELEMENTS * sizeof(bf16))
+        .wait();
+    dpct::get_in_order_queue()
+        .memcpy(d_v, v_bf, TOTAL_ELEMENTS * sizeof(bf16))
+        .wait();
+
+    global_layout<ATTN_D> Qg(d_q, ATTN_B, ATTN_N, ATTN_H, nullptr);
+    global_layout<ATTN_D> Kg(d_k, ATTN_B, ATTN_N, ATTN_H, nullptr);
+    global_layout<ATTN_D> Vg(d_v, ATTN_B, ATTN_N, ATTN_H, nullptr);
+    global_layout<ATTN_D> Og(d_o, ATTN_B, ATTN_N, ATTN_H, nullptr);
+    globals<ATTN_D> g(Qg, Kg, Vg, Og);
+    
+    unsigned long mem_size = (kittens::MAX_SHARED_MEMORY) / 2; // have the flag tell us
+    std::cout << "Max shared memory size: " << mem_size << std::endl;
+
+    //cudaFuncSetAttribute(attend_ker_wrapper<ATTN_D>,
+    //                     cudaFuncAttributeMaxDynamicSharedMemorySize, mem_size); // NYI
+
+    dpct::get_current_device().queues_wait_and_throw();
+    std::cout << "Starting kernel\n";
+    dpct::dim3 grid((ATTN_N + qkvo_tile<ATTN_D>::rows * NUM_WORKERS - 1) /
+                        (qkvo_tile<ATTN_D>::rows * NUM_WORKERS),
+                    ATTN_H, ATTN_B);
+    const auto start = std::chrono::high_resolution_clock::now();
+    for(int i = 0; i < ITER; i++) {
+        dpct::has_capability_or_fail(dpct::get_in_order_queue().get_device(),
+                                     {sycl::aspect::fp16});
+
+        dpct::get_in_order_queue().submit([&](sycl::handler &cgh) {
+            sycl::local_accessor<uint8_t, 1> dpct_local_acc_ct1(
+                sycl::range<1>(mem_size), cgh);
+
+            cgh.parallel_for(
+                sycl::nd_range<3>(grid * sycl::range<3>(1, 1, BLOCK_SIZE),
+                                  sycl::range<3>(1, 1, BLOCK_SIZE)),
+                [=](sycl::nd_item<3> item_ct1) {
+                    attend_ker<ATTN_D>(
+                        g, dpct_local_acc_ct1
+                               .get_multi_ptr<sycl::access::decorated::no>()
+                               .get());
+                });
+        });
+    }
+    dpct::get_current_device().queues_wait_and_throw();
+    const auto finish = std::chrono::high_resolution_clock::now();
+    CudaCheckError();
+    std::cout << "Finished kernel\n";
+
+    /*
+    DPCT1010:317: SYCL uses exceptions to report errors and does not use the
+    error codes. The cudaGetLastError function call was replaced with 0. You
+    need to rewrite this code.
+    */
+    dpct::err0 err = 0;
+    /*
+    DPCT1000:316: Error handling if-stmt was detected but could not be
+    rewritten.
+    */
+    if (err != 0) {
+        /*
+        DPCT1009:318: SYCL reports errors using exceptions and does not use
+        error codes. Please replace the "get_error_string_dummy(...)" with a
+        real error-handling function.
+        */
+        /*
+        DPCT1001:315: The statement could not be removed.
+        */
+        std::cout << "CUDA error: " << dpct::get_error_string_dummy(err)
+                  << std::endl;
+        return 1;
+    }
+    
+    // check correctness
+    dpct::get_in_order_queue()
+        .memcpy(o_bf, d_o, TOTAL_ELEMENTS * sizeof(bf16))
+        .wait();
+    for(int i = 0; i < TOTAL_ELEMENTS; i++) {
+        o[i] = static_cast<float>(o_bf[i]);
+    }
+
+    bool good = true;
+    std::ofstream o_ref_file("printouts/o_ref.txt");
+    std::ofstream o_file("printouts/o.txt");
+    std::ofstream diff_file("printouts/diff.txt");
+
+    float total_diff = 0;
+    float max_error  = 0;
+
+    for(int i = 0; i < TOTAL_ELEMENTS; i++) {
+        float diff = o[i] - o_ref[i % (TOTAL_ELEMENTS/ATTN_B)];
+        if(i < TOTAL_UNIQUE_ELEMENTS) {
+            o_ref_file << o_ref[i % (TOTAL_ELEMENTS/ATTN_B)] << ' ';
+            o_file << o[i] << ' ';
+            diff_file << diff << ' ';
+        }
+        if(i % ATTN_D == ATTN_D-1) {
+            o_ref_file << '\n';
+            o_file << '\n';
+            diff_file << '\n';
+        }
+        if(abs(diff) > 0.01 || isnan(diff)) {
+            good = false;
+        }
+        total_diff += abs(diff);
+    }
+    std::cout << "Average diff: " << total_diff / TOTAL_UNIQUE_ELEMENTS << std::endl;
+    std::cout << "Average execution time: " << std::chrono::duration_cast<std::chrono::microseconds>(finish - start).count() / ITER << " us" << std::endl;
+    if(good) std::cout << "Correct :)\n";
+    else std::cout << "Incorrect :(\n";
+    // Compute and print average TFLOPs achieved
+    double avg_time_s = (double)(std::chrono::duration_cast<std::chrono::microseconds>(finish - start).count()) / (ITER * 1e6);
+    double avg_tflops = (ATTN_FLOPS / avg_time_s) / 1e12;
+    std::cout << "Efficiency: " << avg_tflops << " TFLOPS\n\n\n" << std::endl;
+
+    dpct::dpct_free(d_q, dpct::get_in_order_queue());
+    dpct::dpct_free(d_k, dpct::get_in_order_queue());
+    dpct::dpct_free(d_v, dpct::get_in_order_queue());
+    dpct::dpct_free(d_o, dpct::get_in_order_queue());
+
+    delete[] q, k, v, o, o_ref;
+    delete[] q_bf, k_bf, v_bf, o_bf;
+
+    return 0;
+}

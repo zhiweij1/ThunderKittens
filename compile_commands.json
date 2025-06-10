@@ -103,5 +103,35 @@
         "command": "nvcc -c -DNDEBUG -Xcompiler=-fPIE --expt-extended-lambda --expt-relaxed-constexpr -Xcompiler=-Wno-psabi -Xcompiler=-fno-strict-aliasing --use_fast_math -forward-unknown-to-host-compiler -O3  -Xnvlink=--verbose -Xptxas=--verbose -Xptxas=--warn-on-spills -std=c++20 -MD -MT -MF -x cu -lrt -lpthread -ldl -DKITTENS_HOPPER -lcuda -lcudadevrt -lcudart_static -lcublas -I./include -I./prototype ./kernels/flux/flux_gelu.cu",
         "directory": ".",
         "file": "./kernels/flux/flux_gelu.cu"
+    },
+    {
+        "command": "nvcc -c -DNDEBUG -Xcompiler=-fPIE --expt-extended-lambda --expt-relaxed-constexpr -Xcompiler=-Wno-psabi -Xcompiler=-fno-strict-aliasing --use_fast_math -forward-unknown-to-host-compiler -O3  -Xnvlink=--verbose -Xptxas=--verbose -Xptxas=--warn-on-spills -std=c++20 -MD -MT -MF -x cu -lrt -lpthread -ldl -DKITTENS_HOPPER -lcuda -lcudadevrt -lcudart_static -lcublas -I./include -I./prototype ./kernels/attn/demo/mla_decode/template_mla_decode.cu",
+        "directory": ".",
+        "file": "./kernels/attn/demo/mla_decode/template_mla_decode.cu"
+    },
+    {
+        "command": "nvcc -c -DNDEBUG -Xcompiler=-fPIE --expt-extended-lambda --expt-relaxed-constexpr -Xcompiler=-Wno-psabi -Xcompiler=-fno-strict-aliasing --use_fast_math -forward-unknown-to-host-compiler -O3  -Xnvlink=--verbose -Xptxas=--verbose -Xptxas=--warn-on-spills -std=c++20 -MD -MT -MF -x cu -lrt -lpthread -ldl -DKITTENS_HOPPER -lcuda -lcudadevrt -lcudart_static -lcublas -I./include -I./prototype ./kernels/attn/demo/gqa_decode/template_gqa_decode_new.cu",
+        "directory": ".",
+        "file": "./kernels/attn/demo/gqa_decode/template_gqa_decode_new.cu"
+    },
+    {
+        "command": "nvcc -c -DNDEBUG -Xcompiler=-fPIE --expt-extended-lambda --expt-relaxed-constexpr -Xcompiler=-Wno-psabi -Xcompiler=-fno-strict-aliasing --use_fast_math -forward-unknown-to-host-compiler -O3  -Xnvlink=--verbose -Xptxas=--verbose -Xptxas=--warn-on-spills -std=c++20 -MD -MT -MF -x cu -lrt -lpthread -ldl -DKITTENS_HOPPER -lcuda -lcudadevrt -lcudart_static -lcublas -I./include -I./prototype ./kernels/attn/demo/gqa_decode/template_gqa_decode.cu",
+        "directory": ".",
+        "file": "./kernels/attn/demo/gqa_decode/template_gqa_decode.cu"
+    },
+    {
+        "command": "nvcc -c -DNDEBUG -Xcompiler=-fPIE --expt-extended-lambda --expt-relaxed-constexpr -Xcompiler=-Wno-psabi -Xcompiler=-fno-strict-aliasing --use_fast_math -forward-unknown-to-host-compiler -O3  -Xnvlink=--verbose -Xptxas=--verbose -Xptxas=--warn-on-spills -std=c++20 -MD -MT -MF -x cu -lrt -lpthread -ldl -DKITTENS_HOPPER -lcuda -lcudadevrt -lcudart_static -lcublas -I./include -I./prototype ./kernels/attn/demo/mha_decode/template_mha_decode.cu",
+        "directory": ".",
+        "file": "./kernels/attn/demo/mha_decode/template_mha_decode.cu"
+    },
+    {
+        "command": "nvcc -c -DNDEBUG -Xcompiler=-fPIE --expt-extended-lambda --expt-relaxed-constexpr -Xcompiler=-Wno-psabi -Xcompiler=-fno-strict-aliasing --use_fast_math -forward-unknown-to-host-compiler -O3  -Xnvlink=--verbose -Xptxas=--verbose -Xptxas=--warn-on-spills -std=c++20 -MD -MT -MF -x cu -lrt -lpthread -ldl -DKITTENS_HOPPER -lcuda -lcudadevrt -lcudart_static -lcublas -I./include -I./prototype ./kernels/attn/demo/4090.cu",
+        "directory": ".",
+        "file": "./kernels/attn/demo/4090.cu"
+    },
+    {
+        "command": "nvcc -c -DNDEBUG -Xcompiler=-fPIE --expt-extended-lambda --expt-relaxed-constexpr -Xcompiler=-Wno-psabi -Xcompiler=-fno-strict-aliasing --use_fast_math -forward-unknown-to-host-compiler -O3  -Xnvlink=--verbose -Xptxas=--verbose -Xptxas=--warn-on-spills -std=c++20 -MD -MT -MF -x cu -lrt -lpthread -ldl -DKITTENS_HOPPER -lcuda -lcudadevrt -lcudart_static -lcublas -I./include -I./prototype ./kernels/attn/demo/h100_lcf.cu",
+        "directory": ".",
+        "file": "./kernels/attn/demo/h100_lcf.cu"
     }
 ]

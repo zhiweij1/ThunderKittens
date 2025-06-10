@@ -33,6 +33,8 @@ template<typename T> concept has_store = requires {
     T::producer::store;
 };
 
+#undef KITTENS_TIMINGS // NYI
+
 template<typename Op> inline void run_op_producer(const typename Op::config::globals &globals, persistent_state &ps) {
     static_assert(kernel_template<Op>, "interpreter producer kernel template parameter does not satisfy concept requirements");
     using L              = typename Op::layout;
@@ -332,7 +334,7 @@ template<typename config, typename... ops>
 void kernel(const typename config::globals globals,
             uint8_t *dpct_local) {
 #ifdef KITTENS_TIMINGS
-    uint64_t kernel_start = clock64();
+    uint64_t kernel_start = 0;//  = clock64(); // NYI
     __shared__ uint64_t timings[2][64]; // We'll allow 64 separate timing events, per instruction.
     if(threadIdx.x < 64) { // 0 them all to start.
         timings[0][threadIdx.x] = 0;

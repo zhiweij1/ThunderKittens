@@ -91,7 +91,7 @@ struct partial_template {
     static inline void common_setup(common_setup_args<layout> args) {
 #ifdef KITTENS_TIMINGS
         /*
-        DPCT1008:295: clock64 function is not defined in SYCL. This is a
+        DPCT1008:285: clock64 function is not defined in SYCL. This is a
         hardware-specific feature. Consult with your hardware vendor to find a
         replacement.
         */
@@ -125,7 +125,7 @@ struct partial_template {
             }
 #ifdef KITTENS_TIMINGS
             /*
-            DPCT1008:296: clock64 function is not defined in SYCL. This is a
+            DPCT1008:286: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
@@ -140,7 +140,7 @@ struct partial_template {
                                  const sycl::stream &stream_ct1) {
 #ifdef KITTENS_TIMINGS
             /*
-            DPCT1008:297: clock64 function is not defined in SYCL. This is a
+            DPCT1008:287: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
@@ -157,15 +157,15 @@ struct partial_template {
                 // print out every 8 rows of args.scratch.q
                 for (int j = 0; j < 8; j++) {
                     for (int i = 0; i < 8; i++) {
-                        printf("%f ",
-                               static_cast<float>(args.scratch.q[{j * 8, i}]));
+                        printf("%f ", sycl::ext::intel::math::bfloat162float(
+                                          args.scratch.q[{j * 8, i}]));
                     }
                     stream_ct1 << "\n";
                 }
             }
 #ifdef KITTENS_TIMINGS
             /*
-            DPCT1008:298: clock64 function is not defined in SYCL. This is a
+            DPCT1008:288: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
@@ -180,7 +180,7 @@ struct partial_template {
             const float SOFTMAX_TEMPERATURE = args.globals.Softmax_scale * 1.44269504089f;
 #ifdef KITTENS_TIMINGS
             /*
-            DPCT1008:299: clock64 function is not defined in SYCL. This is a
+            DPCT1008:289: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
@@ -256,7 +256,7 @@ struct partial_template {
 
 #ifdef KITTENS_TIMINGS
             /*
-            DPCT1008:300: clock64 function is not defined in SYCL. This is a
+            DPCT1008:290: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
@@ -312,7 +312,7 @@ struct partial_template {
             if(warpgroup::laneid() == 0) arrive(args.finish_finished, WARPGROUP_WARPS); // done!
 #ifdef KITTENS_TIMINGS
             /*
-            DPCT1008:301: clock64 function is not defined in SYCL. This is a
+            DPCT1008:291: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
@@ -348,7 +348,7 @@ struct reduction_template {
     static inline void common_setup(common_setup_args<layout> args) {
 #ifdef KITTENS_TIMINGS
         /*
-        DPCT1008:302: clock64 function is not defined in SYCL. This is a
+        DPCT1008:292: clock64 function is not defined in SYCL. This is a
         hardware-specific feature. Consult with your hardware vendor to find a
         replacement.
         */
@@ -373,7 +373,7 @@ struct reduction_template {
                     sycl::ext::oneapi::this_work_item::get_sub_group());
 #ifdef KITTENS_TIMINGS
                 /*
-                DPCT1008:303: clock64 function is not defined in SYCL. This is a
+                DPCT1008:293: clock64 function is not defined in SYCL. This is a
                 hardware-specific feature. Consult with your hardware vendor to
                 find a replacement.
                 */
@@ -402,7 +402,7 @@ struct reduction_template {
             group<8>::sync(11); // all warps must sync here.
 #ifdef KITTENS_TIMINGS
             /*
-            DPCT1008:304: clock64 function is not defined in SYCL. This is a
+            DPCT1008:294: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
@@ -420,7 +420,7 @@ struct reduction_template {
             // group<12>::sync(9);
 #ifdef KITTENS_TIMINGS
             /*
-            DPCT1008:305: clock64 function is not defined in SYCL. This is a
+            DPCT1008:295: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
@@ -431,7 +431,7 @@ struct reduction_template {
         static inline void compute(consumer_compute_args<layout> args) {
 #ifdef KITTENS_TIMINGS
             /*
-            DPCT1008:306: clock64 function is not defined in SYCL. This is a
+            DPCT1008:296: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
@@ -462,7 +462,7 @@ struct reduction_template {
         static inline void finish(consumer_finish_args<layout> args) {
 #ifdef KITTENS_TIMINGS
             /*
-            DPCT1008:307: clock64 function is not defined in SYCL. This is a
+            DPCT1008:297: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
@@ -494,7 +494,7 @@ struct reduction_template {
             if(warpgroup::laneid() == 0) arrive(args.finish_finished, WARPGROUP_WARPS); // done!
 #ifdef KITTENS_TIMINGS
             /*
-            DPCT1008:308: clock64 function is not defined in SYCL. This is a
+            DPCT1008:298: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
@@ -510,6 +510,8 @@ struct reduction_template {
 #include <cmath>
 #include <limits>
 #include <time.h>
+
+#include <sycl/ext/intel/math.hpp>
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>

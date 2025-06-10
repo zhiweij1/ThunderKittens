@@ -5,7 +5,7 @@
 #include <dpct/blas_gemm_utils.hpp>
 #include <random>
 #include <vector>
-#include <chrono>
+//#include <chrono>
 #include <iostream>
 #include <iomanip>
 #include <dpct/blas_utils.hpp>

@@ -4,7 +4,7 @@
 #include <dpct/dpct.hpp>
 #include <iostream>
 #include <vector>
-#include <chrono>
+//#include <chrono>
 #include <dpct/blas_utils.hpp>
 
 #include <sycl/ext/intel/math.hpp>

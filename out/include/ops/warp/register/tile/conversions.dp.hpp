@@ -423,7 +423,7 @@ static inline void copy(rt<T2, _height, _width, layout> &dst,
  * @param[in] src A reference to the source register tile.
  */
 template<typename T2, typename U2, int _height, int _width, ducks::rt_layout::all layout>
-__device__ static inline void copy(rt<T2, _height, _width, layout> &dst, const rt<U2, _height, _width, layout> &src) {
+static inline void copy(rt<T2, _height, _width, layout> &dst, const rt<U2, _height, _width, layout> &src) {
     #pragma unroll
     for(int i = 0; i < dst.height; i++) {
         #pragma unroll

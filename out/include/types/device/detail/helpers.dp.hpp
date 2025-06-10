@@ -4,7 +4,36 @@
 #define DPCT_PROFILING_ENABLED
 #include <sycl/sycl.hpp>
 #include <dpct/dpct.hpp>
-
+typedef enum CUmulticastGranularity_flags_enum {
+    CU_MULTICAST_GRANULARITY_MINIMUM     = 0x0,     /**< Minimum required granularity */
+    CU_MULTICAST_GRANULARITY_RECOMMENDED = 0x1      /**< Recommended granularity for best performance */
+} CUmulticastGranularity_flags;
+typedef struct CUmulticastObjectProp_st {
+    /**
+     * The number of devices in the multicast team that will bind memory to this
+     * object
+     */
+    unsigned int numDevices;
+    /** 
+     * The maximum amount of memory that can be bound to this multicast object
+     * per device
+     */
+    size_t size;
+    /**
+     * Bitmask of exportable handle types (see ::CUmemAllocationHandleType) for
+     * this object
+     */
+    unsigned long long handleTypes;
+    /** 
+     * Flags for future use, must be zero now
+     */
+    unsigned long long flags;
+} CUmulticastObjectProp_v1;
+typedef CUmulticastObjectProp_v1 CUmulticastObjectProp;
+#define CU_TENSOR_MAP_NUM_QWORDS 16
+typedef struct CUtensorMap_st {
+    std::uint64_t opaque[CU_TENSOR_MAP_NUM_QWORDS];
+} CUtensorMap;
 namespace kittens {
 
 // We must ensure that we use the same granularity type for all functions

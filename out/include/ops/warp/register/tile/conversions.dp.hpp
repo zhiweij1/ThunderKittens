@@ -702,10 +702,10 @@ static inline void right_fill(RT &dst, const RT &src, const int col_idx, const t
             for (int k = 0; k < dst.packed_per_tile; k++) {
                 const int col_idx_x = (j * dst.tile_size_col) + ((k / 2) * 8) + ((laneid() % 4) * 2);
                 const int col_idx_y = (j * dst.tile_size_col) + ((k / 2) * 8) + ((laneid() % 4) * 2) + 1;
-                if (col_idx_x >= col_idx)  { dst.tiles[i][j].data[k].x = val; }
-                else                       { dst.tiles[i][j].data[k].x = src.tiles[i][j].data[k].x; }
-                if (col_idx_y >= col_idx)  { dst.tiles[i][j].data[k].y = val; }
-                else                       { dst.tiles[i][j].data[k].y = src.tiles[i][j].data[k].y; }
+                if (col_idx_x >= col_idx)  { dst.tiles[i][j].data[k].x() = val; }                         // NYI
+                else                       { dst.tiles[i][j].data[k].x() = src.tiles[i][j].data[k].x(); } // NYI
+                if (col_idx_y >= col_idx)  { dst.tiles[i][j].data[k].y() = val; }                         // NYI
+                else                       { dst.tiles[i][j].data[k].y() = src.tiles[i][j].data[k].y(); } // NYI
             }
         }
     }

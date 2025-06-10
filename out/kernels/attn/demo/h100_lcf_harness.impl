@@ -30,6 +30,8 @@ catch (sycl::exception const &exc) {
   std::exit(1);
 }
 
+static constexpr int INPUT_PIPE_STAGES = 2; // NYI
+
 // Compute FLOPs for forward attention
 constexpr uint64_t ATTN_FLOPS = 
     2llu * ATTN_B * ATTN_H * ATTN_N * ATTN_N * ATTN_D + // Q * K^T: 2BHNND (multiply-add)
@@ -81,10 +83,10 @@ int main(int argc, char **argv) {
     }
 
     bf16 *d_q, *d_k, *d_v, *d_o;
-    cudaMalloc(&d_q, TOTAL_ELEMENTS * sizeof(bf16));
-    cudaMalloc(&d_k, TOTAL_ELEMENTS * sizeof(bf16));
-    cudaMalloc(&d_v, TOTAL_ELEMENTS * sizeof(bf16));
-    cudaMalloc(&d_o, TOTAL_ELEMENTS * sizeof(bf16));
+    d_q = sycl::malloc_device<bf16>(TOTAL_ELEMENTS * sizeof(bf16), dpct::get_default_queue()); // NYI
+    d_k = sycl::malloc_device<bf16>(TOTAL_ELEMENTS * sizeof(bf16), dpct::get_default_queue()); // NYI
+    d_v = sycl::malloc_device<bf16>(TOTAL_ELEMENTS * sizeof(bf16), dpct::get_default_queue()); // NYI
+    d_o = sycl::malloc_device<bf16>(TOTAL_ELEMENTS * sizeof(bf16), dpct::get_default_queue()); // NYI
 
     dpct::get_in_order_queue()
         .memcpy(d_q, q_bf, TOTAL_ELEMENTS * sizeof(bf16))
@@ -104,8 +106,8 @@ int main(int argc, char **argv) {
     
     unsigned long mem_size = kittens::MAX_SHARED_MEMORY - 2000; // have the flag tell us
 
-    cudaFuncSetAttribute(prototype::lcf::kernel_wrapper<ker_template>,
-                         cudaFuncAttributeMaxDynamicSharedMemorySize, mem_size);
+    // cudaFuncSetAttribute(prototype::lcf::kernel_wrapper<ker_template>,
+    //                     cudaFuncAttributeMaxDynamicSharedMemorySize, mem_size); // NYI
 
     dpct::get_current_device().queues_wait_and_throw();
     std::cout << "Starting kernel\n";
@@ -121,6 +123,7 @@ int main(int argc, char **argv) {
         the limit. To get the device limit, query
         info::device::max_work_group_size. Adjust the work-group size if needed.
         */
+
         dpct::get_in_order_queue().submit([&](sycl::handler &cgh) {
             sycl::stream stream_ct1(64 * 1024, 80, cgh);
 
@@ -137,6 +140,7 @@ int main(int argc, char **argv) {
                 sycl::nd_range<3>(grid * sycl::range<3>(1, 1, BLOCK_SIZE),
                                   sycl::range<3>(1, 1, BLOCK_SIZE)),
                 [=](sycl::nd_item<3> item_ct1) {
+#if 0
                     prototype::lcf::kernel<ker_template>(
                         globals, stream_ct1,
                         dpct_local_acc_ct1
@@ -149,6 +153,7 @@ int main(int argc, char **argv) {
                             .get_multi_ptr<sycl::access::decorated::no>()
                             .get(),
                         finish_finished_acc_ct1);
+#endif // NYI
                 });
         });
     dpct::get_current_device().queues_wait_and_throw();
@@ -176,6 +181,7 @@ int main(int argc, char **argv) {
                 sycl::nd_range<3>(grid * sycl::range<3>(1, 1, BLOCK_SIZE),
                                   sycl::range<3>(1, 1, BLOCK_SIZE)),
                 [=](sycl::nd_item<3> item_ct1) {
+#if 0 // NYI
                     prototype::lcf::kernel<ker_template>(
                         globals, stream_ct1,
                         dpct_local_acc_ct1
@@ -188,6 +194,7 @@ int main(int argc, char **argv) {
                             .get_multi_ptr<sycl::access::decorated::no>()
                             .get(),
                         finish_finished_acc_ct1);
+#endif 
                 });
         });
     }

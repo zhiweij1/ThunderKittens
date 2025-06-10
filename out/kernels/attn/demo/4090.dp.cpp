@@ -19,7 +19,6 @@ template<int D, typename T=float> using attn_tile = rt<T, ROWS<D>, ROWS<D>>;
 template<int D> using shared_tile = st_bf<ROWS<D>, D>;
 template<int D> using global_layout = gl<bf16, -1, -1, -1, D>; // B, N, H, specified at runtime, D known at compile time for this kernel
 template<int D> struct globals { global_layout<D> Qg, Kg, Vg, Og; };
-
 template <> struct sycl::is_device_copyable<globals<64>> : std::true_type {};
 
 template <int D>
@@ -54,16 +53,16 @@ SYCL_EXTERNAL void attend_ker(const globals<D> g, uint8_t *dpct_local) {
         load(q_reg, qo_smem[workerid]);
     }
     /*
-    DPCT1065:309: Consider replacing sycl::nd_item::barrier() with
+    DPCT1065:299: Consider replacing sycl::nd_item::barrier() with
     sycl::nd_item::barrier(sycl::access::fence_space::local_space) for better
     performance if there is no access to global memory.
     */
     item_ct1.barrier();
 
     if constexpr (D == 64) q_reg *=
-        sycl::ext::oneapi::bfloat16(0.125f * 1.44269504089f);
+        sycl::ext::intel::math::float2bfloat16(0.125f * 1.44269504089f);
     else if constexpr (D == 128) q_reg *=
-        sycl::ext::oneapi::bfloat16(0.08838834764f * 1.44269504089f);
+        sycl::ext::intel::math::float2bfloat16(0.08838834764f * 1.44269504089f);
 
     max_vec = base_types::constants<float>::neg_infty();
     norm_vec = 0.f;
@@ -87,7 +86,7 @@ SYCL_EXTERNAL void attend_ker(const globals<D> g, uint8_t *dpct_local) {
         converged control flow. You may need to adjust the code.
         */
         /*
-        DPCT1065:311: Consider replacing sycl::nd_item::barrier() with
+        DPCT1065:301: Consider replacing sycl::nd_item::barrier() with
         sycl::nd_item::barrier(sycl::access::fence_space::local_space) for
         better performance if there is no access to global memory.
         */
@@ -116,7 +115,7 @@ SYCL_EXTERNAL void attend_ker(const globals<D> g, uint8_t *dpct_local) {
 
     o_reg /= norm_vec;
     /*
-    DPCT1065:310: Consider replacing sycl::nd_item::barrier() with
+    DPCT1065:300: Consider replacing sycl::nd_item::barrier() with
     sycl::nd_item::barrier(sycl::access::fence_space::local_space) for better
     performance if there is no access to global memory.
     */
@@ -129,3 +128,4 @@ SYCL_EXTERNAL void attend_ker(const globals<D> g, uint8_t *dpct_local) {
 }
 
 #include "4090_harness.impl"
+#include <sycl/ext/intel/math.hpp>

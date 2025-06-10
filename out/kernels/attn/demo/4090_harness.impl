@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <sycl/ext/intel/math.hpp>
+
 #include <cmath>
 
 #define BLOCK_SIZE (32*NUM_WORKERS)
@@ -10,7 +12,7 @@
 #define CudaCheckError()    __cudaCheckError( __FILE__, __LINE__ )
 inline void __cudaCheckError(const char *file, const int line) try {
     /*
-    DPCT1010:312: SYCL uses exceptions to report errors and does not use the
+    DPCT1010:302: SYCL uses exceptions to report errors and does not use the
     error codes. The cudaGetLastError function call was replaced with 0. You
     need to rewrite this code.
     */
@@ -70,16 +72,19 @@ int main(int argc, char **argv) {
 
     // replicate into batch elements
     for(int i = 0; i < TOTAL_ELEMENTS; i++) {
-        q_bf[i] = sycl::ext::oneapi::bfloat16(q[i % (TOTAL_ELEMENTS / ATTN_B)]);
-        k_bf[i] = sycl::ext::oneapi::bfloat16(k[i % (TOTAL_ELEMENTS / ATTN_B)]);
-        v_bf[i] = sycl::ext::oneapi::bfloat16(v[i % (TOTAL_ELEMENTS / ATTN_B)]);
+        q_bf[i] = sycl::ext::intel::math::float2bfloat16(
+            q[i % (TOTAL_ELEMENTS / ATTN_B)]);
+        k_bf[i] = sycl::ext::intel::math::float2bfloat16(
+            k[i % (TOTAL_ELEMENTS / ATTN_B)]);
+        v_bf[i] = sycl::ext::intel::math::float2bfloat16(
+            v[i % (TOTAL_ELEMENTS / ATTN_B)]);
     }
 
     bf16 *d_q, *d_k, *d_v, *d_o;
-    d_q = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue());
-    d_k = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue());
-    d_v = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue());
-    d_o = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue());
+    d_q = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue()); // NYI
+    d_k = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue()); // NYI
+    d_v = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue()); // NYI
+    d_o = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue()); // NYI
 
     dpct::get_in_order_queue()
         .memcpy(d_q, q_bf, TOTAL_ELEMENTS * sizeof(bf16))
@@ -100,8 +105,8 @@ int main(int argc, char **argv) {
     unsigned long mem_size = (kittens::MAX_SHARED_MEMORY) / 2; // have the flag tell us
     std::cout << "Max shared memory size: " << mem_size << std::endl;
 
-    //cudaFuncSetAttribute(attend_ker_wrapper<ATTN_D>,
-    //                     cudaFuncAttributeMaxDynamicSharedMemorySize, mem_size); // NYI
+//    cudaFuncSetAttribute(attend_ker_wrapper<ATTN_D>,
+//                         cudaFuncAttributeMaxDynamicSharedMemorySize, mem_size);
 
     dpct::get_current_device().queues_wait_and_throw();
     std::cout << "Starting kernel\n";
@@ -134,23 +139,23 @@ int main(int argc, char **argv) {
     std::cout << "Finished kernel\n";
 
     /*
-    DPCT1010:317: SYCL uses exceptions to report errors and does not use the
+    DPCT1010:307: SYCL uses exceptions to report errors and does not use the
     error codes. The cudaGetLastError function call was replaced with 0. You
     need to rewrite this code.
     */
     dpct::err0 err = 0;
     /*
-    DPCT1000:316: Error handling if-stmt was detected but could not be
+    DPCT1000:306: Error handling if-stmt was detected but could not be
     rewritten.
     */
     if (err != 0) {
         /*
-        DPCT1009:318: SYCL reports errors using exceptions and does not use
+        DPCT1009:308: SYCL reports errors using exceptions and does not use
         error codes. Please replace the "get_error_string_dummy(...)" with a
         real error-handling function.
         */
         /*
-        DPCT1001:315: The statement could not be removed.
+        DPCT1001:305: The statement could not be removed.
         */
         std::cout << "CUDA error: " << dpct::get_error_string_dummy(err)
                   << std::endl;
@@ -162,7 +167,7 @@ int main(int argc, char **argv) {
         .memcpy(o_bf, d_o, TOTAL_ELEMENTS * sizeof(bf16))
         .wait();
     for(int i = 0; i < TOTAL_ELEMENTS; i++) {
-        o[i] = static_cast<float>(o_bf[i]);
+        o[i] = sycl::ext::intel::math::bfloat162float(o_bf[i]);
     }
 
     bool good = true;

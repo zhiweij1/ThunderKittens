@@ -13,7 +13,7 @@ Replacements:
   - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/4090_harness.impl'
     Offset:          56
     Length:          0
-    ReplacementText: "\n#include <cmath>\n"
+    ReplacementText: "\n#include <sycl/ext/intel/math.hpp>\n\n#include <cmath>\n"
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -31,7 +31,7 @@ Replacements:
   - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/4090_harness.impl'
     Offset:          229
     Length:          0
-    ReplacementText: "    /*\n    DPCT1010:312: SYCL uses exceptions to report errors and does not use the error codes. The cudaGetLastError function call was replaced with 0. You need to rewrite this code.\n    */\n"
+    ReplacementText: "    /*\n    DPCT1010:302: SYCL uses exceptions to report errors and does not use the error codes. The cudaGetLastError function call was replaced with 0. You need to rewrite this code.\n    */\n"
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -94,7 +94,7 @@ Replacements:
   - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/4090_harness.impl'
     Offset:          2764
     Length:          48
-    ReplacementText: 'sycl::ext::oneapi::bfloat16(q[i % (TOTAL_ELEMENTS/ATTN_B)])'
+    ReplacementText: 'sycl::ext::intel::math::float2bfloat16(q[i % (TOTAL_ELEMENTS/ATTN_B)])'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -103,7 +103,7 @@ Replacements:
   - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/4090_harness.impl'
     Offset:          2832
     Length:          48
-    ReplacementText: 'sycl::ext::oneapi::bfloat16(k[i % (TOTAL_ELEMENTS/ATTN_B)])'
+    ReplacementText: 'sycl::ext::intel::math::float2bfloat16(k[i % (TOTAL_ELEMENTS/ATTN_B)])'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -112,7 +112,7 @@ Replacements:
   - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/4090_harness.impl'
     Offset:          2900
     Length:          48
-    ReplacementText: 'sycl::ext::oneapi::bfloat16(v[i % (TOTAL_ELEMENTS/ATTN_B)])'
+    ReplacementText: 'sycl::ext::intel::math::float2bfloat16(v[i % (TOTAL_ELEMENTS/ATTN_B)])'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -202,7 +202,7 @@ Replacements:
   - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/4090_harness.impl'
     Offset:          4579
     Length:          0
-    ReplacementText: "    /*\n    DPCT1010:317: SYCL uses exceptions to report errors and does not use the error codes. The cudaGetLastError function call was replaced with 0. You need to rewrite this code.\n    */\n"
+    ReplacementText: "    /*\n    DPCT1010:307: SYCL uses exceptions to report errors and does not use the error codes. The cudaGetLastError function call was replaced with 0. You need to rewrite this code.\n    */\n"
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -229,7 +229,7 @@ Replacements:
   - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/4090_harness.impl'
     Offset:          4621
     Length:          0
-    ReplacementText: "    /*\n    DPCT1000:316: Error handling if-stmt was detected but could not be rewritten.\n    */\n"
+    ReplacementText: "    /*\n    DPCT1000:306: Error handling if-stmt was detected but could not be rewritten.\n    */\n"
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -247,7 +247,7 @@ Replacements:
   - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/4090_harness.impl'
     Offset:          4651
     Length:          0
-    ReplacementText: "        /*\n        DPCT1009:318: SYCL reports errors using exceptions and does not use error codes. Please replace the \"get_error_string_dummy(...)\" with a real error-handling function.\n        */\n        /*\n        DPCT1001:315: The statement could not be removed.\n        */\n"
+    ReplacementText: "        /*\n        DPCT1009:308: SYCL reports errors using exceptions and does not use error codes. Please replace the \"get_error_string_dummy(...)\" with a real error-handling function.\n        */\n        /*\n        DPCT1001:305: The statement could not be removed.\n        */\n"
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -274,7 +274,7 @@ Replacements:
   - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/4090_harness.impl'
     Offset:          4925
     Length:          25
-    ReplacementText: 'static_cast<float>(o_bf[i])'
+    ReplacementText: 'sycl::ext::intel::math::bfloat162float(o_bf[i])'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -361,8 +361,8 @@ OptionMap:
     Value:           '20'
     Specified:       false
   ExtensionDDFlag:
-    Value:           '0'
-    Specified:       false
+    Value:           '4294967295'
+    Specified:       true
   ExtensionDEFlag:
     Value:           '4294967295'
     Specified:       false

@@ -90,7 +90,7 @@ struct partial_template {
     static constexpr int INPUT_PIPE_STAGES = 3;
     static inline void common_setup(common_setup_args<layout> args) {
         /*
-        DPCT1008:319: clock64 function is not defined in SYCL. This is a
+        DPCT1008:309: clock64 function is not defined in SYCL. This is a
         hardware-specific feature. Consult with your hardware vendor to find a
         replacement.
         */
@@ -123,7 +123,7 @@ struct partial_template {
                 if(laneid() == 0) arrive(args.inputs_arrived, 3);
             }
             /*
-            DPCT1008:320: clock64 function is not defined in SYCL. This is a
+            DPCT1008:310: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
@@ -135,7 +135,7 @@ struct partial_template {
     struct consumer {
         static inline void setup(consumer_setup_args<layout> args) {
             /*
-            DPCT1008:321: clock64 function is not defined in SYCL. This is a
+            DPCT1008:311: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
@@ -150,7 +150,7 @@ struct partial_template {
             load_async_wait();
             group<8>::sync(10);
             /*
-            DPCT1008:322: clock64 function is not defined in SYCL. This is a
+            DPCT1008:312: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
@@ -160,7 +160,7 @@ struct partial_template {
             // 1.44269504089f is from exp2
             const float SOFTMAX_TEMPERATURE = args.globals.Softmax_scale * 1.44269504089f;
             /*
-            DPCT1008:323: clock64 function is not defined in SYCL. This is a
+            DPCT1008:313: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
@@ -248,7 +248,7 @@ struct partial_template {
             copy(local_max_vec,  args.state.max_vec);
 
             /*
-            DPCT1008:324: clock64 function is not defined in SYCL. This is a
+            DPCT1008:314: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
@@ -284,7 +284,7 @@ struct partial_template {
                 }
                 if(warpgroup::laneid() == 0) arrive(args.finish_finished, 2*WARPGROUP_WARPS); // done!
                 /*
-                DPCT1008:325: clock64 function is not defined in SYCL. This is a
+                DPCT1008:315: clock64 function is not defined in SYCL. This is a
                 hardware-specific feature. Consult with your hardware vendor to
                 find a replacement.
                 */
@@ -316,7 +316,7 @@ struct reduction_template {
     static constexpr int INPUT_PIPE_STAGES = 4;
     static inline void common_setup(common_setup_args<layout> args) {
         /*
-        DPCT1008:326: clock64 function is not defined in SYCL. This is a
+        DPCT1008:316: clock64 function is not defined in SYCL. This is a
         hardware-specific feature. Consult with your hardware vendor to find a
         replacement.
         */
@@ -338,7 +338,7 @@ struct reduction_template {
                 sycl::group_barrier(
                     sycl::ext::oneapi::this_work_item::get_sub_group());
                 /*
-                DPCT1008:327: clock64 function is not defined in SYCL. This is a
+                DPCT1008:317: clock64 function is not defined in SYCL. This is a
                 hardware-specific feature. Consult with your hardware vendor to
                 find a replacement.
                 */
@@ -365,7 +365,7 @@ struct reduction_template {
             }
             group<8>::sync(8); // all warps must sync here.
             /*
-            DPCT1008:328: clock64 function is not defined in SYCL. This is a
+            DPCT1008:318: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
@@ -381,7 +381,7 @@ struct reduction_template {
                 load(args.state.o, args.scratch.o[warpgroup::warpid()]);
                 warpgroup::sync(8);
                 /*
-                DPCT1008:329: clock64 function is not defined in SYCL. This is a
+                DPCT1008:319: clock64 function is not defined in SYCL. This is a
                 hardware-specific feature. Consult with your hardware vendor to
                 find a replacement.
                 */
@@ -392,7 +392,7 @@ struct reduction_template {
 
         static inline void compute(consumer_compute_args<layout> args) {
             /*
-            DPCT1008:330: clock64 function is not defined in SYCL. This is a
+            DPCT1008:320: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
@@ -425,7 +425,7 @@ struct reduction_template {
 
         static inline void finish(consumer_finish_args<layout> args) {
             /*
-            DPCT1008:331: clock64 function is not defined in SYCL. This is a
+            DPCT1008:321: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */
@@ -457,7 +457,7 @@ struct reduction_template {
             }
             if(warpgroup::laneid() == 0) arrive(args.finish_finished, WARPGROUP_WARPS); // done!
             /*
-            DPCT1008:332: clock64 function is not defined in SYCL. This is a
+            DPCT1008:322: clock64 function is not defined in SYCL. This is a
             hardware-specific feature. Consult with your hardware vendor to find
             a replacement.
             */

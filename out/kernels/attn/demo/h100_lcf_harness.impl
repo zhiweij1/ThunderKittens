@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <sycl/ext/intel/math.hpp>
+
 #include <cmath>
 
 constexpr int ATTN_B = 256;
@@ -14,7 +16,7 @@ constexpr int ITER   = 10;
 #define CudaCheckError()    __cudaCheckError( __FILE__, __LINE__ )
 inline void __cudaCheckError(const char *file, const int line) try {
     /*
-    DPCT1010:333: SYCL uses exceptions to report errors and does not use the
+    DPCT1010:323: SYCL uses exceptions to report errors and does not use the
     error codes. The cudaGetLastError function call was replaced with 0. You
     need to rewrite this code.
     */
@@ -77,16 +79,20 @@ int main(int argc, char **argv) {
 
     // replicate into batch elements
     for(int i = 0; i < TOTAL_ELEMENTS; i++) {
-        q_bf[i] = sycl::ext::oneapi::bfloat16(q[i % (TOTAL_ELEMENTS / ATTN_B)]);
-        k_bf[i] = sycl::ext::oneapi::bfloat16(k[i % (TOTAL_ELEMENTS / ATTN_B)]);
-        v_bf[i] = sycl::ext::oneapi::bfloat16(v[i % (TOTAL_ELEMENTS / ATTN_B)]);
+        q_bf[i] = sycl::ext::intel::math::float2bfloat16(
+            q[i % (TOTAL_ELEMENTS / ATTN_B)]);
+        k_bf[i] = sycl::ext::intel::math::float2bfloat16(
+            k[i % (TOTAL_ELEMENTS / ATTN_B)]);
+        v_bf[i] = sycl::ext::intel::math::float2bfloat16(
+            v[i % (TOTAL_ELEMENTS / ATTN_B)]);
     }
 
     bf16 *d_q, *d_k, *d_v, *d_o;
-    d_q = sycl::malloc_device<bf16>(TOTAL_ELEMENTS * sizeof(bf16), dpct::get_default_queue()); // NYI
-    d_k = sycl::malloc_device<bf16>(TOTAL_ELEMENTS * sizeof(bf16), dpct::get_default_queue()); // NYI
-    d_v = sycl::malloc_device<bf16>(TOTAL_ELEMENTS * sizeof(bf16), dpct::get_default_queue()); // NYI
-    d_o = sycl::malloc_device<bf16>(TOTAL_ELEMENTS * sizeof(bf16), dpct::get_default_queue()); // NYI
+    d_q = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue()); // NYI
+    d_k = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue()); // NYI
+    d_v = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue()); // NYI
+    d_o = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue()); // NYI
+
 
     dpct::get_in_order_queue()
         .memcpy(d_q, q_bf, TOTAL_ELEMENTS * sizeof(bf16))
@@ -106,7 +112,7 @@ int main(int argc, char **argv) {
     
     unsigned long mem_size = kittens::MAX_SHARED_MEMORY - 2000; // have the flag tell us
 
-    // cudaFuncSetAttribute(prototype::lcf::kernel_wrapper<ker_template>,
+    //cudaFuncSetAttribute(prototype::lcf::kernel_wrapper<ker_template>,
     //                     cudaFuncAttributeMaxDynamicSharedMemorySize, mem_size); // NYI
 
     dpct::get_current_device().queues_wait_and_throw();
@@ -123,7 +129,6 @@ int main(int argc, char **argv) {
         the limit. To get the device limit, query
         info::device::max_work_group_size. Adjust the work-group size if needed.
         */
-
         dpct::get_in_order_queue().submit([&](sycl::handler &cgh) {
             sycl::stream stream_ct1(64 * 1024, 80, cgh);
 
@@ -140,7 +145,6 @@ int main(int argc, char **argv) {
                 sycl::nd_range<3>(grid * sycl::range<3>(1, 1, BLOCK_SIZE),
                                   sycl::range<3>(1, 1, BLOCK_SIZE)),
                 [=](sycl::nd_item<3> item_ct1) {
-#if 0
                     prototype::lcf::kernel<ker_template>(
                         globals, stream_ct1,
                         dpct_local_acc_ct1
@@ -153,7 +157,6 @@ int main(int argc, char **argv) {
                             .get_multi_ptr<sycl::access::decorated::no>()
                             .get(),
                         finish_finished_acc_ct1);
-#endif // NYI
                 });
         });
     dpct::get_current_device().queues_wait_and_throw();
@@ -181,7 +184,6 @@ int main(int argc, char **argv) {
                 sycl::nd_range<3>(grid * sycl::range<3>(1, 1, BLOCK_SIZE),
                                   sycl::range<3>(1, 1, BLOCK_SIZE)),
                 [=](sycl::nd_item<3> item_ct1) {
-#if 0 // NYI
                     prototype::lcf::kernel<ker_template>(
                         globals, stream_ct1,
                         dpct_local_acc_ct1
@@ -194,7 +196,6 @@ int main(int argc, char **argv) {
                             .get_multi_ptr<sycl::access::decorated::no>()
                             .get(),
                         finish_finished_acc_ct1);
-#endif 
                 });
         });
     }
@@ -208,7 +209,7 @@ int main(int argc, char **argv) {
         .memcpy(o_bf, d_o, TOTAL_ELEMENTS * sizeof(bf16))
         .wait();
     for(int i = 0; i < TOTAL_ELEMENTS; i++) {
-        o[i] = static_cast<float>(o_bf[i]);
+        o[i] = sycl::ext::intel::math::bfloat162float(o_bf[i]);
     }
 
     bool good = true;

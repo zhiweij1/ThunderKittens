@@ -33,7 +33,7 @@ TARGET_0_FLAG_3 = -DNDEBUG -O3 -std=c++20 -DKITTENS_HOPPER ${FLAGS} -I./include 
 
 TARGET_0_SRC_4 = ./kernels/attn/demo/4090.dp.cpp
 TARGET_0_OBJ_4 = ./kernels/attn/demo/4090.dp.o
-TARGET_0_FLAG_4 = -DNDEBUG -O3 -std=c++20 -DKITTENS_HOPPER ${FLAGS} -I./include -I./prototype ${FLAGS}
+TARGET_0_FLAG_4 = -DNDEBUG -O3 -std=c++20 -DKITTENS_4090 ${FLAGS} -I./include -I./prototype ${FLAGS}
 
 TARGET_0_SRC_5 = ./kernels/attn/demo/h100_lcf.dp.cpp
 TARGET_0_OBJ_5 = ./kernels/attn/demo/h100_lcf.dp.o
@@ -41,7 +41,7 @@ TARGET_0_FLAG_5 = -DNDEBUG -O3 -std=c++20 -DKITTENS_HOPPER ${FLAGS} -I./include 
 
 
 .PHONY:all clean
-OBJS_0 :=  ${TARGET_0_OBJ_5}
+OBJS_0 :=  ${TARGET_0_OBJ_4}
 OBJS :=  ${OBJS_0}
 
 all: $(OBJS)

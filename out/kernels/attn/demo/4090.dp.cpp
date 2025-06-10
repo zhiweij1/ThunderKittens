@@ -20,6 +20,8 @@ template<int D> using shared_tile = st_bf<ROWS<D>, D>;
 template<int D> using global_layout = gl<bf16, -1, -1, -1, D>; // B, N, H, specified at runtime, D known at compile time for this kernel
 template<int D> struct globals { global_layout<D> Qg, Kg, Vg, Og; };
 
+template <> struct sycl::is_device_copyable<globals<64>> : std::true_type {};
+
 template <int D>
 SYCL_EXTERNAL void attend_ker(const globals<D> g, uint8_t *dpct_local) {
 

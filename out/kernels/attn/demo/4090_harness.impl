@@ -76,10 +76,10 @@ int main(int argc, char **argv) {
     }
 
     bf16 *d_q, *d_k, *d_v, *d_o;
-    cudaMalloc(&d_q, TOTAL_ELEMENTS * sizeof(bf16));
-    cudaMalloc(&d_k, TOTAL_ELEMENTS * sizeof(bf16));
-    cudaMalloc(&d_v, TOTAL_ELEMENTS * sizeof(bf16));
-    cudaMalloc(&d_o, TOTAL_ELEMENTS * sizeof(bf16));
+    d_q = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue());
+    d_k = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue());
+    d_v = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue());
+    d_o = sycl::malloc_device<bf16>(TOTAL_ELEMENTS , dpct::get_default_queue());
 
     dpct::get_in_order_queue()
         .memcpy(d_q, q_bf, TOTAL_ELEMENTS * sizeof(bf16))
@@ -100,8 +100,8 @@ int main(int argc, char **argv) {
     unsigned long mem_size = (kittens::MAX_SHARED_MEMORY) / 2; // have the flag tell us
     std::cout << "Max shared memory size: " << mem_size << std::endl;
 
-    cudaFuncSetAttribute(attend_ker_wrapper<ATTN_D>,
-                         cudaFuncAttributeMaxDynamicSharedMemorySize, mem_size);
+    //cudaFuncSetAttribute(attend_ker_wrapper<ATTN_D>,
+    //                     cudaFuncAttributeMaxDynamicSharedMemorySize, mem_size); // NYI
 
     dpct::get_current_device().queues_wait_and_throw();
     std::cout << "Starting kernel\n";

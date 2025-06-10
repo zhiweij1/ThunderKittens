@@ -23,6 +23,9 @@ template<int D, int NUM_WORKERS> struct attn_fwd_layout {
         rt_bf<16, kv_tile::rows> att_block_mma;
     };
 };
+
+template <> struct sycl::is_device_copyable<attn_fwd_layout<128, 3>::globals> : std::true_type {}; // NYI
+
 template<int D> struct attn_fwd_template {
     static constexpr int NUM_CONSUMER_WARPS = 12, NUM_WORKERS = NUM_CONSUMER_WARPS/4, INPUT_PIPE_STAGES = 2;
     using layout = attn_fwd_layout<D, NUM_WORKERS>;

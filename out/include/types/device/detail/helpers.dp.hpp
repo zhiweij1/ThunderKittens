@@ -4,6 +4,7 @@
 #define DPCT_PROFILING_ENABLED
 #include <sycl/sycl.hpp>
 #include <dpct/dpct.hpp>
+#ifndef KITTENS_HOPPER
 typedef enum CUmulticastGranularity_flags_enum {
     CU_MULTICAST_GRANULARITY_MINIMUM     = 0x0,     /**< Minimum required granularity */
     CU_MULTICAST_GRANULARITY_RECOMMENDED = 0x1      /**< Recommended granularity for best performance */
@@ -34,6 +35,7 @@ typedef CUmulticastObjectProp_v1 CUmulticastObjectProp;
 typedef struct CUtensorMap_st {
     std::uint64_t opaque[CU_TENSOR_MAP_NUM_QWORDS];
 } CUtensorMap;
+#endif
 namespace kittens {
 
 // We must ensure that we use the same granularity type for all functions

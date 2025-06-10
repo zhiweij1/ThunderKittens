@@ -1,0 +1,378 @@
+---
+MainSourceFile:  '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/out_demo/kernels/attn/demo/h100_lcf_harness.impl'
+Replacements:
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          0
+    Length:          0
+    ReplacementText: "#include <sycl/sycl.hpp>\n#include <dpct/dpct.hpp>\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          56
+    Length:          0
+    ReplacementText: "\n#include <cmath>\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          377
+    Length:          0
+    ReplacementText: ' try '
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          379
+    Length:          0
+    ReplacementText: "    /*\n    DPCT1010:333: SYCL uses exceptions to report errors and does not use the error codes. The cudaGetLastError function call was replaced with 0. You need to rewrite this code.\n    */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          383
+    Length:          9
+    ReplacementText: 'dpct::err0'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          399
+    Length:          18
+    ReplacementText: '0'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          423
+    Length:          183
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          717
+    Length:          23
+    ReplacementText: 'DPCT_CHECK_ERROR(dpct::get_current_device().queues_wait_and_throw())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          746
+    Length:          192
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          940
+    Length:          0
+    ReplacementText: "\ncatch (sycl::exception const &exc) {\n  std::cerr << exc.what() << \"Exception caught at file:\" << __FILE__ << \", line:\" << __LINE__ << std::endl;\n  std::exit(1);\n}"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          2966
+    Length:          48
+    ReplacementText: 'sycl::ext::oneapi::bfloat16(q[i % (TOTAL_ELEMENTS/ATTN_B)])'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          3034
+    Length:          48
+    ReplacementText: 'sycl::ext::oneapi::bfloat16(k[i % (TOTAL_ELEMENTS/ATTN_B)])'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          3102
+    Length:          48
+    ReplacementText: 'sycl::ext::oneapi::bfloat16(v[i % (TOTAL_ELEMENTS/ATTN_B)])'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          3409
+    Length:          76
+    ReplacementText: 'dpct::get_in_order_queue().memcpy(d_q, q_bf, TOTAL_ELEMENTS * sizeof(bf16)).wait()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          3491
+    Length:          76
+    ReplacementText: 'dpct::get_in_order_queue().memcpy(d_k, k_bf, TOTAL_ELEMENTS * sizeof(bf16)).wait()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          3573
+    Length:          76
+    ReplacementText: 'dpct::get_in_order_queue().memcpy(d_v, v_bf, TOTAL_ELEMENTS * sizeof(bf16)).wait()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          4181
+    Length:          0
+    ReplacementText: _wrapper
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          4279
+    Length:          23
+    ReplacementText: 'dpct::get_current_device().queues_wait_and_throw()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          4517
+    Length:          4
+    ReplacementText: 'dpct::dim3'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          4726
+    Length:          0
+    ReplacementText: "        /*\n        DPCT1049:217: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n        */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          4734
+    Length:          77
+    ReplacementText: "dpct::get_in_order_queue().submit(\n          [&](sycl::handler &cgh) {\n            sycl::stream stream_ct1(64 * 1024, 80, cgh);\n\n            sycl::local_accessor<uint8_t, 1> dpct_local_acc_ct1(sycl::range<1>(mem_size), cgh);\n            sycl::local_accessor<kittens::semaphore, 1> inputs_arrived_acc_ct1(sycl::range<1>(INPUT_PIPE_STAGES), cgh);\n            sycl::local_accessor<kittens::semaphore, 1> inputs_finished_acc_ct1(sycl::range<1>(INPUT_PIPE_STAGES), cgh);\n            sycl::local_accessor<kittens::semaphore, 0> finish_finished_acc_ct1(cgh);\n\n            cgh.parallel_for(\n              sycl::nd_range<3>(grid * sycl::range<3>(1, 1, BLOCK_SIZE), sycl::range<3>(1, 1, BLOCK_SIZE)), \n              [=](sycl::nd_item<3> item_ct1) {\n                prototype::lcf::kernel<ker_template>(globals, stream_ct1, dpct_local_acc_ct1.get_multi_ptr<sycl::access::decorated::no>().get(), inputs_arrived_acc_ct1.get_multi_ptr<sycl::access::decorated::no>().get(), inputs_finished_acc_ct1.get_multi_ptr<sycl::access::decorated::no>().get(), finish_finished_acc_ct1);\n              });\n          });"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: true
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          4811
+    Length:          1
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          4817
+    Length:          23
+    ReplacementText: 'dpct::get_current_device().queues_wait_and_throw()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          4949
+    Length:          0
+    ReplacementText: "        /*\n        DPCT1049:218: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n        */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          4957
+    Length:          77
+    ReplacementText: "dpct::get_in_order_queue().submit(\n          [&](sycl::handler &cgh) {\n            sycl::stream stream_ct1(64 * 1024, 80, cgh);\n\n            sycl::local_accessor<uint8_t, 1> dpct_local_acc_ct1(sycl::range<1>(mem_size), cgh);\n            sycl::local_accessor<kittens::semaphore, 1> inputs_arrived_acc_ct1(sycl::range<1>(INPUT_PIPE_STAGES), cgh);\n            sycl::local_accessor<kittens::semaphore, 1> inputs_finished_acc_ct1(sycl::range<1>(INPUT_PIPE_STAGES), cgh);\n            sycl::local_accessor<kittens::semaphore, 0> finish_finished_acc_ct1(cgh);\n\n            cgh.parallel_for(\n              sycl::nd_range<3>(grid * sycl::range<3>(1, 1, BLOCK_SIZE), sycl::range<3>(1, 1, BLOCK_SIZE)), \n              [=](sycl::nd_item<3> item_ct1) {\n                prototype::lcf::kernel<ker_template>(globals, stream_ct1, dpct_local_acc_ct1.get_multi_ptr<sycl::access::decorated::no>().get(), inputs_arrived_acc_ct1.get_multi_ptr<sycl::access::decorated::no>().get(), inputs_finished_acc_ct1.get_multi_ptr<sycl::access::decorated::no>().get(), finish_finished_acc_ct1);\n              });\n          });"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: true
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          5034
+    Length:          1
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          5046
+    Length:          23
+    ReplacementText: 'dpct::get_current_device().queues_wait_and_throw()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          5232
+    Length:          76
+    ReplacementText: 'dpct::get_in_order_queue().memcpy(o_bf, d_o, TOTAL_ELEMENTS * sizeof(bf16)).wait()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          5371
+    Length:          25
+    ReplacementText: 'static_cast<float>(o_bf[i])'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          7113
+    Length:          13
+    ReplacementText: 'dpct::dpct_free(d_q, dpct::get_in_order_queue())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          7132
+    Length:          13
+    ReplacementText: 'dpct::dpct_free(d_k, dpct::get_in_order_queue())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          7151
+    Length:          13
+    ReplacementText: 'dpct::dpct_free(d_v, dpct::get_in_order_queue())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration/kernels/attn/demo/h100_lcf_harness.impl'
+    Offset:          7170
+    Length:          13
+    ReplacementText: 'dpct::dpct_free(d_o, dpct::get_in_order_queue())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+MainSourceFilesDigest:
+  - MainSourceFile:  ''
+    Digest:          ''
+    HasCUDASyntax:   false
+DpctVersion:     21.0.0
+SDKVersionMajor: '12'
+SDKVersionMinor: '8'
+MainHelperFileName: ''
+USMLevel:        ''
+FeatureMap:      {}
+CompileTargets:  {}
+OptionMap:
+  AnalysisScopePath:
+    Value:           ''
+    ValueVec:
+      - '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration'
+    Specified:       false
+  AsyncHandler:
+    Value:           'false'
+    Specified:       false
+  BuildScript:
+    Value:           '0'
+    Specified:       false
+  CodePinEnabled:
+    Value:           'false'
+    Specified:       false
+  CommentsEnabled:
+    Value:           'false'
+    Specified:       false
+  CompilationsDir:
+    Value:           '/mnt/hdd/Chenwei/ai_workspace/zhiwei_tk/ThunderKittens_kernel_migration'
+    Specified:       true
+  CtadEnabled:
+    Value:           'false'
+    Specified:       false
+  EnablepProfiling:
+    Value:           'false'
+    Specified:       false
+  ExperimentalFlag:
+    Value:           '0'
+    Specified:       false
+  ExplicitNamespace:
+    Value:           '20'
+    Specified:       false
+  ExtensionDDFlag:
+    Value:           '0'
+    Specified:       false
+  ExtensionDEFlag:
+    Value:           '4294967295'
+    Specified:       false
+  HelperFuncPreferenceFlag:
+    Value:           '0'
+    Specified:       false
+  NDRangeDim:
+    Value:           '3'
+    Specified:       false
+  NoDRYPattern:
+    Value:           'false'
+    Specified:       false
+  OptimizeMigration:
+    Value:           'false'
+    Specified:       false
+  ProcessAll:
+    Value:           'false'
+    Specified:       false
+  RuleFile:
+    Value:           ''
+    Specified:       false
+  SyclNamedLambda:
+    Value:           'false'
+    Specified:       false
+  UseSYCLCompat:
+    Value:           'false'
+    Specified:       false
+  UsmLevel:
+    Value:           '1'
+    Specified:       false
+...

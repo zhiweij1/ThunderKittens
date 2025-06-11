@@ -1,3 +1,16 @@
+# ThunderKittens migraiton
+### 1. Migrate cu file specified
+
+```
+dpct --out-root out_sycl1  -p .  --gen-build-script --in-root . --use-dpcpp-extensions=all --use-experimental-features=all --cuda-include-path=/path/to/cuda-12.3/include ./kernels/attn/demo/mla_decode/template_mla_decode.cu
+```
+### 2. Migrate all the cu file in folder `kernels`
+
+```
+dpct --out-root out_sycl2  -p .  --gen-build-script --in-root . --use-dpcpp-extensions=all --use-experimental-features=all --cuda-include-path=/path/to/cuda-12.3/include
+```
+
+====================================================================================
 # ThunderKittens
 
 ### Recent Updates (Nov 23, 2024)

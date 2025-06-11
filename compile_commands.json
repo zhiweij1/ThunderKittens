@@ -85,7 +85,7 @@
         "file": "./kernels/based/lcsf/linear_prefill.cu"
     },
     {
-        "command": "nvcc -c -DNDEBUG -Xcompiler=-fPIE --expt-extended-lambda --expt-relaxed-constexpr -Xcompiler=-Wno-psabi -Xcompiler=-fno-strict-aliasing --use_fast_math -forward-unknown-to-host-compiler -O3  -Xnvlink=--verbose -Xptxas=--verbose -Xptxas=--warn-on-spills -std=c++20 -MD -MT -MF -x cu -lrt -lpthread -ldl -DKITTENS_HOPPER -lcuda -lcudadevrt -lcudart_static -lcublas -I./include -I./prototype ./kernels/based/lin_attn_4090.cu",
+        "command": "nvcc -c -DNDEBUG -Xcompiler=-fPIE --expt-extended-lambda --expt-relaxed-constexpr -Xcompiler=-Wno-psabi -Xcompiler=-fno-strict-aliasing --use_fast_math -forward-unknown-to-host-compiler -O3  -Xnvlink=--verbose -Xptxas=--verbose -Xptxas=--warn-on-spills -std=c++20 -MD -MT -MF -x cu -lrt -lpthread -ldl -DKITTENS_4090 -lcuda -lcudadevrt -lcudart_static -lcublas -I./include -I./prototype ./kernels/based/lin_attn_4090.cu",
         "directory": ".",
         "file": "./kernels/based/lin_attn_4090.cu"
     },
@@ -125,7 +125,7 @@
         "file": "./kernels/attn/demo/mha_decode/template_mha_decode.cu"
     },
     {
-        "command": "nvcc -c -DNDEBUG -Xcompiler=-fPIE --expt-extended-lambda --expt-relaxed-constexpr -Xcompiler=-Wno-psabi -Xcompiler=-fno-strict-aliasing --use_fast_math -forward-unknown-to-host-compiler -O3  -Xnvlink=--verbose -Xptxas=--verbose -Xptxas=--warn-on-spills -std=c++20 -MD -MT -MF -x cu -lrt -lpthread -ldl -DKITTENS_HOPPER -lcuda -lcudadevrt -lcudart_static -lcublas -I./include -I./prototype ./kernels/attn/demo/4090.cu",
+        "command": "nvcc -c -DNDEBUG -Xcompiler=-fPIE --expt-extended-lambda --expt-relaxed-constexpr -Xcompiler=-Wno-psabi -Xcompiler=-fno-strict-aliasing --use_fast_math -forward-unknown-to-host-compiler -O3  -Xnvlink=--verbose -Xptxas=--verbose -Xptxas=--warn-on-spills -std=c++20 -MD -MT -MF -x cu -lrt -lpthread -ldl -DKITTENS_4090 -lcuda -lcudadevrt -lcudart_static -lcublas -I./include -I./prototype ./kernels/attn/demo/4090.cu",
         "directory": ".",
         "file": "./kernels/attn/demo/4090.cu"
     },

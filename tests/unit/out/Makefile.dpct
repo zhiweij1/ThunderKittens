@@ -1,0 +1,603 @@
+CC := icpx
+
+LD := $(CC)
+
+#DPCT2001:91: You can link with more libraries by adding them here.
+LIB := 
+
+FLAGS := 
+
+ifeq ($(shell which $(CC)),)
+    $(error ERROR - $(CC) compiler not found)
+endif
+
+ROOT_DIR     := $(shell dirname $(shell which $(CC)))
+INCLUDE_SYCL := $(ROOT_DIR)/../include
+INCLUDE_CL   := $(ROOT_DIR)/../include/sycl
+
+TARGET_0_SRC_0 = ./warp/register/vec/vec.dp.cpp
+TARGET_0_OBJ_0 = ./warp/register/vec/vec.dp.o
+TARGET_0_FLAG_0 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_1 = ./warp/register/vec/maps.dp.cpp
+TARGET_0_OBJ_1 = ./warp/register/vec/maps.dp.o
+TARGET_0_FLAG_1 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_2 = ./warp/register/vec/reductions.dp.cpp
+TARGET_0_OBJ_2 = ./warp/register/vec/reductions.dp.o
+TARGET_0_FLAG_2 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_3 = ./warp/register/vec/conversions.dp.cpp
+TARGET_0_OBJ_3 = ./warp/register/vec/conversions.dp.o
+TARGET_0_FLAG_3 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_4 = ./warp/register/tile/tile.dp.cpp
+TARGET_0_OBJ_4 = ./warp/register/tile/tile.dp.o
+TARGET_0_FLAG_4 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_5 = ./warp/register/tile/maps.dp.cpp
+TARGET_0_OBJ_5 = ./warp/register/tile/maps.dp.o
+TARGET_0_FLAG_5 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_6 = ./warp/register/tile/reductions.dp.cpp
+TARGET_0_OBJ_6 = ./warp/register/tile/reductions.dp.o
+TARGET_0_FLAG_6 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_7 = ./warp/register/tile/mma.dp.cpp
+TARGET_0_OBJ_7 = ./warp/register/tile/mma.dp.o
+TARGET_0_FLAG_7 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_8 = ./warp/register/tile/conversions.dp.cpp
+TARGET_0_OBJ_8 = ./warp/register/tile/conversions.dp.o
+TARGET_0_FLAG_8 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_9 = ./warp/register/tile/complex/complex_maps.dp.cpp
+TARGET_0_OBJ_9 = ./warp/register/tile/complex/complex_maps.dp.o
+TARGET_0_FLAG_9 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_10 = ./warp/register/tile/complex/complex_mul.dp.cpp
+TARGET_0_OBJ_10 = ./warp/register/tile/complex/complex_mul.dp.o
+TARGET_0_FLAG_10 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_11 = ./warp/register/tile/complex/complex_conversions.dp.cpp
+TARGET_0_OBJ_11 = ./warp/register/tile/complex/complex_conversions.dp.o
+TARGET_0_FLAG_11 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_12 = ./warp/register/tile/complex/complex_mma.dp.cpp
+TARGET_0_OBJ_12 = ./warp/register/tile/complex/complex_mma.dp.o
+TARGET_0_FLAG_12 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_13 = ./warp/register/register.dp.cpp
+TARGET_0_OBJ_13 = ./warp/register/register.dp.o
+TARGET_0_FLAG_13 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_14 = ./warp/shared/vec/vec.dp.cpp
+TARGET_0_OBJ_14 = ./warp/shared/vec/vec.dp.o
+TARGET_0_FLAG_14 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_15 = ./warp/shared/vec/maps.dp.cpp
+TARGET_0_OBJ_15 = ./warp/shared/vec/maps.dp.o
+TARGET_0_FLAG_15 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_16 = ./warp/shared/vec/reductions.dp.cpp
+TARGET_0_OBJ_16 = ./warp/shared/vec/reductions.dp.o
+TARGET_0_FLAG_16 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_17 = ./warp/shared/vec/conversions.dp.cpp
+TARGET_0_OBJ_17 = ./warp/shared/vec/conversions.dp.o
+TARGET_0_FLAG_17 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_18 = ./warp/shared/shared.dp.cpp
+TARGET_0_OBJ_18 = ./warp/shared/shared.dp.o
+TARGET_0_FLAG_18 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_19 = ./warp/shared/tile/tile.dp.cpp
+TARGET_0_OBJ_19 = ./warp/shared/tile/tile.dp.o
+TARGET_0_FLAG_19 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_20 = ./warp/shared/tile/maps.dp.cpp
+TARGET_0_OBJ_20 = ./warp/shared/tile/maps.dp.o
+TARGET_0_FLAG_20 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_21 = ./warp/shared/tile/reductions.dp.cpp
+TARGET_0_OBJ_21 = ./warp/shared/tile/reductions.dp.o
+TARGET_0_FLAG_21 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_22 = ./warp/shared/tile/conversions.dp.cpp
+TARGET_0_OBJ_22 = ./warp/shared/tile/conversions.dp.o
+TARGET_0_FLAG_22 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_23 = ./warp/warp.dp.cpp
+TARGET_0_OBJ_23 = ./warp/warp.dp.o
+TARGET_0_FLAG_23 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_24 = ./warp/memory/memory.dp.cpp
+TARGET_0_OBJ_24 = ./warp/memory/memory.dp.o
+TARGET_0_FLAG_24 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_25 = ./warp/memory/util/reduce.dp.cpp
+TARGET_0_OBJ_25 = ./warp/memory/util/reduce.dp.o
+TARGET_0_FLAG_25 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_26 = ./warp/memory/util/util.dp.cpp
+TARGET_0_OBJ_26 = ./warp/memory/util/util.dp.o
+TARGET_0_FLAG_26 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_27 = ./warp/memory/vec/tma_pgl.dp.cpp
+TARGET_0_OBJ_27 = ./warp/memory/vec/tma_pgl.dp.o
+TARGET_0_FLAG_27 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_28 = ./warp/memory/vec/tma_multicast.dp.cpp
+TARGET_0_OBJ_28 = ./warp/memory/vec/tma_multicast.dp.o
+TARGET_0_FLAG_28 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_29 = ./warp/memory/vec/vec.dp.cpp
+TARGET_0_OBJ_29 = ./warp/memory/vec/vec.dp.o
+TARGET_0_FLAG_29 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_30 = ./warp/memory/vec/tma.dp.cpp
+TARGET_0_OBJ_30 = ./warp/memory/vec/tma.dp.o
+TARGET_0_FLAG_30 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_31 = ./warp/memory/vec/global_to_register.dp.cpp
+TARGET_0_OBJ_31 = ./warp/memory/vec/global_to_register.dp.o
+TARGET_0_FLAG_31 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_32 = ./warp/memory/vec/pgl_to_register.dp.cpp
+TARGET_0_OBJ_32 = ./warp/memory/vec/pgl_to_register.dp.o
+TARGET_0_FLAG_32 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_33 = ./warp/memory/vec/pgl_to_shared.dp.cpp
+TARGET_0_OBJ_33 = ./warp/memory/vec/pgl_to_shared.dp.o
+TARGET_0_FLAG_33 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_34 = ./warp/memory/vec/global_to_shared.dp.cpp
+TARGET_0_OBJ_34 = ./warp/memory/vec/global_to_shared.dp.o
+TARGET_0_FLAG_34 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_35 = ./warp/memory/vec/shared_to_register.dp.cpp
+TARGET_0_OBJ_35 = ./warp/memory/vec/shared_to_register.dp.o
+TARGET_0_FLAG_35 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_36 = ./warp/memory/vec/dsmem.dp.cpp
+TARGET_0_OBJ_36 = ./warp/memory/vec/dsmem.dp.o
+TARGET_0_FLAG_36 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_37 = ./warp/memory/tile/tile.dp.cpp
+TARGET_0_OBJ_37 = ./warp/memory/tile/tile.dp.o
+TARGET_0_FLAG_37 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_38 = ./warp/memory/tile/tma_pgl.dp.cpp
+TARGET_0_OBJ_38 = ./warp/memory/tile/tma_pgl.dp.o
+TARGET_0_FLAG_38 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_39 = ./warp/memory/tile/tma_multicast.dp.cpp
+TARGET_0_OBJ_39 = ./warp/memory/tile/tma_multicast.dp.o
+TARGET_0_FLAG_39 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_40 = ./warp/memory/tile/tma.dp.cpp
+TARGET_0_OBJ_40 = ./warp/memory/tile/tma.dp.o
+TARGET_0_FLAG_40 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_41 = ./warp/memory/tile/global_to_register.dp.cpp
+TARGET_0_OBJ_41 = ./warp/memory/tile/global_to_register.dp.o
+TARGET_0_FLAG_41 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_42 = ./warp/memory/tile/pgl_to_register.dp.cpp
+TARGET_0_OBJ_42 = ./warp/memory/tile/pgl_to_register.dp.o
+TARGET_0_FLAG_42 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_43 = ./warp/memory/tile/pgl_to_shared.dp.cpp
+TARGET_0_OBJ_43 = ./warp/memory/tile/pgl_to_shared.dp.o
+TARGET_0_FLAG_43 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_44 = ./warp/memory/tile/global_to_shared.dp.cpp
+TARGET_0_OBJ_44 = ./warp/memory/tile/global_to_shared.dp.o
+TARGET_0_FLAG_44 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_45 = ./warp/memory/tile/shared_to_register.dp.cpp
+TARGET_0_OBJ_45 = ./warp/memory/tile/shared_to_register.dp.o
+TARGET_0_FLAG_45 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_46 = ./warp/memory/tile/dsmem.dp.cpp
+TARGET_0_OBJ_46 = ./warp/memory/tile/dsmem.dp.o
+TARGET_0_FLAG_46 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_47 = ./unit_tests.dp.cpp
+TARGET_0_OBJ_47 = ./unit_tests.dp.o
+TARGET_0_FLAG_47 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_48 = ./testing_commons/testing_utils.dp.cpp
+TARGET_0_OBJ_48 = ./testing_commons/testing_utils.dp.o
+TARGET_0_FLAG_48 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_49 = ./gang/gang.dp.cpp
+TARGET_0_OBJ_49 = ./gang/gang.dp.o
+TARGET_0_FLAG_49 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_50 = ./group/shared/vec/vec.dp.cpp
+TARGET_0_OBJ_50 = ./group/shared/vec/vec.dp.o
+TARGET_0_FLAG_50 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_51 = ./group/shared/vec/maps.dp.cpp
+TARGET_0_OBJ_51 = ./group/shared/vec/maps.dp.o
+TARGET_0_FLAG_51 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_52 = ./group/shared/vec/conversions.dp.cpp
+TARGET_0_OBJ_52 = ./group/shared/vec/conversions.dp.o
+TARGET_0_FLAG_52 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_53 = ./group/shared/shared.dp.cpp
+TARGET_0_OBJ_53 = ./group/shared/shared.dp.o
+TARGET_0_FLAG_53 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_54 = ./group/shared/tile/tile.dp.cpp
+TARGET_0_OBJ_54 = ./group/shared/tile/tile.dp.o
+TARGET_0_FLAG_54 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_55 = ./group/shared/tile/maps.dp.cpp
+TARGET_0_OBJ_55 = ./group/shared/tile/maps.dp.o
+TARGET_0_FLAG_55 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_56 = ./group/shared/tile/reductions.dp.cpp
+TARGET_0_OBJ_56 = ./group/shared/tile/reductions.dp.o
+TARGET_0_FLAG_56 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_57 = ./group/shared/tile/conversions.dp.cpp
+TARGET_0_OBJ_57 = ./group/shared/tile/conversions.dp.o
+TARGET_0_FLAG_57 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_58 = ./group/group.dp.cpp
+TARGET_0_OBJ_58 = ./group/group.dp.o
+TARGET_0_FLAG_58 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_59 = ./group/wgmma/mma_fp32_fp8.dp.cpp
+TARGET_0_OBJ_59 = ./group/wgmma/mma_fp32_fp8.dp.o
+TARGET_0_FLAG_59 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_60 = ./group/wgmma/mma_fp32_fp16.dp.cpp
+TARGET_0_OBJ_60 = ./group/wgmma/mma_fp32_fp16.dp.o
+TARGET_0_FLAG_60 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_61 = ./group/wgmma/mma_fp16_fp8.dp.cpp
+TARGET_0_OBJ_61 = ./group/wgmma/mma_fp16_fp8.dp.o
+TARGET_0_FLAG_61 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_62 = ./group/wgmma/wgmma.dp.cpp
+TARGET_0_OBJ_62 = ./group/wgmma/wgmma.dp.o
+TARGET_0_FLAG_62 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_63 = ./group/wgmma/mma_fp32_bf16.dp.cpp
+TARGET_0_OBJ_63 = ./group/wgmma/mma_fp32_bf16.dp.o
+TARGET_0_FLAG_63 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_64 = ./group/wgmma/mma_fp16_fp16.dp.cpp
+TARGET_0_OBJ_64 = ./group/wgmma/mma_fp16_fp16.dp.o
+TARGET_0_FLAG_64 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_65 = ./group/wgmma/complex/complex_mma_fp16_fp16.dp.cpp
+TARGET_0_OBJ_65 = ./group/wgmma/complex/complex_mma_fp16_fp16.dp.o
+TARGET_0_FLAG_65 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_66 = ./group/wgmma/complex/complex_wgmma.dp.cpp
+TARGET_0_OBJ_66 = ./group/wgmma/complex/complex_wgmma.dp.o
+TARGET_0_FLAG_66 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_67 = ./group/wgmma/complex/complex_mma_fp32_bf16.dp.cpp
+TARGET_0_OBJ_67 = ./group/wgmma/complex/complex_mma_fp32_bf16.dp.o
+TARGET_0_FLAG_67 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_68 = ./group/wgmma/complex/complex_mma_fp32_fp16.dp.cpp
+TARGET_0_OBJ_68 = ./group/wgmma/complex/complex_mma_fp32_fp16.dp.o
+TARGET_0_FLAG_68 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_69 = ./group/memory/memory.dp.cpp
+TARGET_0_OBJ_69 = ./group/memory/memory.dp.o
+TARGET_0_FLAG_69 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_70 = ./group/memory/vec/vec.dp.cpp
+TARGET_0_OBJ_70 = ./group/memory/vec/vec.dp.o
+TARGET_0_FLAG_70 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_71 = ./group/memory/vec/global_to_register.dp.cpp
+TARGET_0_OBJ_71 = ./group/memory/vec/global_to_register.dp.o
+TARGET_0_FLAG_71 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_72 = ./group/memory/vec/pgl_to_register.dp.cpp
+TARGET_0_OBJ_72 = ./group/memory/vec/pgl_to_register.dp.o
+TARGET_0_FLAG_72 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_73 = ./group/memory/vec/pgl_to_shared.dp.cpp
+TARGET_0_OBJ_73 = ./group/memory/vec/pgl_to_shared.dp.o
+TARGET_0_FLAG_73 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_74 = ./group/memory/vec/global_to_shared.dp.cpp
+TARGET_0_OBJ_74 = ./group/memory/vec/global_to_shared.dp.o
+TARGET_0_FLAG_74 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_75 = ./group/memory/vec/shared_to_register.dp.cpp
+TARGET_0_OBJ_75 = ./group/memory/vec/shared_to_register.dp.o
+TARGET_0_FLAG_75 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_76 = ./group/memory/tile/tile.dp.cpp
+TARGET_0_OBJ_76 = ./group/memory/tile/tile.dp.o
+TARGET_0_FLAG_76 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_77 = ./group/memory/tile/global_to_register.dp.cpp
+TARGET_0_OBJ_77 = ./group/memory/tile/global_to_register.dp.o
+TARGET_0_FLAG_77 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_78 = ./group/memory/tile/pgl_to_register.dp.cpp
+TARGET_0_OBJ_78 = ./group/memory/tile/pgl_to_register.dp.o
+TARGET_0_FLAG_78 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_79 = ./group/memory/tile/pgl_to_shared.dp.cpp
+TARGET_0_OBJ_79 = ./group/memory/tile/pgl_to_shared.dp.o
+TARGET_0_FLAG_79 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_80 = ./group/memory/tile/global_to_shared.dp.cpp
+TARGET_0_OBJ_80 = ./group/memory/tile/global_to_shared.dp.o
+TARGET_0_FLAG_80 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0_SRC_81 = ./group/memory/tile/shared_to_register.dp.cpp
+TARGET_0_OBJ_81 = ./group/memory/tile/shared_to_register.dp.o
+TARGET_0_FLAG_81 = -std=c++20 -I./testing_commons -DTEST_INTENSITY=2 -DTEST_ALL -O0 -DKITTENS_4090 ${FLAGS}
+
+TARGET_0 := ./unit_tests
+
+TARGET :=  ${TARGET_0}
+
+.PHONY:all clean
+OBJS_0 :=  ${TARGET_0_OBJ_0} ${TARGET_0_OBJ_1} ${TARGET_0_OBJ_2} ${TARGET_0_OBJ_3} ${TARGET_0_OBJ_4} ${TARGET_0_OBJ_5} ${TARGET_0_OBJ_6} ${TARGET_0_OBJ_7} ${TARGET_0_OBJ_8} ${TARGET_0_OBJ_9} ${TARGET_0_OBJ_10} ${TARGET_0_OBJ_11} ${TARGET_0_OBJ_12} ${TARGET_0_OBJ_13} ${TARGET_0_OBJ_14} ${TARGET_0_OBJ_15} ${TARGET_0_OBJ_16} ${TARGET_0_OBJ_17} ${TARGET_0_OBJ_18} ${TARGET_0_OBJ_19} ${TARGET_0_OBJ_20} ${TARGET_0_OBJ_21} ${TARGET_0_OBJ_22} ${TARGET_0_OBJ_23} ${TARGET_0_OBJ_24} ${TARGET_0_OBJ_25} ${TARGET_0_OBJ_26} ${TARGET_0_OBJ_27} ${TARGET_0_OBJ_28} ${TARGET_0_OBJ_29} ${TARGET_0_OBJ_30} ${TARGET_0_OBJ_31} ${TARGET_0_OBJ_32} ${TARGET_0_OBJ_33} ${TARGET_0_OBJ_34} ${TARGET_0_OBJ_35} ${TARGET_0_OBJ_36} ${TARGET_0_OBJ_37} ${TARGET_0_OBJ_38} ${TARGET_0_OBJ_39} ${TARGET_0_OBJ_40} ${TARGET_0_OBJ_41} ${TARGET_0_OBJ_42} ${TARGET_0_OBJ_43} ${TARGET_0_OBJ_44} ${TARGET_0_OBJ_45} ${TARGET_0_OBJ_46} ${TARGET_0_OBJ_47} ${TARGET_0_OBJ_48} ${TARGET_0_OBJ_49} ${TARGET_0_OBJ_50} ${TARGET_0_OBJ_51} ${TARGET_0_OBJ_52} ${TARGET_0_OBJ_53} ${TARGET_0_OBJ_54} ${TARGET_0_OBJ_55} ${TARGET_0_OBJ_56} ${TARGET_0_OBJ_57} ${TARGET_0_OBJ_58} ${TARGET_0_OBJ_59} ${TARGET_0_OBJ_60} ${TARGET_0_OBJ_61} ${TARGET_0_OBJ_62} ${TARGET_0_OBJ_63} ${TARGET_0_OBJ_64} ${TARGET_0_OBJ_65} ${TARGET_0_OBJ_66} ${TARGET_0_OBJ_67} ${TARGET_0_OBJ_68} ${TARGET_0_OBJ_69} ${TARGET_0_OBJ_70} ${TARGET_0_OBJ_71} ${TARGET_0_OBJ_72} ${TARGET_0_OBJ_73} ${TARGET_0_OBJ_74} ${TARGET_0_OBJ_75} ${TARGET_0_OBJ_76} ${TARGET_0_OBJ_77} ${TARGET_0_OBJ_78} ${TARGET_0_OBJ_79} ${TARGET_0_OBJ_80} ${TARGET_0_OBJ_81}
+all: $(TARGET)
+$(TARGET_0): $(OBJS_0)
+	$(CC) -fsycl -o $@ $^ $(LIB) 
+
+$(TARGET_0_OBJ_0):$(TARGET_0_SRC_0)
+	$(CC) -fsycl -c ${TARGET_0_SRC_0} -o ${TARGET_0_OBJ_0} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_1):$(TARGET_0_SRC_1)
+	$(CC) -fsycl -c ${TARGET_0_SRC_1} -o ${TARGET_0_OBJ_1} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_2):$(TARGET_0_SRC_2)
+	$(CC) -fsycl -c ${TARGET_0_SRC_2} -o ${TARGET_0_OBJ_2} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_3):$(TARGET_0_SRC_3)
+	$(CC) -fsycl -c ${TARGET_0_SRC_3} -o ${TARGET_0_OBJ_3} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_4):$(TARGET_0_SRC_4)
+	$(CC) -fsycl -c ${TARGET_0_SRC_4} -o ${TARGET_0_OBJ_4} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_5):$(TARGET_0_SRC_5)
+	$(CC) -fsycl -c ${TARGET_0_SRC_5} -o ${TARGET_0_OBJ_5} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_6):$(TARGET_0_SRC_6)
+	$(CC) -fsycl -c ${TARGET_0_SRC_6} -o ${TARGET_0_OBJ_6} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_7):$(TARGET_0_SRC_7)
+	$(CC) -fsycl -c ${TARGET_0_SRC_7} -o ${TARGET_0_OBJ_7} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_8):$(TARGET_0_SRC_8)
+	$(CC) -fsycl -c ${TARGET_0_SRC_8} -o ${TARGET_0_OBJ_8} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_9):$(TARGET_0_SRC_9)
+	$(CC) -fsycl -c ${TARGET_0_SRC_9} -o ${TARGET_0_OBJ_9} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_10):$(TARGET_0_SRC_10)
+	$(CC) -fsycl -c ${TARGET_0_SRC_10} -o ${TARGET_0_OBJ_10} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_11):$(TARGET_0_SRC_11)
+	$(CC) -fsycl -c ${TARGET_0_SRC_11} -o ${TARGET_0_OBJ_11} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_12):$(TARGET_0_SRC_12)
+	$(CC) -fsycl -c ${TARGET_0_SRC_12} -o ${TARGET_0_OBJ_12} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_13):$(TARGET_0_SRC_13)
+	$(CC) -fsycl -c ${TARGET_0_SRC_13} -o ${TARGET_0_OBJ_13} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_14):$(TARGET_0_SRC_14)
+	$(CC) -fsycl -c ${TARGET_0_SRC_14} -o ${TARGET_0_OBJ_14} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_15):$(TARGET_0_SRC_15)
+	$(CC) -fsycl -c ${TARGET_0_SRC_15} -o ${TARGET_0_OBJ_15} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_16):$(TARGET_0_SRC_16)
+	$(CC) -fsycl -c ${TARGET_0_SRC_16} -o ${TARGET_0_OBJ_16} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_17):$(TARGET_0_SRC_17)
+	$(CC) -fsycl -c ${TARGET_0_SRC_17} -o ${TARGET_0_OBJ_17} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_18):$(TARGET_0_SRC_18)
+	$(CC) -fsycl -c ${TARGET_0_SRC_18} -o ${TARGET_0_OBJ_18} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_19):$(TARGET_0_SRC_19)
+	$(CC) -fsycl -c ${TARGET_0_SRC_19} -o ${TARGET_0_OBJ_19} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_20):$(TARGET_0_SRC_20)
+	$(CC) -fsycl -c ${TARGET_0_SRC_20} -o ${TARGET_0_OBJ_20} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_21):$(TARGET_0_SRC_21)
+	$(CC) -fsycl -c ${TARGET_0_SRC_21} -o ${TARGET_0_OBJ_21} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_22):$(TARGET_0_SRC_22)
+	$(CC) -fsycl -c ${TARGET_0_SRC_22} -o ${TARGET_0_OBJ_22} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_23):$(TARGET_0_SRC_23)
+	$(CC) -fsycl -c ${TARGET_0_SRC_23} -o ${TARGET_0_OBJ_23} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_24):$(TARGET_0_SRC_24)
+	$(CC) -fsycl -c ${TARGET_0_SRC_24} -o ${TARGET_0_OBJ_24} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_25):$(TARGET_0_SRC_25)
+	$(CC) -fsycl -c ${TARGET_0_SRC_25} -o ${TARGET_0_OBJ_25} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_26):$(TARGET_0_SRC_26)
+	$(CC) -fsycl -c ${TARGET_0_SRC_26} -o ${TARGET_0_OBJ_26} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_27):$(TARGET_0_SRC_27)
+	$(CC) -fsycl -c ${TARGET_0_SRC_27} -o ${TARGET_0_OBJ_27} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_28):$(TARGET_0_SRC_28)
+	$(CC) -fsycl -c ${TARGET_0_SRC_28} -o ${TARGET_0_OBJ_28} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_29):$(TARGET_0_SRC_29)
+	$(CC) -fsycl -c ${TARGET_0_SRC_29} -o ${TARGET_0_OBJ_29} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_30):$(TARGET_0_SRC_30)
+	$(CC) -fsycl -c ${TARGET_0_SRC_30} -o ${TARGET_0_OBJ_30} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_31):$(TARGET_0_SRC_31)
+	$(CC) -fsycl -c ${TARGET_0_SRC_31} -o ${TARGET_0_OBJ_31} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_32):$(TARGET_0_SRC_32)
+	$(CC) -fsycl -c ${TARGET_0_SRC_32} -o ${TARGET_0_OBJ_32} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_33):$(TARGET_0_SRC_33)
+	$(CC) -fsycl -c ${TARGET_0_SRC_33} -o ${TARGET_0_OBJ_33} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_34):$(TARGET_0_SRC_34)
+	$(CC) -fsycl -c ${TARGET_0_SRC_34} -o ${TARGET_0_OBJ_34} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_35):$(TARGET_0_SRC_35)
+	$(CC) -fsycl -c ${TARGET_0_SRC_35} -o ${TARGET_0_OBJ_35} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_36):$(TARGET_0_SRC_36)
+	$(CC) -fsycl -c ${TARGET_0_SRC_36} -o ${TARGET_0_OBJ_36} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_37):$(TARGET_0_SRC_37)
+	$(CC) -fsycl -c ${TARGET_0_SRC_37} -o ${TARGET_0_OBJ_37} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_38):$(TARGET_0_SRC_38)
+	$(CC) -fsycl -c ${TARGET_0_SRC_38} -o ${TARGET_0_OBJ_38} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_39):$(TARGET_0_SRC_39)
+	$(CC) -fsycl -c ${TARGET_0_SRC_39} -o ${TARGET_0_OBJ_39} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_40):$(TARGET_0_SRC_40)
+	$(CC) -fsycl -c ${TARGET_0_SRC_40} -o ${TARGET_0_OBJ_40} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_41):$(TARGET_0_SRC_41)
+	$(CC) -fsycl -c ${TARGET_0_SRC_41} -o ${TARGET_0_OBJ_41} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_42):$(TARGET_0_SRC_42)
+	$(CC) -fsycl -c ${TARGET_0_SRC_42} -o ${TARGET_0_OBJ_42} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_43):$(TARGET_0_SRC_43)
+	$(CC) -fsycl -c ${TARGET_0_SRC_43} -o ${TARGET_0_OBJ_43} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_44):$(TARGET_0_SRC_44)
+	$(CC) -fsycl -c ${TARGET_0_SRC_44} -o ${TARGET_0_OBJ_44} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_45):$(TARGET_0_SRC_45)
+	$(CC) -fsycl -c ${TARGET_0_SRC_45} -o ${TARGET_0_OBJ_45} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_46):$(TARGET_0_SRC_46)
+	$(CC) -fsycl -c ${TARGET_0_SRC_46} -o ${TARGET_0_OBJ_46} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_47):$(TARGET_0_SRC_47)
+	$(CC) -fsycl -c ${TARGET_0_SRC_47} -o ${TARGET_0_OBJ_47} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_48):$(TARGET_0_SRC_48)
+	$(CC) -fsycl -c ${TARGET_0_SRC_48} -o ${TARGET_0_OBJ_48} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_49):$(TARGET_0_SRC_49)
+	$(CC) -fsycl -c ${TARGET_0_SRC_49} -o ${TARGET_0_OBJ_49} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_50):$(TARGET_0_SRC_50)
+	$(CC) -fsycl -c ${TARGET_0_SRC_50} -o ${TARGET_0_OBJ_50} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_51):$(TARGET_0_SRC_51)
+	$(CC) -fsycl -c ${TARGET_0_SRC_51} -o ${TARGET_0_OBJ_51} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_52):$(TARGET_0_SRC_52)
+	$(CC) -fsycl -c ${TARGET_0_SRC_52} -o ${TARGET_0_OBJ_52} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_53):$(TARGET_0_SRC_53)
+	$(CC) -fsycl -c ${TARGET_0_SRC_53} -o ${TARGET_0_OBJ_53} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_54):$(TARGET_0_SRC_54)
+	$(CC) -fsycl -c ${TARGET_0_SRC_54} -o ${TARGET_0_OBJ_54} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_55):$(TARGET_0_SRC_55)
+	$(CC) -fsycl -c ${TARGET_0_SRC_55} -o ${TARGET_0_OBJ_55} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_56):$(TARGET_0_SRC_56)
+	$(CC) -fsycl -c ${TARGET_0_SRC_56} -o ${TARGET_0_OBJ_56} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_57):$(TARGET_0_SRC_57)
+	$(CC) -fsycl -c ${TARGET_0_SRC_57} -o ${TARGET_0_OBJ_57} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_58):$(TARGET_0_SRC_58)
+	$(CC) -fsycl -c ${TARGET_0_SRC_58} -o ${TARGET_0_OBJ_58} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_59):$(TARGET_0_SRC_59)
+	$(CC) -fsycl -c ${TARGET_0_SRC_59} -o ${TARGET_0_OBJ_59} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_60):$(TARGET_0_SRC_60)
+	$(CC) -fsycl -c ${TARGET_0_SRC_60} -o ${TARGET_0_OBJ_60} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_61):$(TARGET_0_SRC_61)
+	$(CC) -fsycl -c ${TARGET_0_SRC_61} -o ${TARGET_0_OBJ_61} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_62):$(TARGET_0_SRC_62)
+	$(CC) -fsycl -c ${TARGET_0_SRC_62} -o ${TARGET_0_OBJ_62} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_63):$(TARGET_0_SRC_63)
+	$(CC) -fsycl -c ${TARGET_0_SRC_63} -o ${TARGET_0_OBJ_63} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_64):$(TARGET_0_SRC_64)
+	$(CC) -fsycl -c ${TARGET_0_SRC_64} -o ${TARGET_0_OBJ_64} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_65):$(TARGET_0_SRC_65)
+	$(CC) -fsycl -c ${TARGET_0_SRC_65} -o ${TARGET_0_OBJ_65} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_66):$(TARGET_0_SRC_66)
+	$(CC) -fsycl -c ${TARGET_0_SRC_66} -o ${TARGET_0_OBJ_66} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_67):$(TARGET_0_SRC_67)
+	$(CC) -fsycl -c ${TARGET_0_SRC_67} -o ${TARGET_0_OBJ_67} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_68):$(TARGET_0_SRC_68)
+	$(CC) -fsycl -c ${TARGET_0_SRC_68} -o ${TARGET_0_OBJ_68} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_69):$(TARGET_0_SRC_69)
+	$(CC) -fsycl -c ${TARGET_0_SRC_69} -o ${TARGET_0_OBJ_69} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_70):$(TARGET_0_SRC_70)
+	$(CC) -fsycl -c ${TARGET_0_SRC_70} -o ${TARGET_0_OBJ_70} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_71):$(TARGET_0_SRC_71)
+	$(CC) -fsycl -c ${TARGET_0_SRC_71} -o ${TARGET_0_OBJ_71} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_72):$(TARGET_0_SRC_72)
+	$(CC) -fsycl -c ${TARGET_0_SRC_72} -o ${TARGET_0_OBJ_72} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_73):$(TARGET_0_SRC_73)
+	$(CC) -fsycl -c ${TARGET_0_SRC_73} -o ${TARGET_0_OBJ_73} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_74):$(TARGET_0_SRC_74)
+	$(CC) -fsycl -c ${TARGET_0_SRC_74} -o ${TARGET_0_OBJ_74} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_75):$(TARGET_0_SRC_75)
+	$(CC) -fsycl -c ${TARGET_0_SRC_75} -o ${TARGET_0_OBJ_75} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_76):$(TARGET_0_SRC_76)
+	$(CC) -fsycl -c ${TARGET_0_SRC_76} -o ${TARGET_0_OBJ_76} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_77):$(TARGET_0_SRC_77)
+	$(CC) -fsycl -c ${TARGET_0_SRC_77} -o ${TARGET_0_OBJ_77} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_78):$(TARGET_0_SRC_78)
+	$(CC) -fsycl -c ${TARGET_0_SRC_78} -o ${TARGET_0_OBJ_78} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_79):$(TARGET_0_SRC_79)
+	$(CC) -fsycl -c ${TARGET_0_SRC_79} -o ${TARGET_0_OBJ_79} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_80):$(TARGET_0_SRC_80)
+	$(CC) -fsycl -c ${TARGET_0_SRC_80} -o ${TARGET_0_OBJ_80} $(TARGET_0_FLAG_81)
+
+$(TARGET_0_OBJ_81):$(TARGET_0_SRC_81)
+	$(CC) -fsycl -c ${TARGET_0_SRC_81} -o ${TARGET_0_OBJ_81} $(TARGET_0_FLAG_81)
+
+clean:
+	rm -f  ${OBJS_0} $(TARGET)

@@ -1,0 +1,477 @@
+---
+MainSourceFile:  '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/out/testing_commons/testing_utils.dp.hpp'
+Replacements:
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          14
+    Length:          0
+    ReplacementText: "#define ONEAPI_BACKEND_LEVEL_ZERO_EXT\n#include <sycl/sycl.hpp>\n#include <dpct/dpct.hpp>\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          222
+    Length:          0
+    ReplacementText: "\n#include <sycl/ext/intel/math.hpp>\n\n#include <cmath>\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          355
+    Length:          0
+    ReplacementText: ' try '
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          357
+    Length:          0
+    ReplacementText: "    /*\n    DPCT1010:38: SYCL uses exceptions to report errors and does not use the error codes. The cudaGetLastError function call was replaced with 0. You need to rewrite this code.\n    */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          361
+    Length:          9
+    ReplacementText: 'dpct::err0'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          377
+    Length:          18
+    ReplacementText: '0'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          401
+    Length:          183
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          695
+    Length:          23
+    ReplacementText: 'DPCT_CHECK_ERROR(dpct::get_current_device().queues_wait_and_throw())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          724
+    Length:          192
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          918
+    Length:          0
+    ReplacementText: "\ncatch (sycl::exception const &exc) {\n  std::cerr << exc.what() << \"Exception caught at file:\" << __FILE__ << \", line:\" << __LINE__ << std::endl;\n  std::exit(1);\n}"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          5819
+    Length:          19
+    ReplacementText: 'sycl::ext::intel::math::float2bfloat16(f)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          5899
+    Length:          26
+    ReplacementText: 'sycl::ext::intel::math::bfloat162float(i_t[idx])'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          6148
+    Length:          4
+    ReplacementText: 'sycl::half'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          6180
+    Length:          15
+    ReplacementText: 'sycl::ext::intel::math::float2half_rn(f)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          6222
+    Length:          22
+    ReplacementText: 'sycl::ext::intel::math::half2float(i_t[idx])'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          6696
+    Length:          40
+    ReplacementText: '*d_i = sycl::malloc_device<T>(input_size, dpct::get_in_order_queue())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          6742
+    Length:          40
+    ReplacementText: '*d_o = sycl::malloc_device<T>(output_size, dpct::get_in_order_queue())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          6811
+    Length:          76
+    ReplacementText: 'dpct::get_in_order_queue().memcpy(*d_i, i_t.data(), input_size * sizeof(T)).wait()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          7996
+    Length:          19
+    ReplacementText: 'sycl::ext::intel::math::float2bfloat16(f)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          8089
+    Length:          26
+    ReplacementText: 'sycl::ext::intel::math::bfloat162float(i_t[idx])'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          8416
+    Length:          15
+    ReplacementText: 'sycl::ext::intel::math::float2half_rn(f)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          8471
+    Length:          22
+    ReplacementText: 'sycl::ext::intel::math::half2float(i_t[idx])'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          8611
+    Length:          0
+    ReplacementText: "        /*\n        DPCT1093:41: The \"dev_idx\" device may be not the one intended for use. Adjust the selected device if needed.\n        */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          8619
+    Length:          13
+    ReplacementText: 'dpct::select_device'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          8882
+    Length:          88
+    ReplacementText: 'dpct::get_in_order_queue().memcpy(d_i_arr[dev_idx], i_t.data(), input_size * sizeof(T)).wait()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          9483
+    Length:          23
+    ReplacementText: 'dpct::get_current_device().queues_wait_and_throw()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          9534
+    Length:          69
+    ReplacementText: 'dpct::get_in_order_queue().memcpy(o_t, d_o, output_size * sizeof(T)).wait()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          9746
+    Length:          26
+    ReplacementText: 'sycl::ext::intel::math::bfloat162float(o_t[idx])'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          9799
+    Length:          46
+    ReplacementText: 'sycl::ext::intel::math::bfloat162float(sycl::ext::intel::math::float2bfloat16(o_ref[idx]))'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          9902
+    Length:          4
+    ReplacementText: 'sycl::half'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          9932
+    Length:          22
+    ReplacementText: 'sycl::ext::intel::math::half2float(o_t[idx])'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          9981
+    Length:          38
+    ReplacementText: 'sycl::ext::intel::math::half2float(sycl::ext::intel::math::float2half_rn(o_ref[idx]))'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          11687
+    Length:          13
+    ReplacementText: 'dpct::dpct_free(d_i, dpct::get_in_order_queue())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          11706
+    Length:          13
+    ReplacementText: 'dpct::dpct_free(d_o, dpct::get_in_order_queue())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          12519
+    Length:          0
+    ReplacementText: "        /*\n        DPCT1093:42: The \"dev_idx\" device may be not the one intended for use. Adjust the selected device if needed.\n        */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          12527
+    Length:          13
+    ReplacementText: 'dpct::select_device'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          12559
+    Length:          23
+    ReplacementText: 'dpct::get_current_device().queues_wait_and_throw()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          12618
+    Length:          113
+    ReplacementText: 'dpct::get_in_order_queue().memcpy(&o_t[dev_idx * output_size], output[dev_idx].raw_ptr, output_size * sizeof(T)).wait()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          12961
+    Length:          31
+    ReplacementText: 'sycl::ext::intel::math::bfloat162float(o_t[unit_idx])'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          13032
+    Length:          55
+    ReplacementText: 'sycl::ext::intel::math::bfloat162float(sycl::ext::intel::math::float2bfloat16(o_ref[dev_idx][idx]))'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          13200
+    Length:          27
+    ReplacementText: 'sycl::ext::intel::math::half2float(o_t[unit_idx])'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          13267
+    Length:          47
+    ReplacementText: 'sycl::ext::intel::math::half2float(sycl::ext::intel::math::float2half_rn(o_ref[dev_idx][idx]))'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          15671
+    Length:          0
+    ReplacementText: "        /*\n        DPCT1093:43: The \"dev_idx\" device may be not the one intended for use. Adjust the selected device if needed.\n        */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cuh'
+    Offset:          15679
+    Length:          13
+    ReplacementText: 'dpct::select_device'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+MainSourceFilesDigest:
+  - MainSourceFile:  ''
+    Digest:          ''
+    HasCUDASyntax:   false
+DpctVersion:     21.0.0
+SDKVersionMajor: '12'
+SDKVersionMinor: '8'
+MainHelperFileName: ''
+USMLevel:        ''
+FeatureMap:      {}
+CompileTargets:  {}
+OptionMap:
+  AnalysisScopePath:
+    Value:           ''
+    ValueVec:
+      - '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit'
+    Specified:       false
+  AsyncHandler:
+    Value:           'false'
+    Specified:       false
+  BuildScript:
+    Value:           '0'
+    Specified:       false
+  CodePinEnabled:
+    Value:           'false'
+    Specified:       false
+  CommentsEnabled:
+    Value:           'false'
+    Specified:       false
+  CompilationsDir:
+    Value:           '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit'
+    Specified:       true
+  CtadEnabled:
+    Value:           'false'
+    Specified:       false
+  EnablepProfiling:
+    Value:           'false'
+    Specified:       false
+  ExperimentalFlag:
+    Value:           '4294967295'
+    Specified:       true
+  ExplicitNamespace:
+    Value:           '20'
+    Specified:       false
+  ExtensionDDFlag:
+    Value:           '4294967295'
+    Specified:       true
+  ExtensionDEFlag:
+    Value:           '4294967295'
+    Specified:       false
+  HelperFuncPreferenceFlag:
+    Value:           '0'
+    Specified:       false
+  NDRangeDim:
+    Value:           '3'
+    Specified:       false
+  NoDRYPattern:
+    Value:           'false'
+    Specified:       false
+  OptimizeMigration:
+    Value:           'false'
+    Specified:       false
+  ProcessAll:
+    Value:           'false'
+    Specified:       false
+  RuleFile:
+    Value:           ''
+    Specified:       false
+  SyclNamedLambda:
+    Value:           'false'
+    Specified:       false
+  UseSYCLCompat:
+    Value:           'false'
+    Specified:       false
+  UsmLevel:
+    Value:           '1'
+    Specified:       false
+...

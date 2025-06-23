@@ -1,0 +1,261 @@
+---
+MainSourceFile:  '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/out/testing_commons/testing_commons.dp.hpp'
+Replacements:
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          372
+    Length:          25
+    ReplacementText: "#define ONEAPI_BACKEND_LEVEL_ZERO_EXT\n#include <sycl/sycl.hpp>\n#include <dpct/dpct.hpp>\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          397
+    Length:          32
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          454
+    Length:          28
+    ReplacementText: '#include "testing_utils.dp.hpp"'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          5955
+    Length:          11
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          6014
+    Length:          0
+    ReplacementText: ', uint8_t *dpct_local'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          6018
+    Length:          0
+    ReplacementText: "    /*\n    DPCT1084:37: The function call \"vec_load_store::device_func\" has multiple migration results in different template instantiations that could not be unified. You may need to adjust the code.\n    */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          6081
+    Length:          0
+    ReplacementText: ', dpct_local'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          7004
+    Length:          230
+    ReplacementText: "            /*\n            DPCT1026:44: The call to cudaFuncSetAttribute was removed because SYCL currently does not support corresponding setting.\n            */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          7234
+    Length:          0
+    ReplacementText: "            /*\n            DPCT1049:0: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n            */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          7246
+    Length:          125
+    ReplacementText: "{\n              auto exp_props = sycl::ext::oneapi::experimental::properties{sycl::ext::oneapi::experimental::use_root_sync};\n\n              dpct::get_in_order_queue().submit(\n                [&](sycl::handler &cgh) {\n                  sycl::local_accessor<uint8_t, 1> dpct_local_acc_ct1(sycl::range<1>(kittens::MAX_SHARED_MEMORY), cgh);\n\n                  cgh.depends_on(dpct::get_current_device().get_in_order_queues_last_events());\n\n                  cgh.parallel_for(\n                    sycl::nd_range<3>(sycl::range<3>(1, 1, NUM_WORKERS*32), sycl::range<3>(1, 1, NUM_WORKERS*32)), \nexp_props,                     [=](sycl::nd_item<3> item_ct1) {\n                      global_wrapper_1d<test, dtype, S, NUM_WORKERS, GL, args...>(input, output, dpct_local_acc_ct1.get_multi_ptr<sycl::access::decorated::no>().get());\n                    });\n                });\n            }"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: true
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          7371
+    Length:          1
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          9304
+    Length:          11
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          9344
+    Length:          18
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          9377
+    Length:          18
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          9407
+    Length:          0
+    ReplacementText: "    /*\n    DPCT1084:35: The function call \"test_tril::device_func\" has multiple migration results in different template instantiations that could not be unified. You may need to adjust the code.\n    */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          10413
+    Length:          233
+    ReplacementText: "            /*\n            DPCT1026:47: The call to cudaFuncSetAttribute was removed because SYCL currently does not support corresponding setting.\n            */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          10646
+    Length:          0
+    ReplacementText: "            /*\n            DPCT1049:1: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n            */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          10658
+    Length:          128
+    ReplacementText: "{\n              auto exp_props = sycl::ext::oneapi::experimental::properties{sycl::ext::oneapi::experimental::use_root_sync};\n\n              dpct::get_in_order_queue().submit(\n                [&](sycl::handler &cgh) {\n                  cgh.depends_on(dpct::get_current_device().get_in_order_queues_last_events());\n\n                  cgh.parallel_for(\n                    sycl::nd_range<3>(sycl::range<3>(1, 1, NUM_WORKERS*32), sycl::range<3>(1, 1, NUM_WORKERS*32)), \nexp_props,                     [=](sycl::nd_item<3> item_ct1) {\n                      global_wrapper_2d<test, dtype, H, W, NUM_WORKERS, GL, args...>(input, output);\n                    });\n                });\n            }"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: true
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          10786
+    Length:          1
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_commons.cuh'
+    Offset:          14634
+    Length:          32
+    ReplacementText: 'num_devices = dpct::device_count()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+MainSourceFilesDigest:
+  - MainSourceFile:  ''
+    Digest:          ''
+    HasCUDASyntax:   false
+DpctVersion:     21.0.0
+SDKVersionMajor: '12'
+SDKVersionMinor: '8'
+MainHelperFileName: ''
+USMLevel:        ''
+FeatureMap:      {}
+CompileTargets:  {}
+OptionMap:
+  AnalysisScopePath:
+    Value:           ''
+    ValueVec:
+      - '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit'
+    Specified:       false
+  AsyncHandler:
+    Value:           'false'
+    Specified:       false
+  BuildScript:
+    Value:           '0'
+    Specified:       false
+  CodePinEnabled:
+    Value:           'false'
+    Specified:       false
+  CommentsEnabled:
+    Value:           'false'
+    Specified:       false
+  CompilationsDir:
+    Value:           '/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit'
+    Specified:       true
+  CtadEnabled:
+    Value:           'false'
+    Specified:       false
+  EnablepProfiling:
+    Value:           'false'
+    Specified:       false
+  ExperimentalFlag:
+    Value:           '4294967295'
+    Specified:       true
+  ExplicitNamespace:
+    Value:           '20'
+    Specified:       false
+  ExtensionDDFlag:
+    Value:           '4294967295'
+    Specified:       true
+  ExtensionDEFlag:
+    Value:           '4294967295'
+    Specified:       false
+  HelperFuncPreferenceFlag:
+    Value:           '0'
+    Specified:       false
+  NDRangeDim:
+    Value:           '3'
+    Specified:       false
+  NoDRYPattern:
+    Value:           'false'
+    Specified:       false
+  OptimizeMigration:
+    Value:           'false'
+    Specified:       false
+  ProcessAll:
+    Value:           'false'
+    Specified:       false
+  RuleFile:
+    Value:           ''
+    Specified:       false
+  SyclNamedLambda:
+    Value:           'false'
+    Specified:       false
+  UseSYCLCompat:
+    Value:           'false'
+    Specified:       false
+  UsmLevel:
+    Value:           '1'
+    Specified:       false
+...

@@ -1,0 +1,416 @@
+[
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/register/vec/vec.o -D__CUDACC__=1 warp/register/vec/vec.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/register/vec/vec.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/register/vec/maps.o -D__CUDACC__=1 warp/register/vec/maps.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/register/vec/maps.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/register/vec/reductions.o -D__CUDACC__=1 warp/register/vec/reductions.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/register/vec/reductions.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/register/vec/conversions.o -D__CUDACC__=1 warp/register/vec/conversions.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/register/vec/conversions.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/register/tile/tile.o -D__CUDACC__=1 warp/register/tile/tile.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/register/tile/tile.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/register/tile/maps.o -D__CUDACC__=1 warp/register/tile/maps.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/register/tile/maps.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/register/tile/reductions.o -D__CUDACC__=1 warp/register/tile/reductions.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/register/tile/reductions.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/register/tile/mma.o -D__CUDACC__=1 warp/register/tile/mma.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/register/tile/mma.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/register/tile/conversions.o -D__CUDACC__=1 warp/register/tile/conversions.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/register/tile/conversions.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/register/tile/complex/complex_maps.o -D__CUDACC__=1 warp/register/tile/complex/complex_maps.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/register/tile/complex/complex_maps.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/register/tile/complex/complex_mul.o -D__CUDACC__=1 warp/register/tile/complex/complex_mul.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/register/tile/complex/complex_mul.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/register/tile/complex/complex_conversions.o -D__CUDACC__=1 warp/register/tile/complex/complex_conversions.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/register/tile/complex/complex_conversions.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/register/tile/complex/complex_mma.o -D__CUDACC__=1 warp/register/tile/complex/complex_mma.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/register/tile/complex/complex_mma.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/register/register.o -D__CUDACC__=1 warp/register/register.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/register/register.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/shared/vec/vec.o -D__CUDACC__=1 warp/shared/vec/vec.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/shared/vec/vec.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/shared/vec/maps.o -D__CUDACC__=1 warp/shared/vec/maps.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/shared/vec/maps.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/shared/vec/reductions.o -D__CUDACC__=1 warp/shared/vec/reductions.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/shared/vec/reductions.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/shared/vec/conversions.o -D__CUDACC__=1 warp/shared/vec/conversions.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/shared/vec/conversions.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/shared/shared.o -D__CUDACC__=1 warp/shared/shared.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/shared/shared.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/shared/tile/tile.o -D__CUDACC__=1 warp/shared/tile/tile.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/shared/tile/tile.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/shared/tile/maps.o -D__CUDACC__=1 warp/shared/tile/maps.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/shared/tile/maps.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/shared/tile/reductions.o -D__CUDACC__=1 warp/shared/tile/reductions.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/shared/tile/reductions.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/shared/tile/conversions.o -D__CUDACC__=1 warp/shared/tile/conversions.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/shared/tile/conversions.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/warp.o -D__CUDACC__=1 warp/warp.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/warp.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/memory.o -D__CUDACC__=1 warp/memory/memory.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/memory.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/util/reduce.o -D__CUDACC__=1 warp/memory/util/reduce.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/util/reduce.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/util/util.o -D__CUDACC__=1 warp/memory/util/util.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/util/util.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/vec/tma_pgl.o -D__CUDACC__=1 warp/memory/vec/tma_pgl.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/vec/tma_pgl.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/vec/tma_multicast.o -D__CUDACC__=1 warp/memory/vec/tma_multicast.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/vec/tma_multicast.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/vec/vec.o -D__CUDACC__=1 warp/memory/vec/vec.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/vec/vec.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/vec/tma.o -D__CUDACC__=1 warp/memory/vec/tma.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/vec/tma.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/vec/global_to_register.o -D__CUDACC__=1 warp/memory/vec/global_to_register.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/vec/global_to_register.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/vec/pgl_to_register.o -D__CUDACC__=1 warp/memory/vec/pgl_to_register.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/vec/pgl_to_register.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/vec/pgl_to_shared.o -D__CUDACC__=1 warp/memory/vec/pgl_to_shared.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/vec/pgl_to_shared.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/vec/global_to_shared.o -D__CUDACC__=1 warp/memory/vec/global_to_shared.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/vec/global_to_shared.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/vec/shared_to_register.o -D__CUDACC__=1 warp/memory/vec/shared_to_register.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/vec/shared_to_register.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/vec/dsmem.o -D__CUDACC__=1 warp/memory/vec/dsmem.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/vec/dsmem.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/tile/tile.o -D__CUDACC__=1 warp/memory/tile/tile.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/tile/tile.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/tile/tma_pgl.o -D__CUDACC__=1 warp/memory/tile/tma_pgl.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/tile/tma_pgl.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/tile/tma_multicast.o -D__CUDACC__=1 warp/memory/tile/tma_multicast.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/tile/tma_multicast.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/tile/tma.o -D__CUDACC__=1 warp/memory/tile/tma.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/tile/tma.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/tile/global_to_register.o -D__CUDACC__=1 warp/memory/tile/global_to_register.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/tile/global_to_register.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/tile/pgl_to_register.o -D__CUDACC__=1 warp/memory/tile/pgl_to_register.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/tile/pgl_to_register.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/tile/pgl_to_shared.o -D__CUDACC__=1 warp/memory/tile/pgl_to_shared.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/tile/pgl_to_shared.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/tile/global_to_shared.o -D__CUDACC__=1 warp/memory/tile/global_to_shared.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/tile/global_to_shared.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/tile/shared_to_register.o -D__CUDACC__=1 warp/memory/tile/shared_to_register.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/tile/shared_to_register.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./warp/memory/tile/dsmem.o -D__CUDACC__=1 warp/memory/tile/dsmem.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/warp/memory/tile/dsmem.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./unit_tests.o -D__CUDACC__=1 unit_tests.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/unit_tests.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./testing_commons/testing_utils.o -D__CUDACC__=1 testing_commons/testing_utils.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/testing_commons/testing_utils.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./gang/gang.o -D__CUDACC__=1 gang/gang.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/gang/gang.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/shared/vec/vec.o -D__CUDACC__=1 group/shared/vec/vec.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/shared/vec/vec.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/shared/vec/maps.o -D__CUDACC__=1 group/shared/vec/maps.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/shared/vec/maps.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/shared/vec/conversions.o -D__CUDACC__=1 group/shared/vec/conversions.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/shared/vec/conversions.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/shared/shared.o -D__CUDACC__=1 group/shared/shared.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/shared/shared.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/shared/tile/tile.o -D__CUDACC__=1 group/shared/tile/tile.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/shared/tile/tile.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/shared/tile/maps.o -D__CUDACC__=1 group/shared/tile/maps.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/shared/tile/maps.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/shared/tile/reductions.o -D__CUDACC__=1 group/shared/tile/reductions.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/shared/tile/reductions.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/shared/tile/conversions.o -D__CUDACC__=1 group/shared/tile/conversions.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/shared/tile/conversions.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/group.o -D__CUDACC__=1 group/group.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/group.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/wgmma/mma_fp32_fp8.o -D__CUDACC__=1 group/wgmma/mma_fp32_fp8.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/wgmma/mma_fp32_fp8.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/wgmma/mma_fp32_fp16.o -D__CUDACC__=1 group/wgmma/mma_fp32_fp16.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/wgmma/mma_fp32_fp16.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/wgmma/mma_fp16_fp8.o -D__CUDACC__=1 group/wgmma/mma_fp16_fp8.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/wgmma/mma_fp16_fp8.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/wgmma/wgmma.o -D__CUDACC__=1 group/wgmma/wgmma.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/wgmma/wgmma.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/wgmma/mma_fp32_bf16.o -D__CUDACC__=1 group/wgmma/mma_fp32_bf16.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/wgmma/mma_fp32_bf16.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/wgmma/mma_fp16_fp16.o -D__CUDACC__=1 group/wgmma/mma_fp16_fp16.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/wgmma/mma_fp16_fp16.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/wgmma/complex/complex_mma_fp16_fp16.o -D__CUDACC__=1 group/wgmma/complex/complex_mma_fp16_fp16.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/wgmma/complex/complex_mma_fp16_fp16.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/wgmma/complex/complex_wgmma.o -D__CUDACC__=1 group/wgmma/complex/complex_wgmma.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/wgmma/complex/complex_wgmma.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/wgmma/complex/complex_mma_fp32_bf16.o -D__CUDACC__=1 group/wgmma/complex/complex_mma_fp32_bf16.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/wgmma/complex/complex_mma_fp32_bf16.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/wgmma/complex/complex_mma_fp32_fp16.o -D__CUDACC__=1 group/wgmma/complex/complex_mma_fp32_fp16.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/wgmma/complex/complex_mma_fp32_fp16.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/memory/memory.o -D__CUDACC__=1 group/memory/memory.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/memory/memory.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/memory/vec/vec.o -D__CUDACC__=1 group/memory/vec/vec.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/memory/vec/vec.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/memory/vec/global_to_register.o -D__CUDACC__=1 group/memory/vec/global_to_register.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/memory/vec/global_to_register.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/memory/vec/pgl_to_register.o -D__CUDACC__=1 group/memory/vec/pgl_to_register.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/memory/vec/pgl_to_register.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/memory/vec/pgl_to_shared.o -D__CUDACC__=1 group/memory/vec/pgl_to_shared.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/memory/vec/pgl_to_shared.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/memory/vec/global_to_shared.o -D__CUDACC__=1 group/memory/vec/global_to_shared.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/memory/vec/global_to_shared.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/memory/vec/shared_to_register.o -D__CUDACC__=1 group/memory/vec/shared_to_register.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/memory/vec/shared_to_register.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/memory/tile/tile.o -D__CUDACC__=1 group/memory/tile/tile.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/memory/tile/tile.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/memory/tile/global_to_register.o -D__CUDACC__=1 group/memory/tile/global_to_register.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/memory/tile/global_to_register.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/memory/tile/pgl_to_register.o -D__CUDACC__=1 group/memory/tile/pgl_to_register.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/memory/tile/pgl_to_register.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/memory/tile/pgl_to_shared.o -D__CUDACC__=1 group/memory/tile/pgl_to_shared.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/memory/tile/pgl_to_shared.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/memory/tile/global_to_shared.o -D__CUDACC__=1 group/memory/tile/global_to_shared.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/memory/tile/global_to_shared.cu"
+    },
+    {
+        "command": "nvcc -c  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 -o build/./group/memory/tile/shared_to_register.o -D__CUDACC__=1 group/memory/tile/shared_to_register.cu",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit",
+        "file": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit/group/memory/tile/shared_to_register.cu"
+    },
+    {
+        "command": "nvcc  -std=c++20 -Itesting_commons -I../../include -DTEST_INTENSITY=2 -DTEST_ALL -O0 --threads=0 -diag-suppress 20054 --cuda-gpu-arch=sm_89 -DKITTENS_4090 build/./warp/register/vec/vec.o build/./warp/register/vec/maps.o build/./warp/register/vec/reductions.o build/./warp/register/vec/conversions.o build/./warp/register/tile/tile.o build/./warp/register/tile/maps.o build/./warp/register/tile/reductions.o build/./warp/register/tile/mma.o build/./warp/register/tile/conversions.o build/./warp/register/tile/complex/complex_maps.o build/./warp/register/tile/complex/complex_mul.o build/./warp/register/tile/complex/complex_conversions.o build/./warp/register/tile/complex/complex_mma.o build/./warp/register/register.o build/./warp/shared/vec/vec.o build/./warp/shared/vec/maps.o build/./warp/shared/vec/reductions.o build/./warp/shared/vec/conversions.o build/./warp/shared/shared.o build/./warp/shared/tile/tile.o build/./warp/shared/tile/maps.o build/./warp/shared/tile/reductions.o build/./warp/shared/tile/conversions.o build/./warp/warp.o build/./warp/memory/memory.o build/./warp/memory/util/reduce.o build/./warp/memory/util/util.o build/./warp/memory/vec/tma_pgl.o build/./warp/memory/vec/tma_multicast.o build/./warp/memory/vec/vec.o build/./warp/memory/vec/tma.o build/./warp/memory/vec/global_to_register.o build/./warp/memory/vec/pgl_to_register.o build/./warp/memory/vec/pgl_to_shared.o build/./warp/memory/vec/global_to_shared.o build/./warp/memory/vec/shared_to_register.o build/./warp/memory/vec/dsmem.o build/./warp/memory/tile/tile.o build/./warp/memory/tile/tma_pgl.o build/./warp/memory/tile/tma_multicast.o build/./warp/memory/tile/tma.o build/./warp/memory/tile/global_to_register.o build/./warp/memory/tile/pgl_to_register.o build/./warp/memory/tile/pgl_to_shared.o build/./warp/memory/tile/global_to_shared.o build/./warp/memory/tile/shared_to_register.o build/./warp/memory/tile/dsmem.o build/./unit_tests.o build/./testing_commons/testing_utils.o build/./gang/gang.o build/./group/shared/vec/vec.o build/./group/shared/vec/maps.o build/./group/shared/vec/conversions.o build/./group/shared/shared.o build/./group/shared/tile/tile.o build/./group/shared/tile/maps.o build/./group/shared/tile/reductions.o build/./group/shared/tile/conversions.o build/./group/group.o build/./group/wgmma/mma_fp32_fp8.o build/./group/wgmma/mma_fp32_fp16.o build/./group/wgmma/mma_fp16_fp8.o build/./group/wgmma/wgmma.o build/./group/wgmma/mma_fp32_bf16.o build/./group/wgmma/mma_fp16_fp16.o build/./group/wgmma/complex/complex_mma_fp16_fp16.o build/./group/wgmma/complex/complex_wgmma.o build/./group/wgmma/complex/complex_mma_fp32_bf16.o build/./group/wgmma/complex/complex_mma_fp32_fp16.o build/./group/memory/memory.o build/./group/memory/vec/vec.o build/./group/memory/vec/global_to_register.o build/./group/memory/vec/pgl_to_register.o build/./group/memory/vec/pgl_to_shared.o build/./group/memory/vec/global_to_shared.o build/./group/memory/vec/shared_to_register.o build/./group/memory/tile/tile.o build/./group/memory/tile/global_to_register.o build/./group/memory/tile/pgl_to_register.o build/./group/memory/tile/pgl_to_shared.o build/./group/memory/tile/global_to_shared.o build/./group/memory/tile/shared_to_register.o -o unit_tests -D__CUDACC__=1",
+        "directory": "/home/zhiwei/newdisk/benchmarks/ThunderKittens/tests/unit"
+    }
+]
